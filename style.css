@@ -1,0 +1,126 @@
+@charset "UTF-8";
+body
+{
+	font-family: Eras ITC, Helvetica, Arial, sans-serif;
+	margin:0 auto;
+	padding:0;
+	background-image: url("cartographer.png"); 
+}
+div
+{
+	margin:0 auto;
+	padding:0;
+}
+.head
+{
+	margin: 10px;
+	padding: 5px;
+	border: 1px #aaaaaa solid;
+	text-align: center;
+	font-size: 25pt;
+}
+.logo
+{
+	display: inline-block;
+	width:100%;
+	margin: 0 auto;
+	padding: 0;	
+	text-align: center;
+	background: radial-gradient(#aaaadd, #333);	
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+	position: -webkit-sticky; /* Safari */
+    position: sticky;
+	top: 0;
+}
+
+li {
+	width: 16.6%;
+    float: left;
+	
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #4CAF50;
+}
+.zawartosc
+{	
+	display: inline-block;
+	color: #C4DEE1;
+	width:100%;
+	margin: 0 auto;
+	padding: 0;
+}
+.boczne
+{
+	display: table-column;
+	border: 2px #333 solid;
+	float: left;
+	padding: 5px;	
+	margin: 10px;
+	width: 220px;
+	height: 0 auto;
+}
+.prawe
+{
+	display: table-column;
+	border: 2px #333 solid;
+	float: right;
+	padding: 5px;	
+	margin: 10px;
+	width: 220px;
+	height: 0 auto;
+}
+section
+{
+	margin-left: 250px;
+	margin-right: 250px;
+	margin-top: 10px;
+	border: 2px #333 solid;
+	margin: 10 px;
+	padding: 5px;	
+}
+article
+{
+	border: 2px #333 solid;
+	text-align: justify;	
+	margin: 10px;
+	padding: 5px;	
+}
+footer
+{
+	clear: both;
+	text-align: center;
+	text-decoration: bold;
+}
+@media only screen and (max-width: 600px) {
+    .boczne
+	{
+		float:none;
+		width: 100%;
+	}
+	.prawe
+	{
+		float:none;
+		width: 100%;
+	}
+	section
+	{
+		width: 100%;
+		margin-left:0;
+	}
+}
