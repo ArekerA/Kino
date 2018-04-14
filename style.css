@@ -102,10 +102,15 @@ article
 	padding: 5px;	
 }
 footer
-{
+{	
 	clear: both;
 	text-align: center;
 	text-decoration: bold;
+	bottom: 0;
+}
+img.obraz{
+	width: 100%;
+
 }
 @media only screen and (max-width: 600px) {
     .boczne
