@@ -11,6 +11,15 @@ div
 	margin:0 auto;
 	padding:0;
 }
+table
+{
+	text-align: center;
+	font-size: 30px;
+	width: 100%;
+}
+td{
+	border: 1px black solid;
+}
 .head
 {
 	margin: 10px;
@@ -103,6 +112,7 @@ article
 }
 footer
 {	
+	
 	clear: both;
 	text-align: center;
 	text-decoration: bold;
