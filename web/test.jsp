@@ -18,6 +18,7 @@
     <body>
         <h1>Hello World!</h1>
         <%
+            out.println("<h2>Ścieżka do bazy: " + System.getProperty("user.dir") + "</h2>");
             Database.polacz();
             
             //trorzy schemat bazy - wywołać tylko raz!
