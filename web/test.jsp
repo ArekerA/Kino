@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="org.sqlite.*" %>
-<%@page import="Kino.Database" %>
+<%@page import="Kino.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,13 +20,14 @@
         <%
             out.println("<h2>Ścieżka do bazy: " + System.getProperty("user.dir") + "</h2>");
             Database.polacz();
-            
+            out.print(Database.readStrona("kontakt"));
             //trorzy schemat bazy - wywołać tylko raz!
             //Database.init();
             
             //tworzy przykładowe dane - wywołać tylko raz!
             //Database.init2();
             
+            Database.zamknij();
         %>
     </body>
 </html>
