@@ -358,14 +358,15 @@ public class Database {
                 ResultSet r2 = st2.executeQuery("Select * from Zamowienia_Bilety where id_zamowienia="+r.getInt("id")+";");
                 ArrayList<Bilet> c2 = new ArrayList<Bilet>();
                 ArrayList<Integer> c3 = new ArrayList<Integer>();
+                ArrayList<String> c4 = new ArrayList<String>();
                 String s = "";
                 while (r2.next())
                 {
                     c2.add(readBilet(r2.getInt("id_biletu")));
                     c3.add(new Integer(r2.getInt("ilosc")));
-                    s+=r2.getString("miejsca")+";";
+                    c4.add(r2.getString("miejsca"));
                 }
-                c.add(new Zamowienie(r.getInt("id"), r.getInt("user"), c2, c3, s));
+                c.add(new Zamowienie(r.getInt("id"), r.getInt("user"), c2, c3, c4));
             }
             st.close();
             st2.close();
@@ -374,6 +375,197 @@ public class Database {
         }
         finally {
             return c;
+        }
+    }
+    public static boolean createAktualnosc(String img, String tytul, String tekst)
+    {
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery( "Select MAX(id) as max from aktualnosci;");
+            r.next();
+            int id = r.getInt("max")+1;
+            st.executeUpdate("INSERT INTO aktualnosci VALUES("+id+", datetime('now','localtime'), '"+img+"', '"+tytul+"', '"+tekst+"');");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd createAktualnosc()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean createAktualnosc(Aktualnosc a)
+    {
+        return createAktualnosc(a.getImg(), a.getTytul(), a.getTekst());
+    }
+    public static boolean createBilet(String nazwa, double cena)
+    {
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery( "Select MAX(id) as max from bilety;");
+            r.next();
+            int id = r.getInt("max")+1;
+            st.executeUpdate("INSERT INTO bilety VALUES("+id+", '"+nazwa+"', '"+cena+"');");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd createBilet()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean createBilet(Bilet a)
+    {
+        return createBilet(a.getNazwa(), a.getCena());
+    }
+    public static boolean createFilm(String tytul, String czas, String img, String opis)
+    {
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery( "Select MAX(id) as max from filmy;");
+            r.next();
+            int id = r.getInt("max")+1;
+            st.executeUpdate("INSERT INTO filmy VALUES("+id+", '"+tytul+"', '"+czas+"', '"+img+"', '"+opis+"');");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd createFilm()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean createFilm(Film a)
+    {
+        return createFilm(a.getTytul(), a.getCzas(),a.getImg(),a.getOpis());
+    }
+    public static boolean createMiejsce(int idSeansu, int miejsce, int dostepnosc)
+    {
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery( "Select MAX(id) as max from miejsca;");
+            r.next();
+            int id = r.getInt("max")+1;
+            st.executeUpdate("INSERT INTO miejsca VALUES("+id+", "+idSeansu+", "+miejsce+", "+dostepnosc+");");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd createMiejsce()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean createMiejsce(Miejsce a)
+    {
+        return createMiejsce(a.getIdSeansu(), a.getMiejsce(), a.getDostepnosc());
+    }
+    public static boolean createSala(String obraz, String miejsca)
+    {
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery( "Select MAX(id) as max from sale;");
+            r.next();
+            int id = r.getInt("max")+1;
+            st.executeUpdate("INSERT INTO sale VALUES("+id+", '"+obraz+"', '"+miejsca+"');");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd createSala()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean createSala(Sala a)
+    {
+        return createSala(a.getObraz(), a.getMiejsca());
+    }
+    public static boolean createSeans(int idFilmu, int idWersji, String data, int sala)
+    {
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery( "Select MAX(id) as max from seanse;");
+            r.next();
+            int id = r.getInt("max")+1;
+            st.executeUpdate("INSERT INTO seanse VALUES("+id+", "+idFilmu+", "+idWersji+", '"+data+"', "+sala+");");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd createSeans()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean createSeans(Seans a)
+    {
+        return createSeans(a.getIdFilmu(), a.getIdWersji(), a.getData(), a.getSala());
+    }
+    public static boolean createStrona(String nazwa, String tekst)
+    {
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery( "Select MAX(id) as max from strony;");
+            r.next();
+            int id = r.getInt("max")+1;
+            st.executeUpdate("INSERT INTO strony VALUES("+id+", '"+nazwa+"', '"+tekst+"');");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd createStrona()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean createStrona(Strona a)
+    {
+        return createStrona(a.getNazwa(), a.getTekst());
+    }
+    public static boolean createUser(String nick, String email, String pass)
+    {
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery( "Select MAX(id) as max from userzy;");
+            r.next();
+            int id = r.getInt("max")+1;
+            st.executeUpdate("INSERT INTO userzy VALUES("+id+", '"+nick+"', '"+email+"', '"+pass+"');");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd createUser()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean createWersja(String tekst)
+    {
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery( "Select MAX(id) as max from wersje;");
+            r.next();
+            int id = r.getInt("max")+1;
+            st.executeUpdate("INSERT INTO wersje VALUES("+id+", '"+tekst+"');");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd createWersja()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean createWersja(Wersja a)
+    {
+        return createWersja( a.getTekst());
+    }
+    public static boolean createZamowienie(Zamowienie z)
+    {
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery( "Select MAX(id) as max from zamowienia;");
+            r.next();
+            int id = r.getInt("max")+1;
+            st.executeUpdate("INSERT INTO zamowienia VALUES("+id+", "+z.getUser()+");");
+            for(int i = 0; i < z.getBilety().size(); i++)
+            {
+                Statement st2 = con.createStatement();
+                ResultSet r2 = st2.executeQuery( "Select MAX(id) as max from zamowienia_bilety;");
+                r2.next();
+                int id2 = r2.getInt("max")+1;
+                st2.executeUpdate("INSERT INTO zamowienia_bilety VALUES("+id2+", "+id+", "+z.getBilety().get(i).getId()+", "+z.getIlosc().get(i)+", "+z.getMiejsca().get(i)+");");
+                st2.close();
+            }
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd createZamowienie()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
         }
     }
 }

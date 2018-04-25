@@ -16,9 +16,9 @@ public class Zamowienie {
     private int user;
     private ArrayList<Bilet> bilety;
     private ArrayList<Integer> ilosc;
-    private String miejsca;
+    private ArrayList<String> miejsca;
 
-    public Zamowienie(int id, int user, ArrayList<Bilet> bilety, ArrayList<Integer> ilosc, String miejsca) {
+    public Zamowienie(int id, int user, ArrayList<Bilet> bilety, ArrayList<Integer> ilosc, ArrayList<String> miejsca) {
         this.id = id;
         this.user = user;
         this.bilety = bilety;
@@ -42,7 +42,7 @@ public class Zamowienie {
         return ilosc;
     }
 
-    public String getMiejsca() {
+    public ArrayList<String> getMiejsca() {
         return miejsca;
     }
 
@@ -62,7 +62,7 @@ public class Zamowienie {
         this.ilosc = ilosc;
     }
 
-    public void setMiejsca(String miejsca) {
+    public void setMiejsca(ArrayList<String> miejsca) {
         this.miejsca = miejsca;
     }
     
