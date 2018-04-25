@@ -20,7 +20,7 @@
         <%
             out.println("<h2>Ścieżka do bazy: " + System.getProperty("user.dir") + "</h2>");
             Database.polacz();
-            out.print(Database.createUser("inny","inny","inne"));
+            out.print(Database.deleteFilm(0));
             //trorzy schemat bazy - wywołać tylko raz!
             //Database.init();
             

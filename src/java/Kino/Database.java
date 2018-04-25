@@ -568,4 +568,166 @@ public class Database {
             return false;
         }
     }
+    public static boolean deleteAktualnosc(int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("DELETE FROM aktualnosci WHERE id="+id+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd deleteAktualnosc()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean deleteBilet(int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("DELETE FROM bilety WHERE id="+id+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd deleteBilet()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean deleteFilm(int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            Statement st2 = con.createStatement();
+            Statement st3 = con.createStatement();
+            ResultSet r = st3.executeQuery("Select * from seanse where id_filmu="+id+";");
+            while (r.next())
+                st3.executeUpdate("DELETE FROM miejsca WHERE id_seansu="+r.getInt("id")+";");
+            st.executeUpdate("DELETE FROM seanse WHERE id_filmu="+id+";");
+            st2.executeUpdate("DELETE FROM filmy WHERE id="+id+";");
+            st.close();
+            st2.close();
+            st3.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd deleteFilm()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean deleteMiejsce(int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("DELETE FROM miejsca WHERE id="+id+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd deleteMiejsce()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean deleteSala(int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            Statement st2 = con.createStatement();
+            Statement st3 = con.createStatement();
+            ResultSet r = st3.executeQuery("Select * from seanse where sala="+id+";");
+            while (r.next())
+                st3.executeUpdate("DELETE FROM miejsca WHERE id_seansu="+r.getInt("id")+";");
+            st.executeUpdate("DELETE FROM seanse WHERE sala="+id+";");
+            st2.executeUpdate("DELETE FROM sale WHERE id="+id+";");
+            st.close();
+            st2.close();
+            st3.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd deleteSala()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean deleteSeans(int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            Statement st2 = con.createStatement();
+            st.executeUpdate("DELETE FROM seanse WHERE id="+id+";");
+            st2.executeUpdate("DELETE FROM miejsca WHERE id_seansu="+id+";");
+            st.close();
+            st2.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd deleteSeans()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean deleteStrona(int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("DELETE FROM strony WHERE id="+id+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd deleteStrona()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean deleteStrona(String nazwa)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("DELETE FROM strony WHERE nazwa='"+nazwa+"';");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd deleteStrona()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean deleteUser(int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("DELETE FROM userzy WHERE id="+id+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd deleteUser()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean deleteWersja(int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            Statement st2 = con.createStatement();
+            Statement st3 = con.createStatement();
+            ResultSet r = st3.executeQuery("Select * from seanse where id_wersji="+id+";");
+            while (r.next())
+                st3.executeUpdate("DELETE FROM miejsca WHERE id_seansu="+r.getInt("id")+";");
+            st.executeUpdate("DELETE FROM seanse WHERE id_wersji="+id+";");
+            st.executeUpdate("DELETE FROM wersje WHERE id="+id+";");
+            st.close();
+            st2.close();
+            st3.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd deleteWersja()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean deleteZamowienie(int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            Statement st2 = con.createStatement();
+            st.executeUpdate("DELETE FROM zamowienia_bilety WHERE id_zamowienia="+id+";");
+            st2.executeUpdate("DELETE FROM zamowienia WHERE id="+id+";");
+            st.close();
+            st2.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd deleteWersja()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
 }
