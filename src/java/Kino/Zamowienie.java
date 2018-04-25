@@ -14,13 +14,15 @@ import java.util.ArrayList;
 public class Zamowienie {
     private int id;
     private int user;
+    private ArrayList<Integer> idz;
     private ArrayList<Bilet> bilety;
     private ArrayList<Integer> ilosc;
     private ArrayList<String> miejsca;
 
-    public Zamowienie(int id, int user, ArrayList<Bilet> bilety, ArrayList<Integer> ilosc, ArrayList<String> miejsca) {
+    public Zamowienie(int id, int user, ArrayList<Integer> idz, ArrayList<Bilet> bilety, ArrayList<Integer> ilosc, ArrayList<String> miejsca) {
         this.id = id;
         this.user = user;
+        this.idz = idz;
         this.bilety = bilety;
         this.ilosc = ilosc;
         this.miejsca = miejsca;
@@ -32,6 +34,10 @@ public class Zamowienie {
 
     public int getUser() {
         return user;
+    }
+
+    public ArrayList<Integer> getIdz() {
+        return idz;
     }
 
     public ArrayList<Bilet> getBilety() {
@@ -52,6 +58,10 @@ public class Zamowienie {
 
     public void setUser(int user) {
         this.user = user;
+    }
+
+    public void setIdz(ArrayList<Integer> idz) {
+        this.idz = idz;
     }
 
     public void setBilety(ArrayList<Bilet> bilety) {

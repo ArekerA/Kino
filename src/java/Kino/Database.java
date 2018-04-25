@@ -359,19 +359,52 @@ public class Database {
                 ArrayList<Bilet> c2 = new ArrayList<Bilet>();
                 ArrayList<Integer> c3 = new ArrayList<Integer>();
                 ArrayList<String> c4 = new ArrayList<String>();
+                ArrayList<Integer> c5 = new ArrayList<Integer>();
                 String s = "";
                 while (r2.next())
                 {
                     c2.add(readBilet(r2.getInt("id_biletu")));
                     c3.add(new Integer(r2.getInt("ilosc")));
                     c4.add(r2.getString("miejsca"));
+                    c5.add(r2.getInt("id"));
                 }
-                c.add(new Zamowienie(r.getInt("id"), r.getInt("user"), c2, c3, c4));
+                c.add(new Zamowienie(r.getInt("id"), r.getInt("user"), c5, c2, c3, c4));
             }
             st.close();
             st2.close();
         } catch (SQLException e) {
             System.out.println("====\nBląd readZamowienia()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+        }
+        finally {
+            return c;
+        }
+    }
+    public static Zamowienie readZamowienie(int id)
+    {
+        Zamowienie c = null;
+        try {
+            Statement st = con.createStatement();
+            Statement st2 = con.createStatement();
+            ResultSet r = st.executeQuery("Select * from zamowienia where id="+id+";");
+            r.next();
+            ResultSet r2 = st2.executeQuery("Select * from Zamowienia_Bilety where id_zamowienia="+r.getInt("id")+";");
+            ArrayList<Bilet> c2 = new ArrayList<Bilet>();
+            ArrayList<Integer> c3 = new ArrayList<Integer>();
+            ArrayList<String> c4 = new ArrayList<String>();
+            ArrayList<Integer> c5 = new ArrayList<Integer>();
+            String s = "";
+            while (r2.next())
+            {
+                c2.add(readBilet(r2.getInt("id_biletu")));
+                c3.add(new Integer(r2.getInt("ilosc")));
+                c4.add(r2.getString("miejsca"));
+                c5.add(r2.getInt("id"));
+            }
+            c = new Zamowienie(r.getInt("id"), r.getInt("user"), c5, c2, c3, c4);
+            st.close();
+            st2.close();
+        } catch (SQLException e) {
+            System.out.println("====\nBląd readZamowienie()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
         }
         finally {
             return c;
@@ -727,6 +760,132 @@ public class Database {
             return true;
         } catch (SQLException e) {
             System.out.println("====\nBląd deleteWersja()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateAktualnosc(Aktualnosc a)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE aktualnosci SET data = '"+a.getData()+"', img = '"+a.getImg()+"', tytul = '"+a.getTytul()+"', tekst = '"+a.getTekst()+"' WHERE id = "+a.getId()+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateAktualnosc()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateBilet(Bilet a)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE bilety SET nazwa = '"+a.getNazwa()+"', cena = "+a.getCena()+" WHERE id = "+a.getId()+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateBilet()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateFilm(Film a)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE filmy SET tytul = '"+a.getTytul()+"', czas = '"+a.getCzas()+"', img = '"+a.getImg()+"', opis = '"+a.getOpis()+"' WHERE id = "+a.getId()+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateFilm()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateMiejsce(Miejsce a)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE miejsca SET id_seansu = '"+a.getIdSeansu()+"', miejsce = '"+a.getMiejsce()+"', dostepnosc = '"+a.getDostepnosc()+"' WHERE id = "+a.getId()+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateMiejsce()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateSala(Sala a)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE sale SET obraz = '"+a.getObraz()+"', miejsca = '"+a.getMiejsca()+"' WHERE id = "+a.getId()+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateSala()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateSeans(Seans a)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE seanse SET id_filmu = "+a.getIdFilmu()+", id_wersji = "+a.getIdWersji()+", data = '"+a.getData()+"', sala = "+a.getSala()+" WHERE id = "+a.getId()+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateSeans()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateStrona(Strona a)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE strony SET nazwa = '"+a.getNazwa()+"', tekst = '"+a.getTekst()+"' WHERE id = "+a.getId()+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateStrona()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateUser(int id, String nick, String email, String pass)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE userzy SET nick = '"+nick+"', email = '"+email+"', pass = '"+pass+"' WHERE id = "+id+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateUser()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateWersja(Wersja a)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE wersje SET tekst = '"+a.getTekst()+"' WHERE id = "+a.getId()+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateWersja()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateZamowienie(Zamowienie a)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE zamowienia SET user = '"+a.getUser()+"' WHERE id = "+a.getId()+";");
+            st.close();
+            for(int i = 0; i < a.getBilety().size(); i++)
+            {
+                Statement st2 = con.createStatement();
+                st2.executeUpdate("UPDATE zamowienia_bilety SET id_biletu = "+a.getBilety().get(i).getId()+", ilosc = "+a.getIlosc().get(i)+", miejsca = '"+a.getMiejsca().get(i)+"' WHERE id = "+a.getIdz().get(i)+";");
+                st2.close();
+            }
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateZamowienie()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
             return false;
         }
     }
