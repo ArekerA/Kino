@@ -4,7 +4,7 @@
     Author     : Mateusz
 --%>
 
-<%@page contentType="text/html"  pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,25 +23,26 @@
            
     <section>
         <div class="login">
-            <h1>Podaj dane do logowania</h1> 
-            <form action="login.jsp" method="post">
-             Login:
+            <h1>Podaj wymagane dane</h1> 
+            <form action="register.jsp" method="post">
+             Imię (albo ksywka):
               <br>
              <input type="text" name="login"> 
              <br><br>
-             Hasło:
+             Hasło (tylko wymyśl coś oryginalnego):
               <br>
               <input type="password" name="haslo"> 
+              <br><br>
+              Potwierdź Hasło (wpisz po prostu drugi raz):
+              <br>
+              <input type="password" name="confirmed"> 
              <br><br>
+             Adres email (ten z małpą):
+              <br>
+              <input type="email" name="email"> 
+              <br><br>
             <input type="submit" value="Potwierdź">
             </form>
-            <br>
-            <h2>Nie masz konta?</h2>
-             
-            
-            <form action="rejestruj.jsp" method="post">
-                 <input type="submit" value="Zarejestruj się">
-             </form>
         </div>
     </section>
     <footer>
