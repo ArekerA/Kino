@@ -48,7 +48,7 @@ public class Database {
             st.executeUpdate("CREATE TABLE Aktualnosci ( id INT NOT NULL, data TEXT NOT NULL, img TEXT NOT NULL, tytul TEXT NOT NULL, tekst TEXT NOT NULL, PRIMARY KEY (id));");
             st.executeUpdate("CREATE TABLE Strony ( id INT NOT NULL, nazwa TEXT NOT NULL, tekst TEXT NOT NULL, PRIMARY KEY (id));");
             st.executeUpdate("CREATE TABLE Bilety ( id INT NOT NULL, nazwa TEXT NOT NULL, cena NUMERIC NOT NULL, PRIMARY KEY (id));");
-            st.executeUpdate("CREATE TABLE Userzy ( id INT NOT NULL, nick TEXT NOT NULL, email TEXT NOT NULL, pass TEXT NOT NULL, PRIMARY KEY (id));");
+            st.executeUpdate("CREATE TABLE Userzy ( id INT NOT NULL, nick TEXT NOT NULL, email TEXT NOT NULL, pass TEXT NOT NULL, level INT NOT NULL, PRIMARY KEY (id));");
             st.executeUpdate("CREATE TABLE Zamowienia ( id INT NOT NULL, user INT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (user) REFERENCES Userzy(id));");
             st.executeUpdate("CREATE TABLE Zamowienia_Bilety ( id INT NOT NULL, id_zamowienia INT NOT NULL, id_biletu INT NOT NULL, ilosc INT NOT NULL, miejsca TEXT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (id_zamowienia) REFERENCES Zamowienia(id), FOREIGN KEY (id_biletu) REFERENCES Bilety(id));");
         } catch (SQLException e) {
@@ -67,11 +67,27 @@ public class Database {
             st.executeUpdate("INSERT INTO Aktualnosci VALUES ( 0, date('now'), 'a1.jpg', 'Tomb Raider już dostępny', 'Lara Croft (Alicia Vikander) wyrusza na poszukiwania swojego zaginionego ojca, lorda Richarda Crofta (Dominic West), który zniknął, gdy dziewczyna miała kilkanaście lat. Podczas swoich poszukiwań rozbija się u wybrzeży tajemniczej wyspy niedaleko Japonii. W trakcie pobytu na nieznanym lądzie dziewczyna przechodzi zmianę psychiczną oraz fizyczną i staje się słynną poszukiwaczką przygód znaną jako \"Tomb Raider\"');");
             st.executeUpdate("INSERT INTO Strony VALUES ( 0, 'kontakt', 'dane kontaktowe');");
             st.executeUpdate("INSERT INTO Bilety VALUES ( 0, 'normalny', 12.50);");
-            st.executeUpdate("INSERT INTO Userzy VALUES ( 0, 'admin', 'admin@example.com', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918');");
+            st.executeUpdate("INSERT INTO Userzy VALUES ( 0, 'admin', 'admin@example.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 3),( 2, 'prac', 'admin@example.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 2);");
             st.executeUpdate("INSERT INTO Zamowienia VALUES ( 0, 0);");
             st.executeUpdate("INSERT INTO Zamowienia_Bilety VALUES ( 0, 0, 0, 2, '2,3');");
         } catch (SQLException e) {
             System.out.println(e);
+        }
+    }
+    public static User login(String login, String pass)
+    {
+        User c = null;
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery("Select * from Userzy where nick='"+login+"' and pass='"+pass+"';");
+            r.next();
+            c = new User(r.getInt("Id"), r.getString("nick"), r.getString("email"), r.getInt("level"));
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("====\nBląd login() id: "+login+"\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+        }
+        finally {
+            return c;
         }
     }
     public static ArrayList<Film> readFilmy()
@@ -543,14 +559,14 @@ public class Database {
     {
         return createStrona(a.getNazwa(), a.getTekst());
     }
-    public static boolean createUser(String nick, String email, String pass)
+    public static boolean createUser(String nick, String email, String pass, int lvl)
     {
         try {
             Statement st = con.createStatement();
             ResultSet r = st.executeQuery( "Select MAX(id) as max from userzy;");
             r.next();
             int id = r.getInt("max")+1;
-            st.executeUpdate("INSERT INTO userzy VALUES("+id+", '"+nick+"', '"+email+"', '"+pass+"');");
+            st.executeUpdate("INSERT INTO userzy VALUES("+id+", '"+nick+"', '"+email+"', '"+pass+"', "+lvl+");");
             st.close();
             return true;
         } catch (SQLException e) {
@@ -847,11 +863,11 @@ public class Database {
             return false;
         }
     }
-    public static boolean updateUser(int id, String nick, String email, String pass)
+    public static boolean updateUser(int id, String nick, String email, String pass, int lvl)
     {
         try {
             Statement st = con.createStatement();
-            st.executeUpdate("UPDATE userzy SET nick = '"+nick+"', email = '"+email+"', pass = '"+pass+"' WHERE id = "+id+";");
+            st.executeUpdate("UPDATE userzy SET nick = '"+nick+"', email = '"+email+"', pass = '"+pass+"', level="+lvl+" WHERE id = "+id+";");
             st.close();
             return true;
         } catch (SQLException e) {
