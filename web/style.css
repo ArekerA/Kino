@@ -13,12 +13,13 @@ div
 }
 table
 {
+        border: #333 solid;
 	text-align: center;
 	font-size: 30px;
 	width: 100%;
 }
 td{
-	border: 1px black solid;
+	
 }
 .head
 {
@@ -99,28 +100,62 @@ section
 	margin-left: 250px;
 	margin-right: 250px;
 	margin-top: 10px;
-	border: 2px #333 solid;
 	margin: 10 px;
 	padding: 5px;	
 }
 article
 {
-	border: 2px #333 solid;
 	text-align: justify;	
 	margin: 10px;
 	padding: 5px;	
 }
 footer
 {	
-	
-	clear: both;
+        font-size: 5px;
+	position: fixed;
 	text-align: center;
 	text-decoration: bold;
-	bottom: 0;
+        bottom: 0;
 }
 img.obraz{
 	width: 100%;
 
+}
+.poster
+{
+    width: 100%;
+    height: auto;
+    float: left;
+    padding: 10px;
+}
+.plakat
+{
+    width: 25%;
+    padding: 10px;
+}
+.opis
+{
+    padding: 10px;
+    font-size: 20px;
+    text-align: justify;
+}
+.tytul
+{
+    width:50%;
+    height: 20%;
+    margin: 5px;
+    padding: 5px;
+    font-size: 30px;
+    text-align: center;
+    color: red;
+}
+.czas
+{
+    padding:2px;
+    width: 10%;
+    font-size: 20px;
+    text-align: center;
+    color: orange;
 }
 .dwade {
 	color: #fff;

@@ -40,7 +40,7 @@ public class Database {
     {
          try {
             Statement st = con.createStatement();
-            st.executeUpdate("CREATE TABLE Filmy ( id INT NOT NULL, tytul TEXT NOT NULL, czas TEXT NOT NULL, img TEXT NOT NULL, opis TEXT NOT NULL, PRIMARY KEY (id));");
+            st.executeUpdate("CREATE TABLE Filmy ( id INT NOT NULL, tytul TEXT NOT NULL, czas TEXT NOT NULL, img TEXT NOT NULL, opis TEXT NOT NULL, link TEXT NOT NULL, PRIMARY KEY (id));");
             st.executeUpdate("CREATE TABLE Sale ( id INT NOT NULL, obraz TEXT NOT NULL, miejsca TEXT NOT NULL, PRIMARY KEY (id));");
             st.executeUpdate("CREATE TABLE Wersje ( id INT NOT NULL, tekst TEXT NOT NULL, PRIMARY KEY (id));");
             st.executeUpdate("CREATE TABLE Seanse ( id INT NOT NULL, id_filmu INT NOT NULL, id_wersji INT NOT NULL, data TEXT NOT NULL, sala INT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (id_filmu) REFERENCES Filmy(id), FOREIGN KEY (id_wersji) REFERENCES Wersje(id), FOREIGN KEY (sala) REFERENCES Sale(id));");
@@ -59,7 +59,9 @@ public class Database {
     {
         try {
             Statement st = con.createStatement();
-            st.executeUpdate("INSERT INTO Filmy VALUES ( 0, 'Tomb Raider', '118 min', '1.jpg', 'Lara Croft to niepokorna córka ekscentrycznego podróżnika, który zniknął, gdy dziewczyna miała kilkanaście lat. Teraz, jako 21-letnia kobieta, podąża własną ścieżką, odmawiając spełnienia woli ojca, który chciał dla niej spokojnego życia. Zostawia wszystko za sobą i udaje się w ostatnie znane miejsce jego pobytu. Poszukując śladów, musi odnaleźć osławiony grobowiec na mitycznej wyspie u wybrzeży Japonii. Jeśli nie przezwycięży własnych lęków, może nie przeżyć niezwykle niebezpiecznej wyprawy. Jak wiele poświęci, by poznać tajemnicę zniknięcia ojca i zyskać miano tomb raidera?');");
+            st.executeUpdate("INSERT INTO Filmy VALUES ( 0, 'Tomb Raider', '118 min', 'b1.jpg', 'Lara Croft to niepokorna córka ekscentrycznego podróżnika, który zniknął, gdy dziewczyna miała kilkanaście lat. Teraz, jako 21-letnia kobieta, podąża własną ścieżką, odmawiając spełnienia woli ojca, który chciał dla niej spokojnego życia. Zostawia wszystko za sobą i udaje się w ostatnie znane miejsce jego pobytu. Poszukując śladów, musi odnaleźć osławiony grobowiec na mitycznej wyspie u wybrzeży Japonii. Jeśli nie przezwycięży własnych lęków, może nie przeżyć niezwykle niebezpiecznej wyprawy. Jak wiele poświęci, by poznać tajemnicę zniknięcia ojca i zyskać miano tomb raidera?','https://www.youtube.com/embed/8ndhidEmUbI');");
+            st.executeUpdate("INSERT INTO Filmy VALUES ( 1, 'Han Solo: Gwiezdne wojny - historie', '118 min', 'c1.jpg', 'Młody Han Solo przemierzając galaktykę staje się przemytnikiem.','https://www.youtube.com/embed/jPEYpryMp2s');");
+            st.executeUpdate("INSERT INTO Filmy VALUES ( 2, 'Deadpool2', '218 min', 'd1.jpg', 'Po przeżyciu wypadku oszpecony superbohater stara się odzyskać swoją pasję do życia podróżując po świecie i walcząc z przestępcami. ','https://www.youtube.com/embed/D86RtevtfrA');");
             st.executeUpdate("INSERT INTO Sale VALUES ( 0, 'sala1.jpg', '0,0,100,100;100,0,100,100;0,100,100,100;100,100,100,100');");
             st.executeUpdate("INSERT INTO Wersje VALUES ( 0, '2D');");
             st.executeUpdate("INSERT INTO Seanse VALUES ( 0, 0, 0, date('now'), 0);");
@@ -97,7 +99,7 @@ public class Database {
             Statement st = con.createStatement();
             ResultSet r = st.executeQuery("Select * from filmy;");
             while (r.next())
-                c.add(new Film(r.getInt("Id"), r.getString("tytul"), r.getString("czas"), r.getString("czas"), r.getString("opis")));
+                c.add(new Film(r.getInt("Id"), r.getString("tytul"), r.getString("czas"), r.getString("img"), r.getString("opis"), r.getString("link")));
             st.close();
         } catch (SQLException e) {
             System.out.println("====\nBląd readFilmy()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
@@ -113,7 +115,7 @@ public class Database {
             Statement st = con.createStatement();
             ResultSet r = st.executeQuery("Select * from filmy where id="+id+";");
             r.next();
-            c = new Film(r.getInt("Id"), r.getString("tytul"), r.getString("czas"), r.getString("czas"), r.getString("opis"));
+            c = new Film(r.getInt("Id"), r.getString("tytul"), r.getString("czas"), r.getString("img"), r.getString("opis"), r.getString("link"));
             st.close();
         } catch (SQLException e) {
             System.out.println("====\nBląd readFilm() id: "+id+"\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
