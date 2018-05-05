@@ -18,11 +18,11 @@
     <body>
         <h1>Hello World!</h1>
         <%
-            out.println("<h2>Ścieżka do bazy: " + System.getProperty("user.dir") + "</h2>");
+           out.println("<h2>Ścieżka do bazy: " + System.getProperty("user.dir") + "</h2>");
             Database.polacz();
-            //Zamowienie a = Database.readZamowienie(0);
-            //a.getIlosc().set(0, new Integer(5));
-            //Database.updateZamowienie(a);
+            Zamowienie a = Database.readZamowienie(0);
+            a.getIlosc().set(0, new Integer(5));
+            Database.updateZamowienie(a);
             //trorzy schemat bazy - wywołać tylko raz!
             //Database.init();
             

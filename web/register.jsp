@@ -20,9 +20,9 @@
      Class.forName("org.sqlite.JDBC");
     Connection  con = DriverManager.getConnection("jdbc:sqlite:mydb.sqlite");
     Statement st = con.createStatement();
-    ResultSet rs;
+    ResultSet rs ;
     rs = st.executeQuery("SELECT MAX(id) FROM Userzy;");
-   
+    rs.next();
     //ResultSet rs;
     int i =  st.executeUpdate("INSERT INTO Userzy (id,nick,email,pass) VALUES ('SELECT MAX(id)FROM Userzy','"+user+"','"+email+"','"+pwd+"');");
     if (i > 0) {
