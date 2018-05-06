@@ -24,7 +24,7 @@
             a.getIlosc().set(0, new Integer(5));
             Database.updateZamowienie(a);
             //trorzy schemat bazy - wywołać tylko raz!
-            //Database.init();
+          // Database.init();
             
             //tworzy przykładowe dane - wywołać tylko raz!
             //Database.init2();
