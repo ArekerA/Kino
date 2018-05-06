@@ -52,29 +52,29 @@
                         piec.setTime(dzis.getTime() + 1 * 24 * 60 * 60 * 1000 * 5);
                         szesc.setTime(dzis.getTime() + 1 * 24 * 60 * 60 * 1000 * 6);     
         %>
-           <button onclick="myFunction(1)" type="button"><%String ds = dateFormat.format(dzis); out.println(ds);%></button>
-           <button onclick="myFunction(2)" type="button"><%String jt = dateFormat.format(jutro); out.println(jt);%></button>
-           <button onclick="myFunction(3)" type="button"><%String dw = dateFormat.format(dwa); out.println(dw);%></button>
-           <button onclick="myFunction(4)" type="button"><%String tr = dateFormat.format(trzy); out.println(tr);%></button>
-           <button onclick="myFunction(5)" type="button"><%String cz = dateFormat.format(cztery); out.println(cz);%></button>
-           <button onclick="myFunction(6)" type="button"><%String pi = dateFormat.format(piec); out.println(pi);%></button>
-           <button onclick="myFunction(7)" type="button"><%String sz = dateFormat.format(szesc); out.println(sz);%></button>
+        <input type="button" afterclick="<%wybrana=dzis;%>" value=<%String ds = dateFormat.format(dzis); out.println(ds);%>>
+        <input type="button" afterclick="<%wybrana=jutro;%>" value=<%String jt = dateFormat.format(jutro); out.println(jt);%>>
+          
+           <button afterclick="<%wybrana=dwa;%>" type="button"><%String dw = dateFormat.format(dwa); out.println(dw);%></button>
+           <button afterclick="<%wybrana=trzy;%>" type="button"><%String tr = dateFormat.format(trzy); out.println(tr);%></button>
+           <button afterclick="myFunction(cztery)" type="button"><%String cz = dateFormat.format(cztery); out.println(cz);%></button>
+           <button afterclick="myFunction(piec)" type="button"><%String pi = dateFormat.format(piec); out.println(pi);%></button>
+           <button afterclick="myFunction(szesc)" type="button"><%String sz = dateFormat.format(szesc); out.println(sz);%></button>
            <button type="button">Wybierz datę<%// Tu sie ma kalendarz otwierać%> </button>
               
+ 
+        </article>
+           
            <script>
-function myFunction(i) {
-  document.getElementById("demo").innerHTML = "Hello World";
-}
-</script>
-        </article>
-        <article> 
-         Repertuar dla Dnia: <%String wyb = dateFormat.format(wybrana); out.println(wyb); // TU TRZEBA DOPASOWAĆ z wybrana data%> 
-        
-         
-        </article>
-        <article>
-          <table>
-               <%
+function myFunction(wybrana) {
+              
+               <%   
+                   
+                  
+                    out.println("<article> Repertuar dla Dnia: ");
+                    String wyb = dateFormat.format(wybrana);
+                    out.println(wyb);
+                    out.println("<article>");
                 Database.polacz();
                 ArrayList<Seans> seanse = Database.readSeanse();
                 ArrayList<Film> filmy = Database.readFilmy();
@@ -92,6 +92,7 @@ function myFunction(i) {
                        // Tu warunek IF że data taka jak wybrana if(seanse.get(i).getData()==wybrana)
                       if(s.contains(wybr.toString()))
                       {
+                          out.println("<article><table>");
                         out.println("<tr><td width='40%'>" +filmy.get(seanse.get(i).getIdFilmu()).getTytul() +
                                 "</td><td width='20%'>" + wersje.get(seanse.get(i).getIdWersji()).getTekst()  +
                                 "</td><td width='40%'><button type='button'>"+ s +
@@ -105,7 +106,11 @@ function myFunction(i) {
                           out.println("NIE MA ŻADNYCH SEANSÓW W WYBRANEJ DACIE");
                       }
                 Database.zamknij();
+                  
             %>
+                    }
+</script>
+                    
          </table>
         </article>
     </section>
