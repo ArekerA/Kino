@@ -75,7 +75,7 @@
                         out.println("<article>");
                         out.println("<table class=\"film\">");
                         out.println("<tr>");
-                        out.println("<th class=\"plakat\" rowspan=\"2\"><img class=\"poster\" src=\"img/" + a.getImg() + "\" alt=\"obraz\"></th> ");
+                        out.println("<th class=\"plakat\" rowspan=\"2\"><img class=\"posterr\" src=\"img/" + a.getImg() + "\" alt=\"obraz\"></th> ");
                         out.println("<th class=\"tytul\">" + a.getTytul() + "</th>");
                         out.println("<th class=\"czas\">" + a.getCzas() + "</th>");
                         out.println("<th class=\"zwiastun\" rowspan=\"2\"> <iframe width=\"420\" height=\"315\" src=\""+a.getLink()+"\"> </iframe></th>");

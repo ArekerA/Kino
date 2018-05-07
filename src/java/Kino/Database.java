@@ -66,7 +66,7 @@ public class Database {
             st.executeUpdate("INSERT INTO Filmy VALUES ( 2, 'Deadpool2', '218 min', 'd1.jpg', 'Po przeżyciu wypadku oszpecony superbohater stara się odzyskać swoją pasję do życia podróżując po świecie i walcząc z przestępcami. ','https://www.youtube.com/embed/D86RtevtfrA');");
             st.executeUpdate("INSERT INTO Sale VALUES ( 0, 'sala1.jpg', '0,0,100,100;100,0,100,100;0,100,100,100;100,100,100,100');");
             st.executeUpdate("INSERT INTO Wersje VALUES ( 0, '2D');");
-            st.executeUpdate("INSERT INTO Seanse VALUES ( 0, 0, 0, date('now'), 0);");
+            st.executeUpdate("INSERT INTO Seanse VALUES ( 0, 0, 0, datetime('now'), 0);");
             st.executeUpdate("INSERT INTO Miejsca VALUES ( 0, 0, 0, 0),( 1, 0, 1, 0),( 2, 0, 2, 0),( 3, 0, 3, 0);");
             st.executeUpdate("INSERT INTO Aktualnosci VALUES ( 0, date('now'), 'a1.jpg', 'Tomb Raider już dostępny', 'Lara Croft (Alicia Vikander) wyrusza na poszukiwania swojego zaginionego ojca, lorda Richarda Crofta (Dominic West), który zniknął, gdy dziewczyna miała kilkanaście lat. Podczas swoich poszukiwań rozbija się u wybrzeży tajemniczej wyspy niedaleko Japonii. W trakcie pobytu na nieznanym lądzie dziewczyna przechodzi zmianę psychiczną oraz fizyczną i staje się słynną poszukiwaczką przygód znaną jako \"Tomb Raider\"');");
             st.executeUpdate("INSERT INTO Strony VALUES ( 0, 'kontakt', 'dane kontaktowe');");
