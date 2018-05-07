@@ -10,6 +10,8 @@
  */
 package Kino;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -199,6 +201,24 @@ public class Database {
             st.close();
         } catch (SQLException e) {
             System.out.println("====\nBląd readSeanse()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+        }
+        finally {
+            return c;
+        }
+    }
+    public static ArrayList<Seans> readSeanse(Date data)
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = new Date(data.getTime() + 1 * 24 * 60 * 60 * 1000);
+        ArrayList<Seans> c = new ArrayList<Seans>();
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery("SELECT * FROM Seanse WHERE strftime('%s', data) BETWEEN strftime('%s', '"+dateFormat.format(data)+"') AND strftime('%s', '"+dateFormat.format(d)+"')");
+            while (r.next())
+                c.add(new Seans(r.getInt("id"), r.getInt("id_filmu"), r.getInt("id_wersji"), r.getString("data"), r.getInt("sala")));
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("====\nBląd readSeanse(Date data)\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
         }
         finally {
             return c;
