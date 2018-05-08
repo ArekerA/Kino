@@ -88,11 +88,7 @@
                        // Tu warunek IF że data taka jak wybrana if(seanse.get(i).getData()==wybrana)
                       if(s.contains(wybr.toString()))
                       {
-                          out.println("<article><table>");
-                        out.println("<tr><td width='40%'>" +filmy.get(seanse.get(i).getIdFilmu()).getTytul() +
-                                "</td><td width='20%'>" + wersje.get(seanse.get(i).getIdWersji()).getTekst()  +
-                                "</td><td width='40%'><button type='button'>"+ s +
-                                "</button></td></tr> ");
+                        
                         pom1++;
                       }
                      

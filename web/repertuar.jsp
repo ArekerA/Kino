@@ -22,6 +22,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Kino Planeta</title>
         <link rel="stylesheet" href="style.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
     <body>
         <header>        
@@ -57,16 +58,15 @@
           
            <button afterclick="<%wybrana=dwa;%>" type="button"><%String dw = dateFormat.format(dwa); out.println(dw);%></button>
            <button afterclick="<%wybrana=trzy;%>" type="button"><%String tr = dateFormat.format(trzy); out.println(tr);%></button>
-           <button afterclick="myFunction(cztery)" type="button"><%String cz = dateFormat.format(cztery); out.println(cz);%></button>
-           <button afterclick="myFunction(piec)" type="button"><%String pi = dateFormat.format(piec); out.println(pi);%></button>
-           <button afterclick="myFunction(szesc)" type="button"><%String sz = dateFormat.format(szesc); out.println(sz);%></button>
+           <button  type="button"><%String cz = dateFormat.format(cztery); out.println(cz);%></button>
+           <button  type="button"><%String pi = dateFormat.format(piec); out.println(pi);%></button>
+           <button  type="button"><%String sz = dateFormat.format(szesc); out.println(sz);%></button>
            <button type="button">Wybierz datę<%// Tu sie ma kalendarz otwierać%> </button>
               
  
         </article>
            
-           <script>
-function myFunction(wybrana) {
+
               
                <%   
                    
@@ -74,13 +74,79 @@ function myFunction(wybrana) {
                     out.println("<article> Repertuar dla Dnia: ");
                     String wyb = dateFormat.format(wybrana);
                     out.println(wyb);
-                    out.println("<article>");
+                    out.println("</article>");
                 Database.polacz();
-                ArrayList<Seans> seanse = Database.readSeanse();
+                ArrayList<Seans> seanse = Database.readSeanse(wybrana);
                 ArrayList<Film> filmy = Database.readFilmy();
                 ArrayList<Wersja> wersje = Database.readWersje();
                 int pom1=0;
-                for(int i=0;i<seanse.size();i++)
+                
+                Date data = new Date();
+                    out.print("<div id='dzis'>");
+                    out.print("dziś");
+                    for(Seans s : Database.readSeanse(data))
+                    {
+                        //dziś
+                        //s.getTitle();
+                    }
+                    out.print("</div>");
+                    data.setTime(data.getTime() + 1 * 24 * 60 * 60 * 1000 );
+                    out.print("<div id='dzis'>");
+                    out.print("jutro");
+                    for(Seans s : Database.readSeanse(data))
+                    {
+                        //jutro
+                    }
+                     out.print("</div>");
+                    data.setTime(data.getTime() + 1 * 24 * 60 * 60 * 1000 );
+                    out.print("<div id='dzis'>");
+                    out.print("dwa");
+                    for(Seans s : Database.readSeanse(data))
+                    {
+                        //+2
+                    }
+                    out.print("</div>");
+                    data.setTime(data.getTime() + 1 * 24 * 60 * 60 * 1000 );
+                    out.print("<div id='trzy'>");
+                    out.print("trzy");
+                    for(Seans s : Database.readSeanse(data))
+                    {
+                        //+3
+                    }
+                    out.print("</div>");
+                    data.setTime(data.getTime() + 1 * 24 * 60 * 60 * 1000 );
+                    out.print("<div id='cztery'>");
+                    out.print("cztery");
+                    for(Seans s : Database.readSeanse(data))
+                    {
+                        //+4
+                    }
+                     out.print("</div>");
+                    data.setTime(data.getTime() + 1 * 24 * 60 * 60 * 1000 );
+                    out.print("<div id='piec'>");
+                    out.print("piec");
+                    for(Seans s : Database.readSeanse(data))
+                    {
+                        //+5
+                    }
+                    out.print("</div>");
+                    data.setTime(data.getTime() + 1 * 24 * 60 * 60 * 1000 );
+                    out.print("<div id='szesc'>");
+                    out.print("szesc");
+                    for(Seans s : Database.readSeanse(data))
+                    {
+                        //+6
+                    }
+                    out.print("</div>");
+                 
+                   
+                    
+                    
+                    
+                
+               /*    for(int i=0;i<seanse.size();i++)
+                    
+                    
                    {     
                        String s = seanse.get(i).getData();
                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -88,31 +154,57 @@ function myFunction(wybrana) {
                        String g = wybrana.toString();
                        String wybr = dateFormat.format(wybrana);
                        
-                       
-                       // Tu warunek IF że data taka jak wybrana if(seanse.get(i).getData()==wybrana)
-                      if(s.contains(wybr.toString()))
-                      {
-                          out.println("<article><table>");
-                        out.println("<tr><td width='40%'>" +filmy.get(seanse.get(i).getIdFilmu()).getTytul() +
-                                "</td><td width='20%'>" + wersje.get(seanse.get(i).getIdWersji()).getTekst()  +
-                                "</td><td width='40%'><button type='button'>"+ s +
-                                "</button></td></tr> ");
-                        pom1++;
-                      }
-                     
-                   }
-                 if(pom1==0)
-                      {
-                          out.println("NIE MA ŻADNYCH SEANSÓW W WYBRANEJ DACIE");
-                      }
-                Database.zamknij();
-                  
-            %>
-                    }
-</script>
+      
+                    out.println("<div id='dzis'>" + "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
+                                + "</div>" + "<div class='wersja'>" + 
+                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
+                                + "</div>"  + "<div class='godzina'>"
+                               + s +  "</div></div>" + "</div>");
                     
-         </table>
-        </article>
+                    out.println("<div id='jutro'>" + "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
+                                + "</div>" + "<div class='wersja'>" + 
+                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
+                                + "</div>"  + "<div class='godzina'>"
+                               + s +  "</div></div>" + "</div>");
+                    
+                     out.println("<div id='pojutrze'>" + "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
+                                + "</div>" + "<div class='wersja'>" + 
+                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
+                                + "</div>"  + "<div class='godzina'>"
+                               + s +  "</div></div>" + "</div>");
+                     
+                     out.println("<div id='trzy'>" + "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
+                                + "</div>" + "<div class='wersja'>" + 
+                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
+                                + "</div>"  + "<div class='godzina'>"
+                               + s +  "</div></div>" + "</div>");
+                     
+                     out.println("<div id='cztery'>"+ "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
+                                + "</div>" + "<div class='wersja'>" + 
+                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
+                                + "</div>"  + "<div class='godzina'>"
+                               + s +  "</div></div>" + "</div>");
+                     
+                     out.println("<div id='piec'>"+ "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
+                                + "</div>" + "<div class='wersja'>" + 
+                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
+                                + "</div>"  + "<div class='godzina'>"
+                               + s +  "</div></div>" + "</div>");
+                     
+                     out.println("<div id='szesc'>" + "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
+                                + "</div>" + "<div class='wersja'>" + 
+                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
+                                + "</div>"  + "<div class='godzina'>"
+                               + s +  "</div></div>" + "</div>");
+                     out.println("<div id='wybierzdate'>" + "</div>");
+                       
+                   }*/
+                          Database.zamknij();
+  %>                    
+               
+                   
+ 
+     
     </section>
     <footer>
         Made by LA,SM,ŻB. All rigths reserved :) 
