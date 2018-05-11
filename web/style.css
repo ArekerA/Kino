@@ -156,6 +156,38 @@ img.obraz{
     text-align: center;
     color: red;
 }
+.btd
+{
+    background-color: #333;
+}
+.z2
+{
+        border-style: dashed;
+        border-color: beige;
+        padding: 7px;
+        margin: 8px;
+}
+.z2:hover {
+    background-color: #4CAF50;
+}
+.tytuł2
+{
+    	color:  crimson;
+        font-size: 14pt;
+        
+}
+.godzina
+{
+    font-size: 14pt;
+   
+}
+.wersja2
+{
+    font-size: 14pt;
+   
+}
+
+
 .czas
 {
     padding:2px;
@@ -193,6 +225,7 @@ img.obraz{
     padding: 10px;
     margin: 10px;
 }
+
 input[type=text], input[type=password]
 {
     border-radius: 10px;
