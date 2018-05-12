@@ -14,15 +14,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Test</title>
-        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="../../styles/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="../../styles/jquery-ui.min.css">
+        <link rel="stylesheet" href="../../styles/style-panel.css">
     </head>
     <body>
-        <h1>Test</h1>
-        <form action="index.jsp" method="post">
-            <h1>Aktualności</h1><br>
-            <input class="input-center" type="hidden" name="logut" value="1">
-            <p><input class="input-center" type="submit" value="Wyloguj"></p>
-        </form>
+        <div class="menu">
+            <p class="menu-header">Panel</p>
+            <a href="#" class="button">Aktualności</a>
+            <form action="#" method="post">
+                <input type="hidden" name="logut" value="1">
+                <p><input class="button" type="submit" value="Wyloguj"></p>
+            </form>
+        </div>
+        <div class="content">
         <%
             if (session.getAttribute("logged-user-id") == null) {
                 String site = new String("../index.jsp");
@@ -46,22 +51,110 @@
 
                     Database.polacz();
                     %>
-                    <p><a href="#">Wyświetl aktualności</a><p>
-                    <p><a href="dodaj.jsp">Dodaj aktualność</a><p>
-                    <div>
+                    <div id="add" class="button-green">Dodaj aktualność</div>
+                    <table id="table" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Tytuł</th>
+                                <th>Tekst</th>
+                                <th>Obraz</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         <%
                             ArrayList<Aktualnosc> aktualnosci = Database.readAktualnosci();
                             for (Aktualnosc a : aktualnosci) {
-                                
                         %>
-                        <h2><% out.print(a.getTytul()); %></h2><% out.print(a.getTekst()); %><br/><br/>
+                        <tr>
+                            <td><%=a.getId()%></td>
+                            <td><%=a.getTytul()%></td>
+                            <td><%=a.getTekst()%></td>
+                            <td><%=a.getImg()%></td>
+                            <td><%=a.getData()%></td>
+                        </tr>
                         <%
                             }
                         %>
-                    </div>
+                        </tbody>
+                    </table>
                     <%
                 }
             }
         %>
+            <div id="dialog" title="Basic dialog">
+                
+                <p><p id="tescik"></p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+            </div>
+            <div id="dialog-add" title="Dodaj Aktualność">
+                
+                <p>Heheszki</p>
+            </div>
+        </div>
+        <script src="../../scripts/jquery-3.3.1.min.js"></script>
+        <script src="../../scripts/jquery.dataTables.min.js"></script>
+        <script src="../../scripts/jquery-ui.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                var table = $('#table').DataTable( {
+                    "order": [[ 4, "desc" ]],
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Polish.json"
+                    },
+                    "columnDefs": [
+                        {
+                           'targets': 1,
+                           'render': function(data, type, full, meta){
+                              return data.length > 25 ?data.substr( 0, 22 ) +'…' :data;
+                           }
+                        },
+                        {
+                           'targets': 2,
+                           "width": "50%",
+                           'render': function(data, type, full, meta){
+                              return data.length > 100 ?data.substr( 0, 97 ) +'…' :data;
+                           }
+                        },
+                        {
+                           'targets': 3,
+                           'render': function(data, type, full, meta){
+                              return data.length > 25 ?data.substr( 0, 22 ) +'…' :data;
+                           }
+                        }
+                    ]
+                } );
+                $('#table tbody').on('click', 'tr', function () {
+                    var data = table.row( this ).data();
+                    $( "#dialog" ).dialog( "open" );
+                    $( "#tescik" ).html(data[1]);
+                } );
+                $( "#dialog" ).dialog({
+                    autoOpen: false,
+                    show: {
+                      effect: "fade",
+                      duration: 400
+                    },
+                    hide: {
+                      effect: "fade",
+                      duration: 400
+                    }
+                });
+                $( "#dialog-add" ).dialog({
+                    autoOpen: false,
+                    show: {
+                      effect: "fade",
+                      duration: 400
+                    },
+                    hide: {
+                      effect: "fade",
+                      duration: 400
+                    }
+                });
+                $( "#add" ).click(function() {
+                    $( "#dialog-add" ).dialog( "open" );
+                });
+            } ); 
+        </script>
     </body>
 </html>

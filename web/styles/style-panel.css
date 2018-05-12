@@ -1,0 +1,84 @@
+body{
+    width: 100%;
+    background: #f0f0f0;
+    margin: 0 auto;
+    padding: 0;
+}
+.login-pop-up{
+    position: absolute;
+    width: 500px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    margin: -150px 0 0 -250px;
+    background: rgba(255,255,255,0.7);
+    text-align: center;
+}
+.input-center{
+    text-align: center;
+}
+.error
+{
+    color: #f03030;
+}
+.menu-header{
+    font-size: 2em;
+    text-align: center;
+    font-weight: bold;
+}
+.button {
+    background-color: #323232;
+    color: #e0e0e0;
+    border: none;
+    color: white;
+    padding: 15px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 6px 6px;
+    cursor: pointer;
+    width: 238px;
+    font-family: Arial;
+}
+.button-green
+{
+    background-color: #00c900;
+    color: #e0e0e0;
+    border: none;
+    color: white;
+    padding: 15px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 6px 6px;
+    cursor: pointer;
+    width: 238px;
+    font-family: Arial;
+}
+.menu{
+    background-color: #e0e0e0;
+    float: left;
+    width: 250px;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 0;
+
+}
+.content
+{
+    margin-left:250px;
+    padding: 10px;
+}
+table.dataTable{
+    clear: none;
+}
+.dataTables_wrapper
+{
+    clear: none;
+}
+.dataTables_wrapper:after
+{
+    clear: none;
+}
