@@ -14,26 +14,19 @@
     <body>
         <div class="menu">
             <p class="menu-header">Panel</p>
-            <a href="aktualnosci/" class="button">Aktualności</a>
+            <% if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 2) { %>
+                <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/aktualnosci/" class="button">Aktualności</a>
+            <% } %>
+            <% if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
+                <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/filmy/" class="button">Filmy</a>
+            <% } %>
+            <% if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 2) { %>
+                <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/seanse/" class="button">Seanse</a>
+            <% } %>
             <form action="#" method="post">
                 <input type="hidden" name="logut" value="1">
                 <p><input class="button" type="submit" value="Wyloguj"></p>
             </form>
         </div>
-        <%
-            if (session.getAttribute("logged-user-id") == null) {
-                String site = new String("index.jsp");
-                response.setStatus(response.SC_MOVED_TEMPORARILY);
-                response.setHeader("Location", site);
-            } else if (request.getParameter("logut") != null) {
-                session.setAttribute("logged-user-id", null);
-                session.setAttribute("logged-user-nick", null);
-                session.setAttribute("logged-user-email", null);
-                session.setAttribute("logged-user-level", null);
-                String site = new String("index.jsp");
-                response.setStatus(response.SC_MOVED_TEMPORARILY);
-                response.setHeader("Location", site);
-            }
-        %>
     </body>
 </html>

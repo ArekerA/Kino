@@ -23,7 +23,7 @@
             </form>
             <%
                 if (session.getAttribute("logged-user-id") != null) {
-                    String site = new String("test.jsp");
+                    String site = new String("aktualnosci/");
                     response.setStatus(response.SC_MOVED_TEMPORARILY);
                     response.setHeader("Location", site);
                 }
@@ -41,7 +41,7 @@
                             session.setAttribute("logged-user-email", u.getEmail());
                             session.setAttribute("logged-user-level", u.getLevel());
 
-                            String site = new String("test.jsp");
+                            String site = new String("aktualnosci/");
                             response.setStatus(response.SC_MOVED_TEMPORARILY);
                             response.setHeader("Location", site);
                         }

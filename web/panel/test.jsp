@@ -14,6 +14,7 @@
     </head>
     <body>
         <jsp:include page="menu.jsp"/>
+        ${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}
         <div class="content">
         <%
             if (session.getAttribute("logged-user-id") != null) {

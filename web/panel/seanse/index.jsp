@@ -6,14 +6,13 @@
 
 <%@page import="org.apache.jasper.tagplugins.jstl.ForEach"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Kino.Database"%>
-<%@page import="Kino.Aktualnosc"%>
+<%@page import="Kino.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Aktualności</title>
+        <title>Seanse</title>
         <link rel="stylesheet" href="../../styles/jquery.dataTables.min.css">
         <link rel="stylesheet" href="../../styles/jquery-ui.min.css">
         <link rel="stylesheet" href="../../styles/style-panel.css">
@@ -44,28 +43,32 @@
 
                     Database.polacz();
                     %>
-                    <div id="add" class="button-green">Dodaj aktualność</div>
+                    <div id="add" class="button-green">Dodaj Seans</div>
                     <table id="table" class="display" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Tytuł</th>
-                                <th>Tekst</th>
-                                <th>Obraz</th>
+                                <th>Id Filmu</th>
+                                <th>Nazwa Filmu</th>
+                                <th>Id Wersji</th>
+                                <th>Wersja</th>
                                 <th>Data</th>
+                                <th>Sala</th>
                             </tr>
                         </thead>
                         <tbody>
                         <%
-                            ArrayList<Aktualnosc> aktualnosci = Database.readAktualnosci();
-                            for (Aktualnosc a : aktualnosci) {
+                            ArrayList<Seans> seanse = Database.readSeanse();
+                            for (Seans a : seanse) {
                         %>
                         <tr>
                             <td><%=a.getId()%></td>
-                            <td><%=a.getTytul()%></td>
-                            <td><%=a.getTekst()%></td>
-                            <td><%=a.getImg()%></td>
+                            <td><%=a.getIdFilmu()%></td>
+                            <td><%=Database.readFilm(a.getIdFilmu()).getTytul()%></td>
+                            <td><%=a.getIdWersji()%></td>
+                            <td><%=Database.readWersja(a.getIdWersji()).getTekst()%></td>
                             <td><%=a.getData()%></td>
+                            <td><%=a.getSala()%></td>
                         </tr>
                         <%
                             }
@@ -105,7 +108,6 @@
                         },
                         {
                            'targets': 2,
-                           "width": "50%",
                            'render': function(data, type, full, meta){
                               return data.length > 100 ?data.substr( 0, 97 ) +'…' :data;
                            }

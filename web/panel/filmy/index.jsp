@@ -6,14 +6,13 @@
 
 <%@page import="org.apache.jasper.tagplugins.jstl.ForEach"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Kino.Database"%>
-<%@page import="Kino.Aktualnosc"%>
+<%@page import="Kino.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Aktualności</title>
+        <title>Filmy</title>
         <link rel="stylesheet" href="../../styles/jquery.dataTables.min.css">
         <link rel="stylesheet" href="../../styles/jquery-ui.min.css">
         <link rel="stylesheet" href="../../styles/style-panel.css">
@@ -36,7 +35,7 @@
                     response.setStatus(response.SC_MOVED_TEMPORARILY);
                     response.setHeader("Location", site);
                 }
-                else if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) < 2) {
+                else if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) < 3) {
                     String site = new String("../index.jsp");
                     response.setStatus(response.SC_MOVED_TEMPORARILY);
                     response.setHeader("Location", site);
@@ -44,28 +43,30 @@
 
                     Database.polacz();
                     %>
-                    <div id="add" class="button-green">Dodaj aktualność</div>
+                    <div id="add" class="button-green">Dodaj Film</div>
                     <table id="table" class="display" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Id</th>
                                 <th>Tytuł</th>
-                                <th>Tekst</th>
+                                <th>Opis</th>
+                                <th>Czas</th>
                                 <th>Obraz</th>
-                                <th>Data</th>
+                                <th>Link</th>
                             </tr>
                         </thead>
                         <tbody>
                         <%
-                            ArrayList<Aktualnosc> aktualnosci = Database.readAktualnosci();
-                            for (Aktualnosc a : aktualnosci) {
+                            ArrayList<Film> filmy = Database.readFilmy();
+                            for (Film a : filmy) {
                         %>
                         <tr>
                             <td><%=a.getId()%></td>
                             <td><%=a.getTytul()%></td>
-                            <td><%=a.getTekst()%></td>
+                            <td><%=a.getOpis()%></td>
+                            <td><%=a.getCzas()%></td>
                             <td><%=a.getImg()%></td>
-                            <td><%=a.getData()%></td>
+                            <td><%=a.getLink()%></td>
                         </tr>
                         <%
                             }
