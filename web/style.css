@@ -82,7 +82,7 @@ li a:hover {
 	float: left;
 	padding: 5px;	
 	margin: 10px;
-	width: 220px;
+	width: 10%;
 	height: 0 auto;
 }
 .prawe
@@ -92,7 +92,7 @@ li a:hover {
 	float: right;
 	padding: 5px;	
 	margin: 10px;
-	width: 220px;
+	width: 10%;
 	height: 0 auto;
 }
 section
@@ -249,15 +249,15 @@ input[type=submit] {
 }
 
 @media only screen and (max-width: 600px) {
-    .boczne
+        .boczne
 	{
 		float:none;
-		width: 100%;
+		width: 0%;
 	}
 	.prawe
 	{
 		float:none;
-		width: 100%;
+		width: 0%;
 	}
 	section
 	{

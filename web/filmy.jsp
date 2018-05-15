@@ -25,47 +25,7 @@
                 <ul class="menu" id="menu">
                 </ul>
         <aside>
-                <div class="boczne">
-                    <p>
-                    Litwo! Ojczyzno moja! Ty jesteś jak zdrowie.
-                    Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                    młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                    rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-                    ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło pali.</p>
-                </div>
-                <div class="prawe">
-                        <p>Litwo! Ojczyzno moja! Ty jesteś jak zdrowie.
-                                Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                                młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                                rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-                                ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło paliLitwo! O
-                                jczyzno moja! Ty jesteś jak zdrowie.
-                                Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                                młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                                rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-
-                                ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło paliLitwo! O
-                                jczyzno moja! Ty jesteś jak zdrowie.
-                                Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                                młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                                rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-                                ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło paliLitwo! 
-                                Ojczyzno moja! Ty jesteś jak zdrowie.
-                                Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                                młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                                rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-                                ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło paliLitwo! O
-                                jczyzno moja! Ty jesteś jak zdrowie.
-                                Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                                młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                                rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-                                ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło paliLitwo!
-                                 Ojczyzno moja! Ty jesteś jak zdrowie.
-                                Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                                młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                                rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-                                ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło pali.</p>
-                </div>
+              
         </aside>
             <section>
                 <%
@@ -78,7 +38,7 @@
                         out.println("<th class=\"plakat\" rowspan=\"2\"><img class=\"posterr\" src=\"img/" + a.getImg() + "\" alt=\"obraz\"></th> ");
                         out.println("<th class=\"tytul\">" + a.getTytul() + "</th>");
                         out.println("<th class=\"czas\">" + a.getCzas() + "</th>");
-                        out.println("<th class=\"zwiastun\" rowspan=\"2\"> <iframe width=\"420\" height=\"315\" src=\""+a.getLink()+"\"> </iframe></th>");
+                        out.println("<th class=\"zwiastun\" rowspan=\"2\"> <iframe width=\"210\" height=\"160\" src=\""+a.getLink()+"\"> </iframe></th>");
                         out.println("</tr>");
                         out.println("<tr>");
                         out.println("<td class=\"opis\" colspan=\"2\">" + a.getOpis() + "</td>");

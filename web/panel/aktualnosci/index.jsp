@@ -83,7 +83,21 @@
             </div>
             <div id="dialog-add" title="Dodaj Aktualność">
                 
-                <p>Heheszki</p>
+                <p>Tutaj można dodać akutalność</p>
+                <form action="dodaj.jsp" method="post">
+                Tytuł:
+                 <br>
+                <input type="text" name="tytul"> 
+                 <br>
+                 Treść:
+                <br>
+                <input type="text" name="tekst" >  
+                nazwa pliku (np.: ex.jpg):
+                <br>
+                <input type="text" name="img" > 
+                 <br>
+                <input type="submit" value="Potwierdź">
+                </form>
             </div>
         </div>
         <script src="../../scripts/jquery-3.3.1.min.js"></script>
