@@ -82,3 +82,7 @@ table.dataTable{
 {
     clear: none;
 }
+.center
+{
+    text-align: center;
+}

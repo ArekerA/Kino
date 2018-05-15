@@ -448,13 +448,23 @@ public class Database {
             return c;
         }
     }
-    public static boolean createAktualnosc(String img, String tytul, String tekst)
+    public static int readNextIdAktualnosc()
     {
         try {
             Statement st = con.createStatement();
             ResultSet r = st.executeQuery( "Select MAX(id) as max from aktualnosci;");
             r.next();
-            int id = r.getInt("max")+1;
+            return r.getInt("max")+1;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd createAktualnosc()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return -1;
+        }
+    }
+    public static boolean createAktualnosc(String img, String tytul, String tekst)
+    {
+        try {
+            Statement st = con.createStatement();
+            int id = readNextIdAktualnosc();
             st.executeUpdate("INSERT INTO aktualnosci VALUES("+id+", datetime('now','localtime'), '"+img+"', '"+tytul+"', '"+tekst+"');");
             st.close();
             return true;

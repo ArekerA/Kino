@@ -4,6 +4,7 @@
     Author     : Arekl
 --%>
 
+<%@page import="java.io.File"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.ForEach"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Kino.Database"%>
@@ -43,6 +44,7 @@
                 } else {
 
                     Database.polacz();
+                    
                     %>
                     <div id="add" class="button-green">Dodaj aktualność</div>
                     <table id="table" class="display" style="width:100%">
@@ -77,13 +79,19 @@
                 }
             }
         %>
-            <div id="dialog" title="Basic dialog">
+            <div id="dialog" title="Modyfikuj Aktualność">
                 
                 <p><p id="tescik"></p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
             </div>
             <div id="dialog-add" title="Dodaj Aktualność">
-                
-                <p>Heheszki</p>
+                <div class='center'>
+                    <form action="#" method="post">
+                        <input class='input-center' type="text" name="tytul" placeholder="Tytuł"><br/><br/>
+                        <textarea name="tekst" rows="9" cols="50">Treść</textarea><br/><br/>
+                        <input type="text" name="img" placeholder="Obraz"><br/><br/>
+                        <input type='submit' value='Dodaj' class="button-green">
+                    </form>
+                </div>
             </div>
         </div>
         <script src="../../scripts/jquery-3.3.1.min.js"></script>
@@ -124,6 +132,8 @@
                     $( "#tescik" ).html(data[1]);
                 } );
                 $( "#dialog" ).dialog({
+                    height: 400,
+                    width: 500,
                     autoOpen: false,
                     show: {
                       effect: "fade",
@@ -135,6 +145,8 @@
                     }
                 });
                 $( "#dialog-add" ).dialog({
+                    height: 400,
+                    width: 500,
                     autoOpen: false,
                     show: {
                       effect: "fade",

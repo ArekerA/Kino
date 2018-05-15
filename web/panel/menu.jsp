@@ -14,15 +14,17 @@
     <body>
         <div class="menu">
             <p class="menu-header">Panel</p>
-            <% if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 2) { %>
-                <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/aktualnosci/" class="button">Aktualności</a>
-            <% } %>
-            <% if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
-                <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/filmy/" class="button">Filmy</a>
-            <% } %>
-            <% if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 2) { %>
-                <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/seanse/" class="button">Seanse</a>
-            <% } %>
+            <% if(session.getAttribute("logged-user-level") != null){
+                 if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 2) { %>
+                    <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/aktualnosci/" class="button">Aktualności</a>
+                <% } %>
+                <% if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
+                    <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/filmy/" class="button">Filmy</a>
+                <% } %>
+                <% if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 2) { %>
+                    <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/seanse/" class="button">Seanse</a>
+                <% }
+            }%>
             <form action="#" method="post">
                 <input type="hidden" name="logut" value="1">
                 <p><input class="button" type="submit" value="Wyloguj"></p>
