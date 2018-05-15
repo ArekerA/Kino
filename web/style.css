@@ -130,16 +130,17 @@ img.obraz{
 }
 .posterr
 {
-    width: 100px;
-    height: auto;
+    height:300px;
+    width: 200px;
     float: left;
     padding: 10px;
 }
 .plakat
 {
-    width: 25%;
+    width: 10%;
     padding: 10px;
 }
+
 .opis
 {
     padding: 10px;
