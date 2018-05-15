@@ -17,6 +17,7 @@
     </head>
     <body>
        <%@ page import ="java.sql.*" %>
+       <script type="text/javascript" src="check.js">ukryj();</script>
 <%
     String userid = request.getParameter("login");    
     String pwd = request.getParameter("haslo");
@@ -25,7 +26,6 @@
     Connection  con = DriverManager.getConnection("jdbc:sqlite:mydb.sqlite");
     Statement st = con.createStatement();
     ResultSet rs;
-   
     rs = st.executeQuery("select * from Userzy where nick='" + userid + "' and pass='" + pwd + "'");
     if (rs.next()) {
         session.setAttribute("userid", userid);

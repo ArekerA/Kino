@@ -24,7 +24,7 @@
     rs = st.executeQuery("SELECT MAX(id) FROM Userzy;");
     rs.next();
     //ResultSet rs;
-    int i =  st.executeUpdate("INSERT INTO Userzy (id,nick,email,pass) VALUES ('SELECT MAX(id)FROM Userzy','"+user+"','"+email+"','"+pwd+"');");
+    int i =  st.executeUpdate("INSERT INTO Userzy (id,nick,email,pass,level) VALUES ('SELECT MAX(id)FROM Userzy','"+user+"','"+email+"','"+pwd+"','1');");
     if (i > 0) {
         //session.setAttribute("userid", user);
         response.sendRedirect("cennik.html");

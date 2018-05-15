@@ -84,9 +84,90 @@
                 
                 <p><p id="tescik"></p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
             </div>
-            <div id="dialog-add" title="Dodaj Aktualność">
+            <div id="dialog-add" title="Dodaj Seans">
                 
-                <p>Heheszki</p>
+                 <p>Tutaj można dodać seans</p>
+                <form action="dodaj.jsp" method="post">
+                Tytuł:
+                 <br>
+                 <select name='id'>    
+                     <% 
+                         Database.polacz();
+                         ArrayList<Film> filmy = Database.readFilmy();
+                         int i = 0;
+                          for(Film f : Database.readFilmy())
+                          {         
+                                if (i == 0)
+                                { 
+                                    i = 1;
+                                 
+                                 out.print("<option selected='selected'>" + f.getTytul() + "</option>");
+                                }
+                                else
+                                {
+                                    out.print("<option>" + f.getTytul() + "</option>");
+                                }
+                          }
+                          Database.zamknij();
+                         %>
+                
+                </select>
+                 <br>
+                Wersja:
+                <br>
+                 <select name="wersja"> 
+                 <% 
+                         Database.polacz();
+                         ArrayList<Wersja> wersje = Database.readWersje();
+                         i = 0;
+                          for(Wersja w : Database.readWersje())
+                          {         
+                                if (i == 0)
+                                { 
+                                    i = 1;
+                                 
+                                 out.print("<option selected='selected'>" + w.getTekst() + "</option>");
+                                }
+                                else
+                                {
+                                    out.print("<option>" + w.getTekst() + "</option>");
+                                }
+                          }
+                          Database.zamknij();
+                         %>  
+                </select>
+                <br>
+                Data:
+                <br>
+                <input type="text" name="data" >  
+                <br>
+                Sala:
+                <br>
+                 <select name="sala"> 
+                <% 
+                         Database.polacz();
+                         ArrayList<Sala> sale = Database.readSale();
+                         i = 0;
+                          for(Sala s : Database.readSale())
+                          {         
+                                if (i == 0)
+                                { 
+                                    i = 1;
+                                 
+                                 out.print("<option selected='selected'>" + s.getId() + "</option>");
+                                }
+                                else
+                                {
+                                    out.print("<option>" + s.getId() + "</option>");
+                                }
+                          }
+                          Database.zamknij();
+                         %>  
+                </select>
+                 <br>
+                 <br>
+                <input type="submit" value="Potwierdź">
+                </form>
             </div>
         </div>
         <script src="../../scripts/jquery-3.3.1.min.js"></script>
