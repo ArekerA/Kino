@@ -67,6 +67,8 @@ public class Database {
             st.executeUpdate("INSERT INTO Sale VALUES ( 0, 'sala1.jpg', '0,0,100,100;100,0,100,100;0,100,100,100;100,100,100,100');");
             st.executeUpdate("INSERT INTO Wersje VALUES ( 0, '2D');");
             st.executeUpdate("INSERT INTO Seanse VALUES ( 0, 0, 0, datetime('now'), 0);");
+            st.executeUpdate("INSERT INTO Seanse VALUES ( 1, 0, 0, datetime('now'), 0);");
+            st.executeUpdate("INSERT INTO Seanse VALUES ( 2, 0, 0, datetime('now'), 0);");
             st.executeUpdate("INSERT INTO Miejsca VALUES ( 0, 0, 0, 0),( 1, 0, 1, 0),( 2, 0, 2, 0),( 3, 0, 3, 0);");
             st.executeUpdate("INSERT INTO Aktualnosci VALUES ( 0, date('now'), 'a1.jpg', 'Tomb Raider już dostępny', 'Lara Croft (Alicia Vikander) wyrusza na poszukiwania swojego zaginionego ojca, lorda Richarda Crofta (Dominic West), który zniknął, gdy dziewczyna miała kilkanaście lat. Podczas swoich poszukiwań rozbija się u wybrzeży tajemniczej wyspy niedaleko Japonii. W trakcie pobytu na nieznanym lądzie dziewczyna przechodzi zmianę psychiczną oraz fizyczną i staje się słynną poszukiwaczką przygód znaną jako \"Tomb Raider\"');");
             st.executeUpdate("INSERT INTO Strony VALUES ( 0, 'kontakt', 'dane kontaktowe');");
@@ -486,14 +488,14 @@ public class Database {
     {
         return createBilet(a.getNazwa(), a.getCena());
     }
-    public static boolean createFilm(String tytul, String czas, String img, String opis)
+    public static boolean createFilm(String tytul, String czas, String img, String opis, String link)
     {
         try {
             Statement st = con.createStatement();
             ResultSet r = st.executeQuery( "Select MAX(id) as max from filmy;");
             r.next();
             int id = r.getInt("max")+1;
-            st.executeUpdate("INSERT INTO filmy VALUES("+id+", '"+tytul+"', '"+czas+"', '"+img+"', '"+opis+"');");
+            st.executeUpdate("INSERT INTO filmy VALUES("+id+", '"+tytul+"', '"+czas+"', '"+img+"', '"+opis+"', '"+link+"');");
             st.close();
             return true;
         } catch (SQLException e) {
@@ -503,7 +505,7 @@ public class Database {
     }
     public static boolean createFilm(Film a)
     {
-        return createFilm(a.getTytul(), a.getCzas(),a.getImg(),a.getOpis());
+        return createFilm(a.getTytul(), a.getCzas(),a.getImg(),a.getOpis(),a.getLink());
     }
     public static boolean createMiejsce(int idSeansu, int miejsce, int dostepnosc)
     {

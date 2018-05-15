@@ -89,12 +89,14 @@
                  <br>
                 <input type="text" name="tytul"> 
                  <br>
-                 Treść:
+                Treść:
                 <br>
                 <input type="text" name="tekst" >  
-                nazwa pliku (np.: ex.jpg):
                 <br>
-                <input type="text" name="img" > 
+                Plik Graficzny:
+                <br>
+                <input type="file" name="img" accept=".png, .jpg, .jpeg" > 
+            
                  <br>
                 <input type="submit" value="Potwierdź">
                 </form>

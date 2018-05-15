@@ -82,9 +82,34 @@
                 
                 <p><p id="tescik"></p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
             </div>
-            <div id="dialog-add" title="Dodaj Aktualność">
+            <div id="dialog-add" title="Dodaj Film">
                 
-                <p>Heheszki</p>
+                 <p>Tutaj można dodać film</p>
+                <form action="dodaj.jsp" method="post">
+                Tytuł:
+                 <br>
+                <input type="text" name="tytul"> 
+                 <br>
+                Treść:
+                <br>
+                <input type="text" name="czas" >  
+                <br>
+                Plik Graficzny:
+                <br>
+                <input type="file" name="img" accept=".png, .jpg, .jpeg" > 
+              <br>
+                Opis:
+                <br>
+                <input type="text" name="opis" >  
+                <br>
+                  <br>
+                Link:
+                <br>
+                <input type="text" name="link" >  
+                <br>
+                 <br>
+                <input type="submit" value="Potwierdź">
+                </form>
             </div>
         </div>
         <script src="../../scripts/jquery-3.3.1.min.js"></script>

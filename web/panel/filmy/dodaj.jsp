@@ -20,10 +20,13 @@
     <body>
        <%
     String tytul = request.getParameter("tytul");    
-    String tekst = request.getParameter("tekst");
+    String czas = request.getParameter("czas");
     String img = request.getParameter("img");
+    String opis = request.getParameter("opis");
+    String link = request.getParameter("link");
+   
      Database.polacz();
-     Database.createAktualnosc(img, tytul, tekst);
+     Database.createFilm(tytul, czas, img, opis, link);
      Database.zamknij();
      
  response.sendRedirect("index.jsp");
