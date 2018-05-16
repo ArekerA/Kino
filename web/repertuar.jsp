@@ -103,7 +103,7 @@
                                 + "</div>" + "<div class='wersja2'>" + 
                                 wersje.get(s.getIdWersji()).getTekst() + ' '
                                 + "</div>"  + "<div class='godzina'>"
-                               + "Godzina Rozpoczęcia Seansu: " +  s.getData().substring(11) + ' ' +  "</div></div>" );
+                               + "Godzina Rozpoczęcia Seansu: " +  s.getData().substring(11) + ' ' +  "</div><button onclick=\"myFunction('kupbilet.jsp', 'cennik', 600, 600)\">Kup Bilet</button></div>" );
                     }
                     out.print("</div >");
                     data.setTime(data.getTime() + 1 * 24 * 60 * 60 * 1000 );
@@ -275,5 +275,26 @@
     </footer>
 </div>
 <script src="menu.js"></script>
+<script>
+function myFunction(url, title, w, h) {
+   
+    // Fixes dual-screen position                         Most browsers      Firefox
+    var dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
+    var dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
+
+    var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+    var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+    var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+    var top = ((height / 2) - (h / 2)) + dualScreenTop;
+    var newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+    // Puts focus on the newWindow
+    if (window.focus) {
+        newWindow.focus();
+    }
+
+}
+</script>
 </body>
 </html>
