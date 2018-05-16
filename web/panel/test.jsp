@@ -4,6 +4,7 @@
     Author     : Arekl
 --%>
 
+<%@page import="Kino.Database"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,6 +19,9 @@
         <div class="content">
         <%
             if (session.getAttribute("logged-user-id") != null) {
+                Database.polacz();
+                out.print(Database.checkNick("hehe"));
+                out.print(Database.checkNick("admin"));
                 out.print("<h2>Nick: "+ session.getAttribute("logged-user-nick")+"</h2>");
                 out.print("<h2>Email: "+ session.getAttribute("logged-user-email")+"</h2>");
                 out.print("<h2>Level: "+ session.getAttribute("logged-user-level")+"</h2>");

@@ -80,6 +80,38 @@ public class Database {
             System.out.println(e);
         }
     }
+    public static boolean checkNick(String nick)
+    {
+        boolean x = false;
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery("Select * from Userzy where nick='"+nick+"';");
+            if(!r.next())
+                x = true;
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("====\nBląd checkNick() id: "+nick+"\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+        }
+        finally {
+            return x;
+        }
+    }
+    public static boolean checkEmail(String email)
+    {
+        boolean x = false;
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery("Select * from Userzy where email='"+email+"';");
+            if(!r.next())
+                x = true;
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("====\nBląd checkEmail() id: "+email+"\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+        }
+        finally {
+            return x;
+        }
+    }
     public static User login(String login, String pass)
     {
         User c = null;
