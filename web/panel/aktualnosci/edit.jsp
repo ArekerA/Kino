@@ -24,25 +24,12 @@
     <body>
         <%
             request.setCharacterEncoding("UTF-8");
-            Database.polacz();
             if (request.getParameter("tytul") != null) {
-                Part filePart = request.getPart("img");
-                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                String ext = "";
-                int i = fileName.lastIndexOf('.');
-                if (i > 0) {
-                    ext = fileName.substring(i + 1);
-                }
-                int id = Database.readNextIdAktualnosc();
-                fileName = "a" + id + "." + ext;
-                File file = new File(request.getRealPath("/") + "img/", fileName);
-
-                InputStream input = filePart.getInputStream();
-                Files.copy(input, file.toPath());
+            Database.polacz();
                 out.print(request.getParameter("tekst"));
-                Database.createAktualnosc(fileName, request.getParameter("tytul"), request.getParameter("tekst"));
+                Database.updateAktualnosc(request.getParameter("tytul"), request.getParameter("tekst"), Integer.parseInt(request.getParameter("id")));
+                Database.zamknij();
             }
-            Database.zamknij();
             String site = new String("index.jsp");
             response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", site);

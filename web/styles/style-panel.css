@@ -57,6 +57,22 @@ body{
     width: 238px;
     font-family: Arial;
 }
+.button-red
+{
+    background-color: #d90000;
+    color: #e0e0e0;
+    border: none;
+    color: white;
+    padding: 15px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 6px 6px;
+    cursor: pointer;
+    width: 238px;
+    font-family: Arial;
+}
 .menu{
     background-color: #e0e0e0;
     float: left;

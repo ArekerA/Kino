@@ -22,7 +22,9 @@ public class Database {
     public static Connection polacz() {
         try {
             Class.forName("org.sqlite.JDBC");
-            con = DriverManager.getConnection("jdbc:sqlite:mydb.sqlite");
+            SQLiteConfig config = new SQLiteConfig();
+            config.setEncoding(SQLiteConfig.Encoding.UTF8);
+            con = DriverManager.getConnection("jdbc:sqlite:mydb.sqlite", config.toProperties());
         }catch (ClassNotFoundException e) {
             System.out.println(e);
         } catch (SQLException ex) {
@@ -70,7 +72,7 @@ public class Database {
             st.executeUpdate("INSERT INTO Seanse VALUES ( 1, 0, 0, datetime('now'), 0);");
             st.executeUpdate("INSERT INTO Seanse VALUES ( 2, 0, 0, datetime('now'), 0);");
             st.executeUpdate("INSERT INTO Miejsca VALUES ( 0, 0, 0, 0),( 1, 0, 1, 0),( 2, 0, 2, 0),( 3, 0, 3, 0);");
-            st.executeUpdate("INSERT INTO Aktualnosci VALUES ( 0, date('now'), 'a1.jpg', 'Tomb Raider już dostępny', 'Lara Croft (Alicia Vikander) wyrusza na poszukiwania swojego zaginionego ojca, lorda Richarda Crofta (Dominic West), który zniknął, gdy dziewczyna miała kilkanaście lat. Podczas swoich poszukiwań rozbija się u wybrzeży tajemniczej wyspy niedaleko Japonii. W trakcie pobytu na nieznanym lądzie dziewczyna przechodzi zmianę psychiczną oraz fizyczną i staje się słynną poszukiwaczką przygód znaną jako \"Tomb Raider\"');");
+            st.executeUpdate("INSERT INTO Aktualnosci VALUES ( 0, date('now'), 'a0.jpg', 'Tomb Raider już dostępny', 'Lara Croft (Alicia Vikander) wyrusza na poszukiwania swojego zaginionego ojca, lorda Richarda Crofta (Dominic West), który zniknął, gdy dziewczyna miała kilkanaście lat. Podczas swoich poszukiwań rozbija się u wybrzeży tajemniczej wyspy niedaleko Japonii. W trakcie pobytu na nieznanym lądzie dziewczyna przechodzi zmianę psychiczną oraz fizyczną i staje się słynną poszukiwaczką przygód znaną jako \"Tomb Raider\"');");
             st.executeUpdate("INSERT INTO Strony VALUES ( 0, 'kontakt', 'dane kontaktowe');");
             st.executeUpdate("INSERT INTO Bilety VALUES ( 0, 'normalny', 12.50);");
             st.executeUpdate("INSERT INTO Userzy VALUES ( 0, 'admin', 'admin@example.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 3),( 2, 'prac', 'admin@example.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 2);");
@@ -842,6 +844,18 @@ public class Database {
             return true;
         } catch (SQLException e) {
             System.out.println("====\nBląd deleteWersja()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateAktualnosc(String tytul, String tekst, int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE aktualnosci SET tytul = '"+tytul+"', tekst = '"+tekst+"' WHERE id = "+id+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateAktualnosc()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
             return false;
         }
     }
