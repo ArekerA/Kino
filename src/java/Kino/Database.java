@@ -114,6 +114,23 @@ public class Database {
             return x;
         }
     }
+    
+     public static boolean checkPass(String pass)
+    {
+        boolean x = false;
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery("Select * from Userzy where pass='"+pass+"';");
+            if(!r.next())
+                x = true;
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("====\nBląd checkPass() id: "+pass+"\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+        }
+        finally {
+            return x;
+        }
+    }
     public static User login(String login, String pass)
     {
         User c = null;

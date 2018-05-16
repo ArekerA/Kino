@@ -4,11 +4,8 @@
     Author     : Mateusz
 --%>
 
-<%@page import="java.util.logging.Level"%>
-<%@page import="java.util.logging.Level"%>
-<%@page import="java.util.logging.Logger"%>
-<%@page import="Kino.Database"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Kino.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,20 +18,62 @@
 <%
     String userid = request.getParameter("login");    
     String pwd = request.getParameter("haslo");
-     String pwd1 = request.getParameter("confirmed");
-     Class.forName("org.sqlite.JDBC");
-    Connection  con = DriverManager.getConnection("jdbc:sqlite:mydb.sqlite");
-    Statement st = con.createStatement();
-    ResultSet rs;
-    rs = st.executeQuery("select * from Userzy where nick='" + userid + "' and pass='" + pwd + "'");
-    if (rs.next()) {
-        session.setAttribute("userid", userid);
-        //out.println("welcome " + userid);
-        //out.println("<a href='logout.jsp'>Log out</a>");
-        response.sendRedirect("cennik.html");
-    } else {
-        out.println("Invalid password <a href='index.jsp'>try again</a>");
-    }
+  
+    if (session.getAttribute("logged-user-id") != null) {
+                    String site = new String("index.html");
+                    response.setStatus(response.SC_MOVED_TEMPORARILY);
+                    response.setHeader("Location", site);
+                }
+                if (request.getParameter("login") != null && request.getParameter("haslo") != null) {
+                    if (!request.getParameter("login").isEmpty() && !request.getParameter("haslo").isEmpty()) {
+                        Database.polacz();
+                        User u = Database.login(
+                                request.getParameter("login"),
+                                request.getParameter("haslo"));
+                        if (u == null) {
+                             Database.zamknij();
+                                String site = new String("zaloguj_1.jsp");
+                                response.setStatus(response.SC_MOVED_TEMPORARILY);
+                                response.setHeader("Location", site);
+                        } else {
+                            session.setAttribute("logged-user-id", u.getId());
+                            session.setAttribute("logged-user-nick", u.getNick());
+                            session.setAttribute("logged-user-email", u.getEmail());
+                            session.setAttribute("logged-user-level", u.getLevel());
+
+                            String site = new String("index.html");
+                            response.setStatus(response.SC_MOVED_TEMPORARILY);
+                            response.setHeader("Location", site);
+                        }
+                        Database.zamknij();
+                    }
+                }
+    
+    
+    
+    /*
+Database.polacz();
+
+if(Database.checkNick(userid) && Database.checkEmail(pwd))
+{
+    Database.zamknij();
+    String site = new String("zaloguj_1.jsp");
+      response.setStatus(response.SC_MOVED_TEMPORARILY);
+            response.setHeader("Location", site);
+}
+else
+{
+    Database.login(userid, pwd);
+    Database.zamknij();
+    String site = new String("repertuar.jsp");
+      response.setStatus(response.SC_MOVED_TEMPORARILY);
+            response.setHeader("Location", site);
+            
+}*/
+
+
+
+
     
 %>
     </body>
