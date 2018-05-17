@@ -4,7 +4,9 @@
     Author     : Mateusz
 --%>
 
+<link rel="stylesheet" href="style.css">
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Kino.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,6 +25,7 @@
            
     <section>
         <div class="login">
+            <br>
             <h1>Podaj wymagane dane</h1> 
             <form action="register.jsp" method="post">
              Imię (albo ksywka):
@@ -50,6 +53,6 @@
     </footer>
 </div>
 
-<script src="menu.js"></script>
+  <jsp:include page="menu.jsp"/>
     </body>
 </html>

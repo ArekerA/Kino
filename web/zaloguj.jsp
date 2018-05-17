@@ -4,7 +4,9 @@
     Author     : Mateusz
 --%>
 
-<%@page contentType="text/html"  pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="style.css">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Kino.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,19 +24,50 @@
         </ul>
            
     <section>
+        
         <div class="login">
+            <%
+                if (session.getAttribute("logged-user-id") != null) {
+                    String site = new String("zalogu");
+                    response.setStatus(response.SC_MOVED_TEMPORARILY);
+                    response.setHeader("Location", site);
+                }
+                if (request.getParameter("login") != null && request.getParameter("pass") != null) {
+                    if (!request.getParameter("login").isEmpty() && !request.getParameter("pass").isEmpty()) {
+                        Database.polacz();
+                        User u = Database.login(
+                                request.getParameter("login"),
+                                SHA256.szyfruj(request.getParameter("pass")));
+                        if (u == null) {
+                            out.print("<p class=\"error\">BŁĘDNE DANE LOGOWANIA</p>");
+                        } else {
+                            session.setAttribute("logged-user-id", u.getId());
+                            session.setAttribute("logged-user-nick", u.getNick());
+                            session.setAttribute("logged-user-email", u.getEmail());
+                            session.setAttribute("logged-user-level", u.getLevel());
+
+                            String site = new String("index.jsp");
+                            response.setStatus(response.SC_MOVED_TEMPORARILY);
+                            response.setHeader("Location", site);
+                        }
+                        Database.zamknij();
+                    }
+                }
+            %>
             <h1>Podaj dane do logowania</h1> 
-            <form action="login.jsp" method="post">
+            <form action="zaloguj.jsp" method="post">
              Login:
               <br>
              <input type="text" name="login"> 
              <br><br>
              Hasło:
               <br>
-              <input type="password" name="haslo"> 
+              <input type="password" name="pass"> 
              <br><br>
             <input type="submit" value="Potwierdź">
             </form>
+             
+            
             <br>
             <h2>Nie masz konta?</h2>
              
@@ -49,6 +82,6 @@
     </footer>
 </div>
 
-<script src="menu.js"></script>
+  <jsp:include page="menu.jsp"/>
     </body>
 </html>

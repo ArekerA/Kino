@@ -2,7 +2,8 @@
 <html>
 <head>
 <link rel="stylesheet" href="style.css">
-<meta charset="UTF-8">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Kino.*" %>
 <title>Kino Planeta</title>
 </head>
 <body>
@@ -26,18 +27,18 @@
         <table>
             <tr><td>Seans</td><td>Normalny</td><td>Ulgowy</td></tr>
             
-            <tr>    <td><div class="dwade">2D</div></td>    <td><div class="dwade">13zł</div></td>   <td><div class="dwade">10zł</div></td>   </tr>
+            <tr>    <td><div class="dwade">2D</div></td>    <td><div class="dwade">13zł</div></td>   <td><div class="dwade">10zł</div></td>   </tr>
             
-            <tr>    <td><div class="trzyde">3D</div></td>     <td><div class="trzyde">15zł</div></td>       <td><div class="trzyde">13zł</div></td>   </tr>
+            <tr>    <td><div class="trzyde">3D</div></td>     <td><div class="trzyde">15zł</div></td>       <td><div class="trzyde">13zł</div></td>   </tr>
         </table>    
         </article>
         
     </section>
     <footer>
-        Made by LA,SM,ŻM. All rigths reserved :)
+        Made by LA,SM,BŻ. All rigths reserved :)
     </footer>
 </div>
 
-<script src="menu.js"></script>
+  <jsp:include page="menu.jsp"/>
 </body>
 </html>

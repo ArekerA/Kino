@@ -53,7 +53,7 @@
                         piec.setTime(dzis.getTime() + 1 * 24 * 60 * 60 * 1000 * 5);
                         szesc.setTime(dzis.getTime() + 1 * 24 * 60 * 60 * 1000 * 6);     
         %>
-        <input class= "btd" type="button" onclick = "pokazuj('dzis')" value=<%String ds = dateFormat.format(dzis); out.println(ds);%>>
+        <input type="button" onclick = "pokazuj('dzis')" value=<%String ds = dateFormat.format(dzis); out.println(ds);%>>
         <input type="button" onclick = "pokazuj('jutro')" value=<%String jt = dateFormat.format(jutro); out.println(jt);%>>
         <input type="button" onclick = "pokazuj('dwa')" value=<%String dw = dateFormat.format(dwa); out.println(dw);%>>
         <input type="button" onclick = "pokazuj('trzy')" value=<%String tr = dateFormat.format(trzy); out.println(tr);%>>
@@ -202,67 +202,7 @@
                                + "Godzina Rozpoczęcia Seansu: " +  s.getData().substring(11) + ' ' +  "</div></div>" );
                     }
                     out.print("</div>");
-                 
-                   
-                    
-                    
-                    
                 
-               /*    for(int i=0;i<seanse.size();i++)
-                    
-                    
-                   {     
-                       String s = seanse.get(i).getData();
-                       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
-                       Date date = sdf.parse(s);
-                       String g = wybrana.toString();
-                       String wybr = dateFormat.format(wybrana);
-                       
-      
-                    out.println("<div id='dzis'>" + "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
-                                + "</div>" + "<div class='wersja'>" + 
-                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
-                                + "</div>"  + "<div class='godzina'>"
-                               + s +  "</div></div>" + "</div>");
-                    
-                    out.println("<div id='jutro'>" + "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
-                                + "</div>" + "<div class='wersja'>" + 
-                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
-                                + "</div>"  + "<div class='godzina'>"
-                               + s +  "</div></div>" + "</div>");
-                    
-                     out.println("<div id='pojutrze'>" + "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
-                                + "</div>" + "<div class='wersja'>" + 
-                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
-                                + "</div>"  + "<div class='godzina'>"
-                               + s +  "</div></div>" + "</div>");
-                     
-                     out.println("<div id='trzy'>" + "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
-                                + "</div>" + "<div class='wersja'>" + 
-                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
-                                + "</div>"  + "<div class='godzina'>"
-                               + s +  "</div></div>" + "</div>");
-                     
-                     out.println("<div id='cztery'>"+ "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
-                                + "</div>" + "<div class='wersja'>" + 
-                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
-                                + "</div>"  + "<div class='godzina'>"
-                               + s +  "</div></div>" + "</div>");
-                     
-                     out.println("<div id='piec'>"+ "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
-                                + "</div>" + "<div class='wersja'>" + 
-                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
-                                + "</div>"  + "<div class='godzina'>"
-                               + s +  "</div></div>" + "</div>");
-                     
-                     out.println("<div id='szesc'>" + "<div id='test'>" + "<div class='tytuł'>" + filmy.get(seanse.get(i).getIdFilmu()).getTytul() 
-                                + "</div>" + "<div class='wersja'>" + 
-                                wersje.get(seanse.get(i).getIdWersji()).getTekst() 
-                                + "</div>"  + "<div class='godzina'>"
-                               + s +  "</div></div>" + "</div>");
-                     out.println("<div id='wybierzdate'>" + "</div>");
-                       
-                   }*/
                           Database.zamknij();
   %>                    
                
@@ -274,7 +214,7 @@
         Made by LA,SM,ŻB. All rigths reserved :) 
     </footer>
 </div>
-<script src="menu.js"></script>
+  <jsp:include page="menu.jsp"/>
 <script>
 function myFunction(url, title, w, h) {
    

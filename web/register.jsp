@@ -4,9 +4,8 @@
     Author     : Mateusz
 --%>
 
-<%@page import="jdk.nashorn.internal.ir.BreakNode"%>
-<%@page import="Kino.Database"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Kino.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -57,11 +56,30 @@ else
                 else
                     {
                         
-                Database.createUser(user, email, pwd, 1);
-                Database.zamknij();
-                 String site = new String("index.html");
-                 response.setStatus(response.SC_MOVED_TEMPORARILY);
-                 response.setHeader("Location", site);
+                Database.createUser(user, email, SHA256.szyfruj(request.getParameter("haslo")), 1);
+                        
+                 
+                if (request.getParameter("login") != null && request.getParameter("haslo") != null) {
+                    if (!request.getParameter("login").isEmpty() && !request.getParameter("haslo").isEmpty()) {
+                        Database.polacz();
+                        User u = Database.login(
+                                request.getParameter("login"),
+                                SHA256.szyfruj(request.getParameter("haslo")));
+                        if (u == null) {
+                            out.print("<p class=\"error\">BŁĘDNE DANE LOGOWANIA</p>");
+                        } else {
+                            session.setAttribute("logged-user-id", u.getId());
+                            session.setAttribute("logged-user-nick", u.getNick());
+                            session.setAttribute("logged-user-email", u.getEmail());
+                            session.setAttribute("logged-user-level", u.getLevel());
+
+                            String site = new String("index.jsp");
+                            response.setStatus(response.SC_MOVED_TEMPORARILY);
+                            response.setHeader("Location", site);
+                        }
+                        Database.zamknij();
+                    }
+                }
                     }
           }
     }

@@ -5,9 +5,9 @@
 --%>
 
 <%@page import="java.util.ArrayList"%>
-<%@page import="Kino.Database"%>
-<%@page import="Kino.Film"%>
+<link rel="stylesheet" href="style.css">
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Kino.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -53,7 +53,7 @@
             Made by LA,SM,ŻB. All rigths reserved :) 
         </footer>
     </div>
-    <script src="menu.js"></script>
+  <jsp:include page="menu.jsp"/>
     </body>
 </html>
  

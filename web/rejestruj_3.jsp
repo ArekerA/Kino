@@ -3,8 +3,9 @@
     Created on : 2018-05-02, 10:18:44
     Author     : Mateusz
 --%>
-
+<link rel="stylesheet" href="style.css">
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Kino.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -54,6 +55,6 @@
     </footer>
 </div>
 
-<script src="menu.js"></script>
+  <jsp:include page="menu.jsp"/>
     </body>
 </html>

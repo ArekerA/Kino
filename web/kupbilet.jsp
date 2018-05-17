@@ -3,8 +3,9 @@
     Created on : 2018-05-16, 12:13:26
     Author     : Mateusz
 --%>
-
+<link rel="stylesheet" href="style.css">
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Kino.*" %>
 <!DOCTYPE html>
 <html>
     <head>

@@ -44,6 +44,7 @@ ul {
 	top: 0;
 }
 
+
 li {
 	width: 16.6%;
     float: left;
@@ -79,6 +80,25 @@ li a:hover {
 	width: 10%;
 	height: 0 auto;
 }
+.Profil
+{
+	display: block;
+	border: 2px #333 solid;
+	float: left;
+	padding: 5px;	
+	margin: 10px;
+	width: 35%;
+	height: auto;
+}.Transakcje
+{
+	border: 2px #333 solid;
+	padding: 5px;	
+	margin: 10px;
+	width: 61%;
+	height: auto;
+        margin-left: auto;
+}
+
 .prawe
 {
 	display: table-column;

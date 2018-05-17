@@ -2,7 +2,8 @@
 <html>
 <head>
 <link rel="stylesheet" href="style.css">
-<meta charset="UTF-8">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Kino.*" %>
 <title>Kino Planeta</title>
 </head>
 <body>
@@ -28,10 +29,10 @@
         
     </section>
     <footer>
-        Made by LA,SM,ŻM. All rigths reserved :)
+        Made by LA,SM,BŻ. All rigths reserved :)
     </footer>
 </div>
 
-<script src="menu.js"></script>
+  <jsp:include page="menu.jsp"/>
 </body>
 </html>
