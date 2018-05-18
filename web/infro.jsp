@@ -12,7 +12,7 @@
                     <img src="img/kino_logo.png" alt="Kino Planeta">
             </div>
     </header>
-    <div class="zawartosc"> <ul class="menu" id="menu">
+    <div class="zawartosc"> <div id="menu">
     </ul>
             <aside>
                 <div class="boczne">

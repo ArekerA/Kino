@@ -9,22 +9,28 @@
 <body>
 <script> 
     <% if (session.getAttribute("logged-user-id") == null) { %>
-        document.getElementById("menu").innerHTML = '<li><a href="index.jsp">Aktualności</a></li>'+
+        document.getElementById("menu").innerHTML = '<ul class="menu"><li><a href="index.jsp">Aktualności</a></li>'+
     '<li><a href="filmy.jsp">Filmy</a></li>'+
     '<li><a href="repertuar.jsp">Repertuar</a></li>'+
     '<li><a href="cennik.jsp">Cennik</a></li>'+
     '<li><a href="infro.jsp">Informacje</a></li>'+
-    '<li><a href="zaloguj.jsp">Zaloguj</a></li>';
+    '<li><a href="zaloguj.jsp">Zaloguj</a></li></ul>';
  <%   }
     else
     { %>
-            document.getElementById("menu").innerHTML = '<li><a href="index.jsp">Aktualności</a></li>'+
+            document.getElementById("menu").innerHTML = '<ul class="menu1"><li><a href="index.jsp">Aktualności</a></li>'+
     '<li><a href="filmy.jsp">Filmy</a></li>'+
     '<li><a href="repertuar.jsp">Repertuar</a></li>'+
     '<li><a href="cennik.jsp">Cennik</a></li>'+
     '<li><a href="infro.jsp">Informacje</a></li>'+
-    '<li><a href="profil.jsp">Mój Profil</a></li>' +
-      '<li><a href="wyloguj.jsp">Wyloguj</a></li>';
+    '<li class="dropdown">'+
+    '<a href="javascript:void(0)" class="dropbtn">Profil</a>'+
+    '<div class="dropdown-content">'+
+      '<a href="profil.jsp">Mój Profil</a>'+
+      '<a href="wyloguj.jsp">Wyloguj się</a>'+
+    '</div>'+
+'</li>'+
+'</ul>';
    <% } %>
 
 </script>
