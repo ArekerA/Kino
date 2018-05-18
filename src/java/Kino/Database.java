@@ -615,6 +615,10 @@ public class Database {
             int id = r.getInt("max")+1;
             st.executeUpdate("INSERT INTO seanse VALUES("+id+", "+idFilmu+", "+idWersji+", '"+data+"', "+sala+");");
             st.close();
+            for(int i=0; i<225; i++)
+            {
+                createMiejsce(id, i, sala);
+            }
             return true;
         } catch (SQLException e) {
             System.out.println("====\nBląd createSeans()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");

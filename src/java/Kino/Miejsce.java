@@ -14,6 +14,7 @@ public class Miejsce {
     private int idSeansu;
     private int miejsce;
     private int dostepnosc;
+    public static int i;
 
     public Miejsce(int id, int idSeansu, int miejsce, int dostepnosc) {
         this.id = id;
