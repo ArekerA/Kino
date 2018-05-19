@@ -24,49 +24,58 @@
                     <%    out.println("   Witaj Ponownie " + session.getAttribute("logged-user-nick") + "!");  %> 
                 </div>
                 <div class="Profil"  id="1" style="display: none">
-                    
-                   <div class="Profilinfo">  ZMIANA LOGINU: </div>
+
+                    <div class="Profilinfo">  ZMIANA LOGINU: </div>
                     <br>
                     <%    out.println("Twój Aktualny Login to: " + session.getAttribute("logged-user-nick"));  %> 
                     <br>
                     <br>
-                    Podaj Nowy Login:
-                    <input type="text" name="login"> 
-                      <br>
-                      Podaj STARE Hasło:
-                    <input type="password" name="pass3"> 
+                    <form action="profil.jsp" method="post">
+                        Podaj Nowy Login:
+                        <input type="text" name="login"> 
+                        <br>
+                        Podaj STARE Hasło:
+                        <input type="password" name="pass3"> 
+                        <br>
+                        <input name="potwierdz" type="submit" value="Potwierdź"> 
+                    </form>
                     <br>
-                    <input name="potwierdz" type="submit" value="Potwierdź"> 
                     <input name="potwierdz" type="submit" onclick="Funkcja4()" value="Powrót"> 
                 </div>
-                  <div class="Profil"  id="2" style="display: none">
-                      <div class="Profilinfo">  ZMIANA MAILA: </div>
+                <div class="Profil"  id="2" style="display: none">
+                    <div class="Profilinfo">  ZMIANA MAILA: </div>
                     <br>
-                         <%    out.println("Twój Aktualny e-mail to: " + session.getAttribute("logged-user-email"));  %> 
+                    <%    out.println("Twój Aktualny e-mail to: " + session.getAttribute("logged-user-email"));  %> 
                     <br>
                     <br>
-                    Podaj Nowy Mail:
-                    <input type="text" name="mail"> 
-                      <br>
-                      Podaj STARE Hasło:
-                    <input type="password" name="pass3"> 
+                    <form action="profil.jsp" method="post">
+                        Podaj Nowy Mail:
+                        <input type="text" name="mail"> 
+                        <br>
+                        Podaj STARE Hasło:
+                        <input type="password" name="pass3"> 
+                        <br>
+                        <input name="potwierdz" type="submit" value="Potwierdź"> 
+                    </form>
                     <br>
-                    <input name="potwierdz" type="submit" value="Potwierdź"> 
                     <input name="potwierdz" type="submit" onclick="Funkcja4()" value="Powrót"> 
                 </div>
-                  <div class="Profil"  id="3" style="display: none">
-                      <div class="Profilinfo">  ZMIANA HASŁA </div>
+                <div class="Profil"  id="3" style="display: none">
+                    <div class="Profilinfo">  ZMIANA HASŁA </div>
                     <br>
-                    Podaj Nowe Hasło:
-                    <input type="password" name="pass"> 
+                    <form action="profil.jsp" method="post">
+                        Podaj Nowe Hasło:
+                        <input type="password" name="pass"> 
+                        <br>
+                        Powtórz Nowe Hasło:
+                        <input type="password" name="pass2"> 
+                        <br>
+                        Podaj STARE Hasło:
+                        <input type="password" name="pass3"> 
+                        <br>
+                        <input name="potwierdz" type="submit" value="Potwierdź"> 
+                    </form>
                     <br>
-                    Powtórz Nowe Hasło:
-                    <input type="password" name="pass2"> 
-                    <br>
-                    Podaj STARE Hasło:
-                    <input type="password" name="pass3"> 
-                    <br>
-                    <input name="potwierdz" type="submit" value="Potwierdź"> 
                     <input name="potwierdz" type="submit" onclick="Funkcja4()" value="Powrót"> 
                 </div>
                 <div class="Profil" id="0">
@@ -86,56 +95,79 @@
 
                     <input type="submit" value="Zmień Login" onclick="Funkcja1()">   
 
-
-
-
                     <input type="submit" value="Zmień Maila" onclick="Funkcja2()" > 
-
-
-
-
-
 
                     <input type="submit" value="Zmień Hasło" onclick="Funkcja3()">
                     <script>
                         function Funkcja1()
                         {
 
-                              document.getElementById('0').style.display = 'none';
-                              document.getElementById('1').style.display = 'inline-block';
+                            document.getElementById('0').style.display = 'none';
+                            document.getElementById('1').style.display = 'inline-block';
 
 
                         }
                         function Funkcja2()
                         {
 
-                                
-                              document.getElementById('0').style.display = 'none';
-                              document.getElementById('2').style.display = 'inline-block';
+
+                            document.getElementById('0').style.display = 'none';
+                            document.getElementById('2').style.display = 'inline-block';
 
 
                         }
                         function Funkcja3()
                         {
 
-                                
-                              document.getElementById('0').style.display = 'none';
-                              document.getElementById('3').style.display = 'inline-block';
+
+                            document.getElementById('0').style.display = 'none';
+                            document.getElementById('3').style.display = 'inline-block';
 
 
                         }
                         function Funkcja4()
                         {
 
-                                
-                              document.getElementById('1').style.display = 'none';
-                              document.getElementById('2').style.display = 'none';
-                              document.getElementById('3').style.display = 'none';
-                              document.getElementById('0').style.display = 'inline-block';
+                            document.getElementsByName("login").value = null;
+                            document.getElementsByName("pass3").value = null;
+                            document.getElementsByName("mail").value = null;
+                            document.getElementsByName("pass").value = null;
+                            document.getElementsByName("pass2").value = null;
+                            document.getElementById('1').style.display = 'none';
+                            document.getElementById('2').style.display = 'none';
+                            document.getElementById('3').style.display = 'none';
+                            document.getElementById('0').style.display = 'inline-block';
 
 
                         }
                     </script>
+
+                    <%
+                        Database.polacz();
+                        // 
+                        if ((request.getParameter("login") != null && request.getParameter("pass3") != null) || (request.getParameter("mail") != null && request.getParameter("pass3") != null) || (request.getParameter("pass") != null && request.getParameter("pass2") != null && request.getParameter("pass3") != null)) {
+                            // Trzeba sprawdzić czy podane hasło się zgadza z hasłem z bazy
+                            if (request.getParameter("login") != null && request.getParameter("pass3") != null) {
+
+                                if (Database.checkNick(request.getParameter("login"))) {
+
+                                    Database.updateUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()), request.getParameter("login"), session.getAttribute("logged-user-email").toString(), SHA256.szyfruj(request.getParameter("pass3")), Integer.parseInt(session.getAttribute("logged-user-level").toString()));
+                                }
+
+                            }
+
+                            if (request.getParameter("mail") != null && request.getParameter("pass3") != null) {
+
+                                if (Database.checkEmail(request.getParameter("mail"))) {
+
+                                    Database.updateUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()), session.getAttribute("logged-user-nick").toString(), request.getParameter("mail"), SHA256.szyfruj(request.getParameter("pass3")), Integer.parseInt(session.getAttribute("logged-user-level").toString()));
+
+                                }
+
+                            }
+                        }
+                        Database.zamknij();
+                    %>
                 </div>
             </div>
 
@@ -143,19 +175,19 @@
                 <p> Historia Transakcji: </p>
                 <p>
                     <% Database.polacz();
-                    int a =0;
+                        int a = 0;
                         ArrayList<Zamowienie> zamowienia = Database.readZamowienia();
                         for (Zamowienie z : zamowienia) {;
                             if (Integer.toString(z.getUser()).equals(session.getAttribute("logged-user-id"))) // Chyba Dobry Warunek
                             {
                                 out.println("Tutaj Bedą zamówienia");
-                                a=a+1;
+                                a = a + 1;
                             }
                         }
-                        if (a==0)
-                        {
+                        if (a == 0) {
                             out.println("Jeszcze nie dokonałeś żadnego zakupu");
                         }
+                        Database.zamknij();
                     %> </p>
             </div>       
 
