@@ -12,10 +12,17 @@ package Kino;
 public class Seans {
     private int id;
     private int idFilmu;
-    private int idWersji;
     private String data;
-    private int sala;
-
+    private int idWersji;
+    private int sala;    
+    public static int i;
+    public void setI(int i) {
+        i = i;
+    }
+    public static int getI()
+    {
+        return i;
+    }
     public Seans(int id, int idFilmu, int idWersji, String data, int sala) {
         this.id = id;
         this.idFilmu = idFilmu;
