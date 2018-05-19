@@ -12,9 +12,6 @@ div
     padding:0;
 }
 
-td{
-
-}
 .head
 {
     margin: 10px;
@@ -34,66 +31,38 @@ td{
 }
 
 ul {
+
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
-
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
 }
+
 
 li {
-    float: left;
     width: 16.6%;
+    float: left;
+
 }
 
-li a, .dropbtn {
-    display: inline-block;
+li a {
+    display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    width: 100%;
 }
 
-li a:hover, .dropdown:hover .dropbtn {
+li a:hover {
     background-color: #4CAF50;
-    width: 100%;
-}
-
-li.dropdown {
-    display: inline-block;
-
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #333;
-    color: white;
-    min-width: 100%;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    background-color: #333;
-}
-
-.dropdown-content a:hover {background-color: #4CAF50}
-
-.dropdown:hover .dropdown-content {
-    display: block;
 }
 .zawartosc
 {	
     display: inline-block;
-    color: #C4DEE1;
     width:100%;
     margin: 0 auto;
     padding: 0;
@@ -110,14 +79,22 @@ li.dropdown {
 }
 .Profil
 {
-    display: block;
+    display: inline-block;
     border: 2px #333 solid;
     float: left;
     padding: 5px;	
     margin: 10px;
     width: 35%;
     height: auto;
-}.Transakcje
+    font-size: 22px;
+}
+.Profilinfo
+{    float: inside;
+     font-size: 22px;
+     font-weight: bold;
+     color: #d90000;
+}
+.Transakcje
 {
     border: 2px #333 solid;
     padding: 5px;	
@@ -126,7 +103,16 @@ li.dropdown {
     height: auto;
     margin-left: auto;
 }
-
+.nngg
+{
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    padding: 10px;
+    margin: 10px;
+    color: #d90000;
+    font-weight: bold;
+}
 .prawe
 {
     display: table-column;
@@ -289,6 +275,7 @@ input[type=submit] {
     text-align: center;
 
 }
+
 .kupbilet
 {
     text-align: center;
@@ -382,5 +369,13 @@ input[type=submit] {
     {
         width: 100%;
         margin-left:0;
+    }
+    .Transakcje
+    {
+        float: left;
+    }
+    .Profil
+    {
+        float: left;
     }
 }
