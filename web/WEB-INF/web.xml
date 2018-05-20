@@ -11,7 +11,7 @@
     </session-config>
     <servlet>
         <description></description>
-        <servlet-name>UploadFile</servlet-name>
+        <servlet-name>Dodaj Aktualność</servlet-name>
         <jsp-file>/panel/aktualnosci/dodaj.jsp</jsp-file>
         <multipart-config>
             <max-file-size>20848820</max-file-size>
@@ -19,8 +19,22 @@
             <file-size-threshold>1048576</file-size-threshold>
         </multipart-config>
     </servlet>
+    <servlet>
+        <description></description>
+        <servlet-name>Dodaj Film</servlet-name>
+        <jsp-file>/panel/filmy/dodaj.jsp</jsp-file>
+        <multipart-config>
+            <max-file-size>20848820</max-file-size>
+            <max-request-size>418018841</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>UploadFile</servlet-name>
+        <servlet-name>Dodaj Aktualność</servlet-name>
         <url-pattern>/panel/aktualnosci/dodaj.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Dodaj Film</servlet-name>
+        <url-pattern>/panel/filmy/dodaj.jsp</url-pattern>
     </servlet-mapping>
 </web-app>

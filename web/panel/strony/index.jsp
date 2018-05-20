@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Seanse</title>
+        <title>Strony</title>
         <link rel="stylesheet" href="../../styles/jquery.dataTables.min.css">
         <link rel="stylesheet" href="../../styles/jquery-ui.min.css">
         <link rel="stylesheet" href="../../styles/style-panel.css">
@@ -42,32 +42,24 @@
 
                         Database.polacz();
             %>
-            <div id="add" class="button-green">Dodaj Seans</div>
+            <div id="add" class="button-green">Dodaj Stronę</div>
             <table id="table" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Id Filmu</th>
-                        <th>Nazwa Filmu</th>
-                        <th>Id Wersji</th>
-                        <th>Wersja</th>
-                        <th>Data</th>
-                        <th>Sala</th>
+                        <th>Nazwa</th>
+                        <th>Tekst</th>
                     </tr>
                 </thead>
                 <tbody>
                     <%
-                        ArrayList<Seans> seanse = Database.readSeanse();
-                        for (Seans a : seanse) {
+                        ArrayList<Strona> strony = Database.readStrony();
+                        for (Strona a : strony) {
                     %>
                     <tr>
                         <td><%=a.getId()%></td>
-                        <td><%=a.getIdFilmu()%></td>
-                        <td><%=Database.readFilm(a.getIdFilmu()).getTytul()%></td>
-                        <td><%=a.getIdWersji()%></td>
-                        <td><%=Database.readWersja(a.getIdWersji()).getTekst()%></td>
-                        <td><%=a.getData()%></td>
-                        <td><%=a.getSala()%></td>
+                        <td><%=a.getNazwa()%></td>
+                        <td><%=a.getTekst()%></td>
                     </tr>
                     <%
                         }
@@ -79,72 +71,20 @@
                     }
                 }
             %>
-            <div id="dialog-add" title="Dodaj Seans">
+            <div id="dialog-add" title="Dodaj Stronę">
                 <div class='center'>
                     <form action="dodaj.jsp" method="post" accept-charset="UTF-8">
-                        Film: <select name='film'>    
-                            <%
-                                Database.polacz();
-                                for (Film f : Database.readFilmy()) {
-                                    out.print("<option value=\""+f.getId()+"\">" + f.getTytul() + "</option>");
-                                }
-                                Database.zamknij();
-                            %>
-                        </select><br/><br/>
-                        Wersja: <select name="wersja"> 
-                            <%
-                                Database.polacz();
-                                for (Wersja w : Database.readWersje()) {
-                                    out.print("<option value=\""+w.getId()+"\">" + w.getTekst() + "</option>");
-                                }
-                                Database.zamknij();
-                            %>  
-                        </select><br/><br/>
-                        <input class='input-center' type="text" name="data" placeholder="Data (YYYY-MM-DD HH:MM:SS)"><br/><br/>
-                        Sala: <select name="sala"> 
-                            <%
-                                Database.polacz();
-                                for (Sala s : Database.readSale()) {
-                                    out.print("<option value=\""+s.getId()+"\">" + s.getId() + "</option>");
-                                }
-                                Database.zamknij();
-                            %>  
-                        </select><br/><br/>
+                        <input class='input-center' type="text" name="nazwa" placeholder="Nazwa"><br/><br/>
+                        <textarea name="tekst" rows="9" cols="50">Treść</textarea><br/><br/>
                         <input type='submit' value='Dodaj' class="button-green">
                     </form>
                 </div>
             </div>
-            <div id="dialog" title="Modyfikuj Seans">
+            <div id="dialog" title="Modyfikuj Stronę">
                 <div class='center'>
                     <form action="edit.jsp" method="post" accept-charset="UTF-8">
-                        Film: <select id="edit-film" name='film'>    
-                            <%
-                                Database.polacz();
-                                for (Film f : Database.readFilmy()) {
-                                    out.print("<option value=\""+f.getId()+"\">" + f.getTytul() + "</option>");
-                                }
-                                Database.zamknij();
-                            %>
-                        </select><br/><br/>
-                        Wersja: <select id="edit-wersja" name="wersja"> 
-                            <%
-                                Database.polacz();
-                                for (Wersja w : Database.readWersje()) {
-                                    out.print("<option value=\""+w.getId()+"\">" + w.getTekst() + "</option>");
-                                }
-                                Database.zamknij();
-                            %>  
-                        </select><br/><br/>
-                        <input class='input-center' id="edit-data" type="text" name="data" placeholder="Data (YYYY-MM-DD HH:MM:SS)"><br/><br/>
-                        Sala: <select id="edit-sala" name="sala"> 
-                            <%
-                                Database.polacz();
-                                for (Sala s : Database.readSale()) {
-                                    out.print("<option value=\""+s.getId()+"\">" + s.getId() + "</option>");
-                                }
-                                Database.zamknij();
-                            %>  
-                        </select><br/><br/>
+                        <input id="edit-nazwa" class='input-center' type="text" name="nazwa" placeholder="Nazwa"><br/><br/>
+                        <textarea id="edit-tekst" name="tekst" rows="9" cols="50">Treść</textarea><br/><br/>
                         <input id="edit-id" type="hidden" name="id" value="0">
                         <input type='submit' value='Edytuj' class="button-green">
                     </form>
@@ -161,11 +101,17 @@
         <script>
             $(document).ready(function () {
                 var table = $('#table').DataTable({
-                    "order": [[5, "desc"]],
+                    "order": [[0, "desc"]],
                     "language": {
                         "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Polish.json"
                     },
                     "columnDefs": [
+                        {
+                            'targets': 1,
+                            'render': function (data, type, full, meta) {
+                                return data.length > 25 ? data.substr(0, 22) + '…' : data;
+                            }
+                        },
                         {
                             'targets': 2,
                             'render': function (data, type, full, meta) {
@@ -179,12 +125,12 @@
                     $("#dialog").dialog("open");
                     $("#del-id").val(data[0]);
                     $("#edit-id").val(data[0]);
-                    $("#edit-film").val(data[1]);
-                    $("#edit-wersja").val(data[3]);
-                    $("#edit-data").val(data[5]);
-                    $("#edit-sala").val(data[6]);
+                    $("#edit-nazwa").val(data[1]);
+                    $("#edit-tekst").html(data[2]);
                 });
                 $("#dialog").dialog({
+                    height: 400,
+                    width: 500,
                     autoOpen: false,
                     show: {
                         effect: "fade",
@@ -196,6 +142,8 @@
                     }
                 });
                 $("#dialog-add").dialog({
+                    height: 400,
+                    width: 500,
                     autoOpen: false,
                     show: {
                         effect: "fade",

@@ -73,7 +73,13 @@ public class Database {
             st.executeUpdate("INSERT INTO Seanse VALUES ( 2, 0, 0, datetime('now'), 0);");
             st.executeUpdate("INSERT INTO Miejsca VALUES ( 0, 0, 0, 0),( 1, 0, 1, 0),( 2, 0, 2, 0),( 3, 0, 3, 0);");
             st.executeUpdate("INSERT INTO Aktualnosci VALUES ( 0, date('now'), 'a0.jpg', 'Tomb Raider już dostępny', 'Lara Croft (Alicia Vikander) wyrusza na poszukiwania swojego zaginionego ojca, lorda Richarda Crofta (Dominic West), który zniknął, gdy dziewczyna miała kilkanaście lat. Podczas swoich poszukiwań rozbija się u wybrzeży tajemniczej wyspy niedaleko Japonii. W trakcie pobytu na nieznanym lądzie dziewczyna przechodzi zmianę psychiczną oraz fizyczną i staje się słynną poszukiwaczką przygód znaną jako \"Tomb Raider\"');");
-            st.executeUpdate("INSERT INTO Strony VALUES ( 0, 'kontakt', 'dane kontaktowe');");
+            st.executeUpdate("INSERT INTO Strony VALUES ( 0, 'kontakt', '<aside><div class=\"boczne\">\n" +
+                "<p>Kino Planeta</p>\n" +
+                "<p>Kraków, Warszawska 24</p>\n" +
+                "<a href=\"mailto:someone@example.com?Subject=Hello%20again\">Napisz do nas</a>\n" +
+                "</div></aside><section><article>\n" +
+                "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d640.208376698259!2d19.942613645244574!3d50.07067962269475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165b04a1f6a23f%3A0xea28a4cede108adf!2sWydzia%C5%82+In%C5%BCynierii+Elektrycznej+i+Komputerowej!5e0!3m2!1sen!2spl!4v1523705858639\" width=\"100%\" height=\"450\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>\n" +
+                "</article></section>');");
             st.executeUpdate("INSERT INTO Bilety VALUES ( 0, 'normalny', 12.50);");
             st.executeUpdate("INSERT INTO Userzy VALUES ( 0, 'admin', 'admin@example.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 3),( 2, 'prac', 'admin@example.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 2);");
             st.executeUpdate("INSERT INTO Zamowienia VALUES ( 0, 0);");
@@ -549,13 +555,23 @@ public class Database {
     {
         return createBilet(a.getNazwa(), a.getCena());
     }
-    public static boolean createFilm(String tytul, String czas, String img, String opis, String link)
+    public static int readNextIdFilm()
     {
         try {
             Statement st = con.createStatement();
             ResultSet r = st.executeQuery( "Select MAX(id) as max from filmy;");
             r.next();
-            int id = r.getInt("max")+1;
+            return r.getInt("max")+1;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd readNextIdFilm()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return -1;
+        }
+    }
+    public static boolean createFilm(String tytul, String czas, String img, String opis, String link)
+    {
+        try {
+            Statement st = con.createStatement();
+            int id = readNextIdFilm();
             st.executeUpdate("INSERT INTO filmy VALUES("+id+", '"+tytul+"', '"+czas+"', '"+img+"', '"+opis+"', '"+link+"');");
             st.close();
             return true;
@@ -568,13 +584,23 @@ public class Database {
     {
         return createFilm(a.getTytul(), a.getCzas(),a.getImg(),a.getOpis(),a.getLink());
     }
-    public static boolean createMiejsce(int idSeansu, int miejsce, int dostepnosc)
+    public static int readNextIdMiejsce()
     {
         try {
             Statement st = con.createStatement();
             ResultSet r = st.executeQuery( "Select MAX(id) as max from miejsca;");
             r.next();
-            int id = r.getInt("max")+1;
+            return r.getInt("max")+1;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd readNextIdMiejsce()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return -1;
+        }
+    }
+    public static boolean createMiejsce(int idSeansu, int miejsce, int dostepnosc)
+    {
+        try {
+            Statement st = con.createStatement();
+            int id = readNextIdMiejsce();
             st.executeUpdate("INSERT INTO miejsca VALUES("+id+", "+idSeansu+", "+miejsce+", "+dostepnosc+");");
             st.close();
             return true;
@@ -614,11 +640,20 @@ public class Database {
             r.next();
             int id = r.getInt("max")+1;
             st.executeUpdate("INSERT INTO seanse VALUES("+id+", "+idFilmu+", "+idWersji+", '"+data+"', "+sala+");");
-            st.close();
+            
+            Statement st2 = con.createStatement();
+            int id2 = readNextIdMiejsce();
+            String query = "INSERT INTO miejsca VALUES";
             for(int i=0; i<225; i++)
             {
-                createMiejsce(id, i, sala);
+                query+="("+id2+i+", "+id+", "+i+", "+sala+"),";
             }
+            query = query.substring(0, query.length() - 1);
+            query += ";";
+            System.out.println(query);
+            st2.executeUpdate(query);
+            st.close();
+            st2.close();
             return true;
         } catch (SQLException e) {
             System.out.println("====\nBląd createSeans()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
@@ -904,11 +939,23 @@ public class Database {
             return false;
         }
     }
+    public static boolean updateFilm(String tytul, String czas, String opis, String link, int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE filmy SET tytul = '"+tytul+"', czas = '"+czas+"', opis = '"+opis+"', link = '"+link+"' WHERE id = "+id+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateFilm()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
     public static boolean updateFilm(Film a)
     {
         try {
             Statement st = con.createStatement();
-            st.executeUpdate("UPDATE filmy SET tytul = '"+a.getTytul()+"', czas = '"+a.getCzas()+"', img = '"+a.getImg()+"', opis = '"+a.getOpis()+"' WHERE id = "+a.getId()+";");
+            st.executeUpdate("UPDATE filmy SET tytul = '"+a.getTytul()+"', czas = '"+a.getCzas()+"', img = '"+a.getImg()+"', opis = '"+a.getOpis()+"', link = '"+a.getLink()+"' WHERE id = "+a.getId()+";");
             st.close();
             return true;
         } catch (SQLException e) {
@@ -940,6 +987,18 @@ public class Database {
             return false;
         }
     }
+    public static boolean updateSeans(int id_filmu, int id_wersji, String data, int sala, int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE seanse SET id_filmu = "+id_filmu+", id_wersji = "+id_wersji+", data = '"+data+"', sala = "+sala+" WHERE id = "+id+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateSeans()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
     public static boolean updateSeans(Seans a)
     {
         try {
@@ -949,6 +1008,18 @@ public class Database {
             return true;
         } catch (SQLException e) {
             System.out.println("====\nBląd updateSeans()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateStrona(String nazwa, String teskt, int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE strony SET nazwa = '"+nazwa+"', tekst = '"+teskt+"' WHERE id = "+id+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateStrona()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
             return false;
         }
     }

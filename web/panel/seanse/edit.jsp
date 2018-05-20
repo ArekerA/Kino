@@ -1,6 +1,6 @@
 <%-- 
     Document   : dodaj
-    Created on : 2018-05-15, 12:10:25
+    Created on : 2018-05-20, 13:07:55
     Author     : Arekl
 --%>
 
@@ -19,20 +19,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Dodaj Seans</title>
+        <title>Edytowanie Seansu</title>
     </head>
     <body>
         <%
             request.setCharacterEncoding("UTF-8");
-            Database.polacz();
             if (request.getParameter("film") != null) {
                 Database.polacz();
-                Database.createSeans(Integer.parseInt(request.getParameter("film")), Integer.parseInt(request.getParameter("wersja")), request.getParameter("data"), Integer.parseInt(request.getParameter("sala")));
+                Database.updateSeans(Integer.parseInt(request.getParameter("film")), Integer.parseInt(request.getParameter("wersja")), request.getParameter("data"), Integer.parseInt(request.getParameter("sala")), Integer.parseInt(request.getParameter("id")));
                 Database.zamknij();
             }
             String site = new String("index.jsp");
             response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", site);
+
         %>
 
     </body>

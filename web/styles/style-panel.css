@@ -102,3 +102,6 @@ table.dataTable{
 {
     text-align: center;
 }
+.dataTables_wrapper .dataTables_info {
+    clear: none;
+}

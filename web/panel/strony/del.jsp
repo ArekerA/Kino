@@ -1,5 +1,5 @@
 <%-- 
-    Document   : dodaj
+    Document   : del
     Created on : 2018-05-15, 12:10:25
     Author     : Arekl
 --%>
@@ -19,20 +19,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Dodaj Seans</title>
+        <title>Usuwanie Strony</title>
     </head>
     <body>
         <%
             request.setCharacterEncoding("UTF-8");
-            Database.polacz();
-            if (request.getParameter("film") != null) {
+            if (request.getParameter("id") != null) {
                 Database.polacz();
-                Database.createSeans(Integer.parseInt(request.getParameter("film")), Integer.parseInt(request.getParameter("wersja")), request.getParameter("data"), Integer.parseInt(request.getParameter("sala")));
+                Database.deleteStrona(Integer.parseInt(request.getParameter("id")));
                 Database.zamknij();
             }
             String site = new String("index.jsp");
             response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", site);
+
         %>
 
     </body>

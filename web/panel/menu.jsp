@@ -17,12 +17,12 @@
             <% if(session.getAttribute("logged-user-level") != null){
                  if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 2) { %>
                     <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/aktualnosci/" class="button">Aktualności</a>
-                <% } %>
-                <% if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
+                <% } if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
                     <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/filmy/" class="button">Filmy</a>
-                <% } %>
-                <% if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 2) { %>
+                <% } if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
                     <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/seanse/" class="button">Seanse</a>
+                <% } if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
+                    <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/strony/" class="button">Strony</a>
                 <% }
             }%>
             <form action="#" method="post">

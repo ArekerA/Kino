@@ -19,14 +19,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Usuwanie Aktualności</title>
     </head>
     <body>
         <%
             request.setCharacterEncoding("UTF-8");
             if (request.getParameter("id") != null) {
-            Database.polacz();
-                out.print(request.getParameter("tekst"));
+                Database.polacz();
                 Database.deleteAktualnosc(Integer.parseInt(request.getParameter("id")));
                 Database.zamknij();
             }

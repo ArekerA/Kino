@@ -22,7 +22,7 @@
             Database.init();
             Database.init2();
             Database.zamknij();
-*/
+            */
         %>
         </div>
     </body>

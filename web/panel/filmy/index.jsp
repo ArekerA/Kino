@@ -78,46 +78,33 @@
                 }
             }
         %>
-            <div id="dialog" title="Basic dialog">
-                
-                <p><p id="tescik"></p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
-            </div>
             <div id="dialog-add" title="Dodaj Film">
                 <div class='center'>
                     <form action="dodaj.jsp" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                         <input class='input-center' type="text" name="tytul" placeholder="Tytuł"><br/><br/>
-                        <input type="text" name="czas" ><br/><br/>
+                        <input class='input-center' type="text" name="czas"  placeholder="Czas w minutach"><br/><br/>
                         <textarea name="tekst" rows="9" cols="50">Opis</textarea><br/><br/>
+                        <input class='input-center' type="text" name="link" placeholder="Link do zwiastunu youtube" ><br/><br/>
                         <input type="file" name="img" placeholder="Obraz"><br/><br/>
                         <input type='submit' value='Dodaj' class="button-green">
                     </form>
                 </div>
-                 <p>Tutaj można dodać film</p>
-                <form action="dodaj.jsp" method="post">
-                Tytuł:
-                 <br>
-                <input type="text" name="tytul"> 
-                 <br>
-                Treść:
-                <br>
-                <input type="text" name="czas" >  
-                <br>
-                Plik Graficzny:
-                <br>
-                <input type="file" name="img" accept=".png, .jpg, .jpeg" > 
-              <br>
-                Opis:
-                <br>
-                <input type="text" name="opis" >  
-                <br>
-                  <br>
-                Link:
-                <br>
-                <input type="text" name="link" >  
-                <br>
-                 <br>
-                <input type="submit" value="Potwierdź">
-                </form>
+            </div>
+            <div id="dialog" title="Modyfikuj Film">
+                <div class='center'>
+                    <form action="edit.jsp" method="post" accept-charset="UTF-8">
+                        <input class='input-center' id="edit-id" type="hidden" name="id" value="0">
+                        <input class='input-center' id="edit-tytul" class='input-center' type="text" name="tytul" placeholder="Tytuł"><br/><br/>
+                        <input class='input-center' id="edit-czas" type="text" name="czas"  placeholder="Czas w minutach"><br/><br/>
+                        <textarea id="edit-tekst" name="tekst" rows="8" cols="50">Treść</textarea><br/><br/>
+                        <input class='input-center' id="edit-link" type="text" name="link" placeholder="Link do zwiastunu youtube" ><br/><br/>
+                        <input type='submit' value='Edytuj' class="button-green">
+                    </form>
+                    <form action="del.jsp" method="post" accept-charset="UTF-8">
+                        <input id="del-id" type="hidden" name="id" value="0">
+                        <input type='submit' value='Usuń' class="button-red">
+                    </form>
+                </div>
             </div>
         </div>
         <script src="../../scripts/jquery-3.3.1.min.js"></script>
@@ -126,7 +113,7 @@
         <script>
             $(document).ready(function() {
                 var table = $('#table').DataTable( {
-                    "order": [[ 4, "desc" ]],
+                    "order": [[ 1, "asc" ]],
                     "language": {
                         "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Polish.json"
                     },
@@ -145,7 +132,7 @@
                            }
                         },
                         {
-                           'targets': 3,
+                           'targets': 5,
                            'render': function(data, type, full, meta){
                               return data.length > 25 ?data.substr( 0, 22 ) +'…' :data;
                            }
@@ -155,9 +142,16 @@
                 $('#table tbody').on('click', 'tr', function () {
                     var data = table.row( this ).data();
                     $( "#dialog" ).dialog( "open" );
-                    $( "#tescik" ).html(data[1]);
+                    $("#del-id").val(data[0]);
+                    $("#edit-id").val(data[0]);
+                    $("#edit-tytul").val(data[1]);
+                    $("#edit-tekst").html(data[2]);
+                    $("#edit-czas").val(data[3]);
+                    $("#edit-link").val(data[5]);
                 } );
                 $( "#dialog" ).dialog({
+                    height: 400,
+                    width: 500,
                     autoOpen: false,
                     show: {
                       effect: "fade",
@@ -169,6 +163,8 @@
                     }
                 });
                 $( "#dialog-add" ).dialog({
+                    height: 400,
+                    width: 500,
                     autoOpen: false,
                     show: {
                       effect: "fade",

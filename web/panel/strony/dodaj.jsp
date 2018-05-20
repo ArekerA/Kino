@@ -25,9 +25,9 @@
         <%
             request.setCharacterEncoding("UTF-8");
             Database.polacz();
-            if (request.getParameter("film") != null) {
+            if (request.getParameter("nazwa") != null) {
                 Database.polacz();
-                Database.createSeans(Integer.parseInt(request.getParameter("film")), Integer.parseInt(request.getParameter("wersja")), request.getParameter("data"), Integer.parseInt(request.getParameter("sala")));
+                Database.createStrona(request.getParameter("nazwa"), request.getParameter("tekst"));
                 Database.zamknij();
             }
             String site = new String("index.jsp");

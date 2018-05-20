@@ -19,14 +19,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Edytuj Aktualność</title>
     </head>
     <body>
         <%
             request.setCharacterEncoding("UTF-8");
             if (request.getParameter("tytul") != null) {
             Database.polacz();
-                out.print(request.getParameter("tekst"));
                 Database.updateAktualnosc(request.getParameter("tytul"), request.getParameter("tekst"), Integer.parseInt(request.getParameter("id")));
                 Database.zamknij();
             }

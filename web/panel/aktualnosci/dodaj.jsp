@@ -1,7 +1,7 @@
 <%-- 
     Document   : dodaj
     Created on : 2018-05-15, 12:10:25
-    Author     : Mateusz
+    Author     : Arekl
 --%>
 
 <%@page import="java.nio.file.Paths"%>
@@ -19,7 +19,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Dodaj Aktualnść</title>
     </head>
     <body>
         <%
@@ -39,7 +39,6 @@
 
                 InputStream input = filePart.getInputStream();
                 Files.copy(input, file.toPath());
-                out.print(request.getParameter("tekst"));
                 Database.createAktualnosc(fileName, request.getParameter("tytul"), request.getParameter("tekst"));
             }
             Database.zamknij();
