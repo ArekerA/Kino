@@ -1047,6 +1047,18 @@ public class Database {
             return false;
         }
     }
+    public static boolean updateWersja(int id, String tekst)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE wersje SET tekst = '"+tekst+"' WHERE id = "+id+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateWersja()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
     public static boolean updateWersja(Wersja a)
     {
         try {

@@ -23,6 +23,8 @@
                     <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/seanse/" class="button">Seanse</a>
                 <% } if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
                     <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/strony/" class="button">Strony</a>
+                <% } if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
+                    <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/wersje/" class="button">Wersje</a>
                 <% }
             }%>
             <form action="#" method="post">
