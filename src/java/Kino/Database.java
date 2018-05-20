@@ -121,12 +121,12 @@ public class Database {
         }
     }
     
-     public static boolean checkPass(String pass)
+     public static boolean checkPass(String pass, int id)
     {
         boolean x = false;
         try {
             Statement st = con.createStatement();
-            ResultSet r = st.executeQuery("Select * from Userzy where pass='"+pass+"';");
+            ResultSet r = st.executeQuery("Select * from Userzy id='"+id+"' and pass='"+pass+"';");
             if(!r.next())
                 x = true;
             st.close();

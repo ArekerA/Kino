@@ -23,6 +23,7 @@
                 <div class="nngg">
                     <%    out.println("   Witaj Ponownie " + session.getAttribute("logged-user-nick") + "!");  %> 
                 </div>
+                <div id='err'> </div>
                 <div class="Profil"  id="1" style="display: none">
 
                     <div class="Profilinfo">  ZMIANA LOGINU: </div>
@@ -146,26 +147,51 @@
                         Database.polacz();
                         // 
                         if ((request.getParameter("login") != null && request.getParameter("pass3") != null) || (request.getParameter("mail") != null && request.getParameter("pass3") != null) || (request.getParameter("pass") != null && request.getParameter("pass2") != null && request.getParameter("pass3") != null)) {
-                            // Trzeba sprawdzić czy podane hasło się zgadza z hasłem z bazy
-                            if (request.getParameter("login") != null && request.getParameter("pass3") != null) {
+                            if (Database.checkPass(SHA256.szyfruj(request.getParameter("pass3")), Integer.parseInt(session.getAttribute("logged-user-level").toString()))) {
 
-                                if (Database.checkNick(request.getParameter("login"))) {
+                                if (request.getParameter("login") != null && request.getParameter("pass3") != null) {
 
-                                    Database.updateUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()), request.getParameter("login"), session.getAttribute("logged-user-email").toString(), SHA256.szyfruj(request.getParameter("pass3")), Integer.parseInt(session.getAttribute("logged-user-level").toString()));
-                                }
+                                    if (Database.checkNick(request.getParameter("login"))) {
 
-                            }
-
-                            if (request.getParameter("mail") != null && request.getParameter("pass3") != null) {
-
-                                if (Database.checkEmail(request.getParameter("mail"))) {
-
-                                    Database.updateUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()), session.getAttribute("logged-user-nick").toString(), request.getParameter("mail"), SHA256.szyfruj(request.getParameter("pass3")), Integer.parseInt(session.getAttribute("logged-user-level").toString()));
+                                        Database.updateUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()), request.getParameter("login"), session.getAttribute("logged-user-email").toString(), SHA256.szyfruj(request.getParameter("pass3")), Integer.parseInt(session.getAttribute("logged-user-level").toString()));
+                                        session.setAttribute("logged-user-nick", request.getParameter("login"));
+                                    } else {
+                                        out.print("<script> document.getElementById('err').innerHTML = 'PODANY LOGIN JEST ZAJĘTY'; </script>");
+                                        // login juz jest w bazie
+                                    }
 
                                 }
 
+                                if (request.getParameter("mail") != null && request.getParameter("pass3") != null) {
+
+                                    if (Database.checkEmail(request.getParameter("mail"))) {
+
+                                        Database.updateUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()), session.getAttribute("logged-user-nick").toString(), request.getParameter("mail"), SHA256.szyfruj(request.getParameter("pass3")), Integer.parseInt(session.getAttribute("logged-user-level").toString()));
+                                        session.setAttribute("logged-user-email", request.getParameter("mail"));
+                                    } else {
+                                        out.print("<script> document.getElementById('err').innerHTML = 'PODANY LOGIN JEST ZAJĘTY'; </script>");
+                                        // Mail już jest w bazie
+                                    }
+                                }
+
+                                if (request.getParameter("pass") != null && request.getParameter("pass2") != null && request.getParameter("pass3") != null) {
+
+                                    if (request.getParameter("pass2").equals(request.getParameter("pass"))) {
+                                        Database.updateUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()), session.getAttribute("logged-user-nick").toString(), session.getAttribute("logged-user-email").toString(), SHA256.szyfruj(request.getParameter("pass")), Integer.parseInt(session.getAttribute("logged-user-level").toString()));
+                                    } else {
+                                        out.print("<script> document.getElementById('err').innerHTML = 'PODANE HASŁA NIE SĄ TAKIE SAME'; </script>");
+                                        //wpisane nowe hasła są różne
+                                    }
+                                }
+                            } else {
+                                out.print("<script> document.getElementById('err').innerHTML = 'PODANE BŁĘDNE HASŁO'; </script>");
+                                // Podane Błędne hasło
                             }
+                        } else {
+                            out.print("<script> document.getElementById('err').innerHTML = 'NIE ZOSTAŁY WYPEŁNIONE WZYSTKIE POLA'; </script>");
+                            // Wszystkie Pola nie zostały wypełnione
                         }
+
                         Database.zamknij();
                     %>
                 </div>
