@@ -83,7 +83,15 @@
                 <p><p id="tescik"></p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
             </div>
             <div id="dialog-add" title="Dodaj Film">
-                
+                <div class='center'>
+                    <form action="dodaj.jsp" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                        <input class='input-center' type="text" name="tytul" placeholder="Tytuł"><br/><br/>
+                        <input type="text" name="czas" ><br/><br/>
+                        <textarea name="tekst" rows="9" cols="50">Opis</textarea><br/><br/>
+                        <input type="file" name="img" placeholder="Obraz"><br/><br/>
+                        <input type='submit' value='Dodaj' class="button-green">
+                    </form>
+                </div>
                  <p>Tutaj można dodać film</p>
                 <form action="dodaj.jsp" method="post">
                 Tytuł:
