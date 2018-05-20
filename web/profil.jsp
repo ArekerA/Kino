@@ -185,6 +185,9 @@
 
                         }
                         if (request.getParameter("form1") != null) {
+                            out.println(Integer.parseInt(session.getAttribute("logged-user-id").toString()));
+                            out.println(SHA256.szyfruj(request.getParameter("pass3").toString()));
+                            out.println(Database.checkPass(SHA256.szyfruj(request.getParameter("pass3").toString()), Integer.parseInt(session.getAttribute("logged-user-id").toString())));
                             if (Database.checkPass(SHA256.szyfruj(request.getParameter("pass3").toString()), Integer.parseInt(session.getAttribute("logged-user-id").toString()))) {
                                 if (Database.checkNick(request.getParameter("login"))) {
 

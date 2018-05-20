@@ -126,8 +126,8 @@ public class Database {
         boolean x = false;
         try {
             Statement st = con.createStatement();
-            ResultSet r = st.executeQuery("Select * from Userzy id='"+id+"' and pass='"+pass+"';");
-            if(!r.next())
+            ResultSet r = st.executeQuery("Select * from Userzy where id="+id+" and pass='"+pass+"';");
+            if(r.next())
                 x = true;
             st.close();
         } catch (SQLException e) {
