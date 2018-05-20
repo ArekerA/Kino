@@ -85,7 +85,7 @@
                     <br>
 
 
-                    <%    out.println("TWÓJ LOGIN: <div class='Profilinfo'>" + session.getAttribute("logged-user-nick") + "</div>");  %>
+                    TWÓJ LOGIN: <div class='Profilinfo'><%=session.getAttribute("logged-user-nick")%></div>
 
                     <br>
 
@@ -188,8 +188,11 @@
                                 // Podane Błędne hasło
                             }
                         } else {
-                            out.print("<script> document.getElementById('err').innerHTML = 'NIE ZOSTAŁY WYPEŁNIONE WZYSTKIE POLA'; </script>");
-                            // Wszystkie Pola nie zostały wypełnione
+                            %>
+                            <script> 
+                                document.getElementById('err').innerHTML = 'NIE ZOSTAŁY WYPEŁNIONE WZYSTKIE POLA'; 
+                            </script>;
+                           <% // Wszystkie Pola nie zostały wypełnione
                         }
 
                         Database.zamknij();
