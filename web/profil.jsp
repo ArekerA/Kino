@@ -72,7 +72,8 @@
                         <input type="password" name="pass2"> 
                         <br>
                         Podaj STARE Hasło:
-                        <input type="password" name="pass3"> 
+                        <input type="password" name="pass3">
+                        <input type="hidden" name="form3" value="3"> 
                         <br>
                         <input name="potwierdz" type="submit" value="Potwierdź"> 
                     </form>
@@ -146,6 +147,10 @@
                     <%
                         Database.polacz();
                         // 
+                        if(request.getParameter("form3") != null)
+                        {
+                            out.print("heheszki xD");
+                        }
                         if ((request.getParameter("login") != null && request.getParameter("pass3") != null) || (request.getParameter("mail") != null && request.getParameter("pass3") != null) || (request.getParameter("pass") != null && request.getParameter("pass2") != null && request.getParameter("pass3") != null)) {
                             if (Database.checkPass(SHA256.szyfruj(request.getParameter("pass3")), Integer.parseInt(session.getAttribute("logged-user-level").toString()))) {
 
