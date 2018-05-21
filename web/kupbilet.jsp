@@ -3,6 +3,7 @@
     Created on : 2018-05-16, 12:13:26
     Author     : Mateusz
 --%>
+<%@page import="com.sun.webkit.network.URLs"%>
 <%@page import="java.util.ArrayList"%>
 <link rel="stylesheet" href="style.css">
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,16 +18,18 @@
 
         <div class="kupbilet">
             <table class="miejsca">
-                <tr>
-                    <th class="ekran" colspan="15">EKRAN</th>
-                </tr>
+           
                 <%
-
+                    if(session.getAttribute("logged-user-nick")!=null)
+                    {
+                         out.println("<tr><th class='ekran' colspan='15' id='ekran'>EKRAN</th></tr>");
                     Database.polacz();
+                    Integer id=Integer.parseInt(request.getParameter("id")); 
+                    
                     ArrayList<Miejsce> miejsca1 = Database.readMiejsca();
                     ArrayList<Miejsce> miejsca = new ArrayList<Miejsce>();
                     for (int size = 0; size < miejsca1.size(); size++) {
-                        if (miejsca1.get(size).getIdSeansu() == 5) {
+                        if (miejsca1.get(size).getIdSeansu() == id) {
                             miejsca.add(miejsca1.get(size));
                         }
                     }
@@ -51,7 +54,7 @@
                 
             out.println("</table>");
             out.println("<div class=\"kup\">");
-                out.println("<h1>Podaj dane</h1> ");
+ //               out.println("<h1>Podaj dane</h1> ");
                 
 //                    out.println("Imię:");
 //                    out.println("<input type=\"text\" name=\"imie\"> ");
@@ -66,10 +69,23 @@
 //                    out.println("Telefon:");
 //                    out.println("<input type=\"number\" name=\"phone\"> ");
 //                    out.println("<br>");
-                    out.println("<input type=\"submit\" value=\"Kupuję!\">");
+                    out.println("<input type=\"submit\" value=\"Idę dalej!\">");
                 out.println("</form>");
             out.println("</div>");
             out.println("<div>");
+                    }
+                    else
+                    {
+                         
+                        out.println(" <h2 style='color:white;'>Musisz być zalogowany aby kupić bilet!</h2>");
+                        out.println("<form action=\"zaloguj.jsp\" method=\"post\">");
+                        out.println("<br><input type=\"submit\" value=\"Zaloguj się\">");
+                        out.println("</form>");
+                        out.println(" <h2 style='color:white;'>Nie masz konta?</h2>");
+                        out.println("<form action=\"rejestruj.jsp\" method=\"post\">");
+                        out.println("<input type=\"submit\" value=\"Zarejestruj się\">");
+                        out.println("</form>");
+                    }
             %>
 
                 </body>
