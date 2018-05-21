@@ -22,22 +22,36 @@
   miejsca = request.getParameterValues("check");
   Database.polacz();
    if (miejsca != null) {
-       
+    out.println("<form action=\"kupione.jsp\" method=\"post\">");   
     for (int i = 0; i < miejsca.length; i++) {
+        out.println("Rodzaj biletu o numerze "+(i+1)+"");
+        out.println("<select> name="+i+"");
+        out.println("<option value=\"normalny\">Normalny</option>");
+        out.println("<option value=\"ulgowy\">Ulgowy</option>");
+        out.println("</select>");
+        out.println("<br>");
         int a = Integer.parseInt(miejsca[i]);
         Database.readMiejsce(a).getDostepnosc();
         Miejsce m=  Database.readMiejsce(a);
         m.setDostepnosc(1);
         Database.updateMiejsce(m);
     }
+    out.println("");
+    out.println("Kupujesz dla:");
+    out.println(session.getAttribute("logged-user-nick").toString());
+    out.println("");
+    out.println("<input type=\"submit\" value=\"Idę dalej!\">");
+    out.println("</form>");
+    //Integer idus=Integer.parseInt(session.getAttribute("logged-user-id").toString());
    }
     else 
    {
-       out.println ("none selected");
+       out.println ("Nie wybrano biletu.. proszę się ewakuować");
+       out.println("");
+       
    }
 Database.zamknij();
 %>
 <%-- Print out the variables. --%>
-<h1>Zakupoiono</h1>
                 </body>
                 </html>

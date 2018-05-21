@@ -109,7 +109,7 @@
                                 + "</div>" + "<div class='wersja2'>"
                                 + wersje.get(s.getIdWersji()).getTekst() + ' '
                                 + "</div>" + "<div class='godzina'>"
-                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div><button onclick=\"myFunction('kupbilet.jsp', "+s.getId()+" 600, 600)\">Kup Bilet</button></div>");
+                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div><a href=\"kupbilet.jsp\" onclick=\"window.open('kupbilet.jsp?id="+s.getId()+"', 'newwindow', 'width=600,height=600'); return false;\">Kup Bilet</a></div>");
                     }
                     out.print("</div >");
                     data.setTime(data.getTime() + 1 * 24 * 60 * 60 * 1000);
@@ -217,7 +217,9 @@
         <jsp:include page="menu.jsp"/>
         <script>
             function myFunction(url, title, w, h) {
-                Seans.i=title;
+                id=tile;
+                String x=url.toString()+"?id="+title.toString();
+                url=x;
                 // Fixes dual-screen position                         Most browsers      Firefox
                 var dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
                 var dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
