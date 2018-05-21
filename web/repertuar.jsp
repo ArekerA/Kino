@@ -4,6 +4,7 @@
     Author     : Bartek
 --%>
 
+<%@page import="com.sun.java.swing.plaf.windows.resources.windows"%>
 <%@page import="Kino.Wersja"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
@@ -124,7 +125,7 @@
                                 + "</div>" + "<div class='wersja2'>"
                                 + wersje.get(s.getIdWersji()).getTekst() + ' '
                                 + "</div>" + "<div class='godzina'>"
-                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div></div>");
+                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div><a href=\"kupbilet.jsp\" onclick=\"window.open('kupbilet.jsp?id="+s.getId()+"', 'newwindow', 'width=600,height=600'); return false;\">Kup Bilet</a></div>");
                     }
                     out.print("</div>");
                     data.setTime(data.getTime() + 1 * 24 * 60 * 60 * 1000);
@@ -139,7 +140,7 @@
                                 + "</div>" + "<div class='wersja2'>"
                                 + wersje.get(s.getIdWersji()).getTekst() + ' '
                                 + "</div>" + "<div class='godzina'>"
-                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div></div>");
+                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div><a href=\"kupbilet.jsp\" onclick=\"window.open('kupbilet.jsp?id="+s.getId()+"', 'newwindow', 'width=600,height=600'); return false;\">Kup Bilet</a></div>");
                     }
                     out.print("</div>");
                     data.setTime(data.getTime() + 1 * 24 * 60 * 60 * 1000);
@@ -154,7 +155,7 @@
                                 + "</div>" + "<div class='wersja2'>"
                                 + wersje.get(s.getIdWersji()).getTekst() + ' '
                                 + "</div>" + "<div class='godzina'>"
-                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div></div>");
+                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div><a href=\"kupbilet.jsp\" onclick=\"window.open('kupbilet.jsp?id="+s.getId()+"', 'newwindow', 'width=600,height=600'); return false;\">Kup Bilet</a></div>");
                     }
                     out.print("</div>");
                     data.setTime(data.getTime() + 1 * 24 * 60 * 60 * 1000);
@@ -169,7 +170,7 @@
                                 + "</div>" + "<div class='wersja2'>"
                                 + wersje.get(s.getIdWersji()).getTekst() + ' '
                                 + "</div>" + "<div class='godzina'>"
-                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div></div>");
+                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div><a href=\"kupbilet.jsp\" onclick=\"window.open('kupbilet.jsp?id="+s.getId()+"', 'newwindow', 'width=600,height=600'); return false;\">Kup Bilet</a></div>");
                     }
                     out.print("</div>");
                     data.setTime(data.getTime() + 1 * 24 * 60 * 60 * 1000);
@@ -184,7 +185,7 @@
                                 + "</div>" + "<div class='wersja2'>"
                                 + wersje.get(s.getIdWersji()).getTekst() + ' '
                                 + "</div>" + "<div class='godzina'>"
-                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div></div>");
+                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div><a href=\"kupbilet.jsp\" onclick=\"window.open('kupbilet.jsp?id="+s.getId()+"', 'newwindow', 'width=600,height=600'); return false;\">Kup Bilet</a></div>");
                     }
                     out.print("</div>");
                     data.setTime(data.getTime() + 1 * 24 * 60 * 60 * 1000);
@@ -195,18 +196,19 @@
                     out.println("</article>");
 
                     for (Seans s : Database.readSeanse(data)) {
+                    
                         out.println("<div class = 'z2' id='z2'>" + "<div class='tytuł2'>" + filmy.get(s.getIdFilmu()).getTytul() + " (" + filmy.get(s.getIdFilmu()).getCzas() + ") "
                                 + "</div>" + "<div class='wersja2'>"
                                 + wersje.get(s.getIdWersji()).getTekst() + ' '
                                 + "</div>" + "<div class='godzina'>"
-                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div></div>");
+                                + "Godzina Rozpoczęcia Seansu: " + s.getData().substring(11) + ' ' + "</div><a href=\"kupbilet.jsp\" onclick=\"window.open('kupbilet.jsp?id="+s.getId()+"', 'newwindow', 'width=600,height=600'); return false;\">Kup Bilet</a></div>");
                     }
                     out.print("</div>");
 
                     Database.zamknij();
                 %>                    
 
-
+           
 
 
             </section>

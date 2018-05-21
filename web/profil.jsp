@@ -62,6 +62,7 @@
                     </form>
                     <br>
                     <input name="potwierdz" type="submit" onclick="Funkcja4()" value="Powrót"> 
+                 
                 </div>
                 <div class="Profil"  id="3" style="display: none">
                     <div class="Profilinfo">  ZMIANA HASŁA </div>
@@ -102,6 +103,12 @@
                     <input type="submit" value="Zmień Maila" onclick="Funkcja2()" > 
 
                     <input type="submit" value="Zmień Hasło" onclick="Funkcja3()">
+                    <br>
+                     <br>
+
+                     <form action="wyloguj.jsp" method="post">
+                    <input type="submit" value="Wyloguj" >
+                     </form>
                     <script>
                         function Funkcja1()
                         {
@@ -144,6 +151,16 @@
 
 
                         }
+                        function Funkcja5()
+                        {
+
+
+                            String site = new String("wyloguj.jsp");
+                            response.setStatus(response.SC_MOVED_TEMPORARILY);
+                            response.setHeader("Location", site);
+
+
+                        }
                     </script>
 
                     <%
@@ -155,6 +172,9 @@
                                 if (request.getParameter("pass2").equals(request.getParameter("pass"))) {
                                     Database.updateUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()), session.getAttribute("logged-user-nick").toString(), session.getAttribute("logged-user-email").toString(), SHA256.szyfruj(request.getParameter("pass")), Integer.parseInt(session.getAttribute("logged-user-level").toString()));
                                     out.print("<script> document.getElementById('err').innerHTML = 'Udana Zmiana Hasła'; </script>");
+                                     String site = new String("profil.jsp");
+                                        response.setStatus(response.SC_MOVED_TEMPORARILY);
+                                        response.setHeader("Location", site);
                                 } else {
                                     out.print("<script> document.getElementById('err').innerHTML = 'PODANE HASŁA NIE SĄ TAKIE SAME - Zmiana Hasła'; </script>");
                                     //wpisane nowe hasła są różne
@@ -174,8 +194,11 @@
                                     Database.updateUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()), session.getAttribute("logged-user-nick").toString(), request.getParameter("mail"), SHA256.szyfruj(request.getParameter("pass3")), Integer.parseInt(session.getAttribute("logged-user-level").toString()));
                                     session.setAttribute("logged-user-email", request.getParameter("mail"));
                                     out.print("<script> document.getElementById('err').innerHTML = 'Udana Zmiana Maila'; </script>");
+                                     String site = new String("profil.jsp");
+                                        response.setStatus(response.SC_MOVED_TEMPORARILY);
+                                        response.setHeader("Location", site);
                                 } else {
-                                    out.print("<script> document.getElementById('err').innerHTML = 'PODANY LOGIN JEST ZAJĘTY'; </script>");
+                                    out.print("<script> document.getElementById('err').innerHTML = 'PODANY MAIL JEST ZAJĘTY'; </script>");
                                     // Mail już jest w bazie
                                 }
 
@@ -185,15 +208,16 @@
 
                         }
                         if (request.getParameter("form1") != null) {
-                            out.println(Integer.parseInt(session.getAttribute("logged-user-id").toString()));
-                            out.println(SHA256.szyfruj(request.getParameter("pass3").toString()));
-                            out.println(Database.checkPass(SHA256.szyfruj(request.getParameter("pass3").toString()), Integer.parseInt(session.getAttribute("logged-user-id").toString())));
+                      
                             if (Database.checkPass(SHA256.szyfruj(request.getParameter("pass3").toString()), Integer.parseInt(session.getAttribute("logged-user-id").toString()))) {
                                 if (Database.checkNick(request.getParameter("login"))) {
 
                                     Database.updateUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()), request.getParameter("login"), session.getAttribute("logged-user-email").toString(), SHA256.szyfruj(request.getParameter("pass3")), Integer.parseInt(session.getAttribute("logged-user-level").toString()));
                                     session.setAttribute("logged-user-nick", request.getParameter("login"));
                                      out.print("<script> document.getElementById('err').innerHTML = 'Udana Zmiana Loginu'; </script>");
+                                        String site = new String("profil.jsp");
+                                        response.setStatus(response.SC_MOVED_TEMPORARILY);
+                                        response.setHeader("Location", site);
                                 } else {
                                     out.print("<script> document.getElementById('err').innerHTML = 'PODANY LOGIN JEST ZAJĘTY'; </script>");
                                     // login juz jest w bazie

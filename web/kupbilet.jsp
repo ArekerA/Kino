@@ -18,11 +18,11 @@
 
         <div class="kupbilet">
             <table class="miejsca">
-                <tr>
-                    <th class="ekran" colspan="15">EKRAN</th>
-                </tr>
+           
                 <%
-
+                    if(session.getAttribute("logged-user-nick")!=null)
+                    {
+                         out.println("<tr><th class='ekran' colspan='15' id='ekran'>EKRAN</th></tr>");
                     Database.polacz();
                     Integer id=Integer.parseInt(request.getParameter("id")); 
                     
@@ -73,6 +73,19 @@
                 out.println("</form>");
             out.println("</div>");
             out.println("<div>");
+                    }
+                    else
+                    {
+                         
+                        out.println(" <h2 style='color:white;'>Musisz być zalogowany aby kupić bilet!</h2>");
+                        out.println("<form action=\"zaloguj.jsp\" method=\"post\">");
+                        out.println("<br><input type=\"submit\" value=\"Zaloguj się\">");
+                        out.println("</form>");
+                        out.println(" <h2 style='color:white;'>Nie masz konta?</h2>");
+                        out.println("<form action=\"rejestruj.jsp\" method=\"post\">");
+                        out.println("<input type=\"submit\" value=\"Zarejestruj się\">");
+                        out.println("</form>");
+                    }
             %>
 
                 </body>
