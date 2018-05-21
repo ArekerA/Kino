@@ -6,14 +6,13 @@
 
 <%@page import="org.apache.jasper.tagplugins.jstl.ForEach"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Kino.Database"%>
-<%@page import="Kino.Aktualnosc"%>
+<%@page import="Kino.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Aktualności</title>
+        <title>Userzy</title>
         <link rel="stylesheet" href="../../styles/jquery.dataTables.min.css">
         <link rel="stylesheet" href="../../styles/jquery-ui.min.css">
         <link rel="stylesheet" href="../../styles/style-panel.css">
@@ -42,29 +41,27 @@
                     } else {
 
                         Database.polacz();
-
             %>
-            <div id="add" class="button-green">Dodaj Aktualność</div>
+            <div id="add" class="button-green">Dodaj Usera</div>
             <table id="table" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Tytuł</th>
-                        <th>Tekst</th>
-                        <th>Obraz</th>
-                        <th>Data</th>
+                        <th>Nick</th>
+                        <th>Mail</th>
+                        <th>Poziom</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <%                            ArrayList<Aktualnosc> aktualnosci = Database.readAktualnosci();
-                        for (Aktualnosc a : aktualnosci) {
+                    <%
+                        ArrayList<User> userzy = Database.readUserzy();
+                        for (User a : userzy) {
                     %>
                     <tr>
                         <td><%=a.getId()%></td>
-                        <td><%=a.getTytul()%></td>
-                        <td><%=a.getTekst()%></td>
-                        <td><%=a.getImg()%></td>
-                        <td><%=a.getData()%></td>
+                        <td><%=a.getNick()%></td>
+                        <td><%=a.getEmail()%></td>
+                        <td><%=a.getLevel()%></td>
                     </tr>
                     <%
                         }
@@ -76,27 +73,40 @@
                     }
                 }
             %>
-            <div id="dialog" title="Modyfikuj Aktualność">
+            <div id="dialog-add" title="Dodaj Usera">
+                <div class='center'>
+                    <form action="dodaj.jsp" method="post" accept-charset="UTF-8">
+                        <input class='input-center' type="text" name="nick" placeholder="Nick"><br/><br/>
+                        <input class='input-center' type="text" name="email" placeholder="Email"><br/><br/>
+                        <input class='input-center' type="password" name="pass" placeholder="Hasło"><br/><br/>
+                        Poziom: <select name='lvl'>    
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select><br/><br/>
+                        <input type='submit' value='Dodaj' class="button-green">
+                    </form>
+                </div>
+            </div>
+            <div id="dialog" title="Modyfikuj Usera">
                 <div class='center'>
                     <form action="edit.jsp" method="post" accept-charset="UTF-8">
+                        <input id="edit-nick" class='input-center' type="text" name="nick" placeholder="Nick"><br/><br/>
+                        <input id="edit-email" class='input-center' type="text" name="email" placeholder="Email"><br/><br/>
+                        <input id="edit-pass" class='input-center' type="password" name="pass" placeholder="Hasło (zostaw puste jeśli nie zmieniasz)"><br/><br/>
+                        Poziom: <select id="edit-lvl" name='lvl'>    
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select><br/><br/>
                         <input id="edit-id" type="hidden" name="id" value="0">
-                        <input id="edit-tytul" class='input-center' type="text" name="tytul" placeholder="Tytuł"><br/><br/>
-                        <textarea id="edit-tekst" name="tekst" rows="8" cols="50">Treść</textarea><br/><br/>
                         <input type='submit' value='Edytuj' class="button-green">
                     </form>
                     <form action="del.jsp" method="post" accept-charset="UTF-8">
                         <input id="del-id" type="hidden" name="id" value="0">
                         <input type='submit' value='Usuń' class="button-red">
-                    </form>
-                </div>
-            </div>
-            <div id="dialog-add" title="Dodaj Aktualność">
-                <div class='center'>
-                    <form action="dodaj.jsp" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-                        <input class='input-center' type="text" name="tytul" placeholder="Tytuł"><br/><br/>
-                        <textarea name="tekst" rows="9" cols="50">Treść</textarea><br/><br/>
-                        <input type="file" name="img" placeholder="Obraz"><br/><br/>
-                        <input type='submit' value='Dodaj' class="button-green">
                     </form>
                 </div>
             </div>
@@ -107,7 +117,7 @@
         <script>
             $(document).ready(function () {
                 var table = $('#table').DataTable({
-                    "order": [[4, "desc"]],
+                    "order": [[1, "asc"]],
                     "language": {
                         "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Polish.json"
                     },
@@ -115,20 +125,7 @@
                         {
                             'targets': 1,
                             'render': function (data, type, full, meta) {
-                                return data.length > 25 ? data.substr(0, 22) + '…' : data;
-                            }
-                        },
-                        {
-                            'targets': 2,
-                            "width": "50%",
-                            'render': function (data, type, full, meta) {
                                 return data.length > 100 ? data.substr(0, 97) + '…' : data;
-                            }
-                        },
-                        {
-                            'targets': 3,
-                            'render': function (data, type, full, meta) {
-                                return data.length > 25 ? data.substr(0, 22) + '…' : data;
                             }
                         }
                     ]
@@ -136,14 +133,13 @@
                 $('#table tbody').on('click', 'tr', function () {
                     var data = table.row(this).data();
                     $("#dialog").dialog("open");
-                    $("#edit-tytul").val(data[1]);
-                    $("#edit-id").val(data[0]);
                     $("#del-id").val(data[0]);
-                    $("#edit-tekst").html(data[2]);
+                    $("#edit-id").val(data[0]);
+                    $("#edit-nick").val(data[1]);
+                    $("#edit-email").val(data[2]);
+                    $("#edit-lvl").val(data[3]);
                 });
                 $("#dialog").dialog({
-                    height: 400,
-                    width: 500,
                     autoOpen: false,
                     show: {
                         effect: "fade",
@@ -155,8 +151,6 @@
                     }
                 });
                 $("#dialog-add").dialog({
-                    height: 400,
-                    width: 500,
                     autoOpen: false,
                     show: {
                         effect: "fade",

@@ -19,13 +19,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Dodaj Aktualnść</title>
+        <title>Dodaj Salę</title>
     </head>
     <body>
         <%
             request.setCharacterEncoding("UTF-8");
             Database.polacz();
-            if (request.getParameter("tytul") != null) {
+            if (request.getParameter("miejsca") != null) {
                 Part filePart = request.getPart("img");
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                 String ext = "";
@@ -34,12 +34,12 @@
                     ext = fileName.substring(i + 1);
                 }
                 int id = Database.readNextIdAktualnosc();
-                fileName = "a" + id + "." + ext;
+                fileName = "s" + id + "." + ext;
                 File file = new File(request.getRealPath("/") + "img/", fileName);
 
                 InputStream input = filePart.getInputStream();
                 Files.copy(input, file.toPath());
-                Database.createAktualnosc(fileName, request.getParameter("tytul"), request.getParameter("tekst"));
+                Database.createSala(fileName, request.getParameter("miejsca"));
             }
             Database.zamknij();
             String site = new String("index.jsp");
@@ -50,3 +50,4 @@
 
     </body>
 </html>
+

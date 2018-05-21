@@ -1,7 +1,7 @@
 <%-- 
     Document   : dodaj
     Created on : 2018-05-15, 12:10:25
-    Author     : Arekl
+    Author     : Mateusz
 --%>
 
 <%@page import="java.nio.file.Paths"%>
@@ -19,29 +19,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Dodaj Aktualnść</title>
+        <title>Edytuj Salę</title>
     </head>
     <body>
         <%
             request.setCharacterEncoding("UTF-8");
+            if (request.getParameter("miejsca") != null) {
             Database.polacz();
-            if (request.getParameter("tytul") != null) {
-                Part filePart = request.getPart("img");
-                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                String ext = "";
-                int i = fileName.lastIndexOf('.');
-                if (i > 0) {
-                    ext = fileName.substring(i + 1);
-                }
-                int id = Database.readNextIdAktualnosc();
-                fileName = "a" + id + "." + ext;
-                File file = new File(request.getRealPath("/") + "img/", fileName);
-
-                InputStream input = filePart.getInputStream();
-                Files.copy(input, file.toPath());
-                Database.createAktualnosc(fileName, request.getParameter("tytul"), request.getParameter("tekst"));
+                Database.updateSala(request.getParameter("miejsca"),Integer.parseInt(request.getParameter("id")));
+                Database.zamknij();
             }
-            Database.zamknij();
             String site = new String("index.jsp");
             response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", site);

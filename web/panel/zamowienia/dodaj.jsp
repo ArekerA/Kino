@@ -4,6 +4,7 @@
     Author     : Arekl
 --%>
 
+<%@page import="Kino.SHA256"%>
 <%@page import="java.nio.file.Paths"%>
 <%@page import="java.nio.file.Files"%>
 <%@page import="java.io.InputStream"%>
@@ -19,33 +20,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Dodaj Aktualnść</title>
+        <title>Dodaj Usera</title>
     </head>
     <body>
         <%
             request.setCharacterEncoding("UTF-8");
             Database.polacz();
-            if (request.getParameter("tytul") != null) {
-                Part filePart = request.getPart("img");
-                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                String ext = "";
-                int i = fileName.lastIndexOf('.');
-                if (i > 0) {
-                    ext = fileName.substring(i + 1);
-                }
-                int id = Database.readNextIdAktualnosc();
-                fileName = "a" + id + "." + ext;
-                File file = new File(request.getRealPath("/") + "img/", fileName);
-
-                InputStream input = filePart.getInputStream();
-                Files.copy(input, file.toPath());
-                Database.createAktualnosc(fileName, request.getParameter("tytul"), request.getParameter("tekst"));
+            if (request.getParameter("nick") != null) {
+                Database.polacz();
+                Database.createUser(request.getParameter("nick"),request.getParameter("email"),SHA256.szyfruj(request.getParameter("pass")),Integer.parseInt(request.getParameter("lvl")));
+                Database.zamknij();
             }
-            Database.zamknij();
             String site = new String("index.jsp");
             response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", site);
-
         %>
 
     </body>

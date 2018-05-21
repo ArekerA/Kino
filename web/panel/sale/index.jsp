@@ -4,6 +4,7 @@
     Author     : Arekl
 --%>
 
+<%@page import="Kino.Sala"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.ForEach"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Kino.Database"%>
@@ -13,7 +14,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Aktualności</title>
+        <title>Sale</title>
         <link rel="stylesheet" href="../../styles/jquery.dataTables.min.css">
         <link rel="stylesheet" href="../../styles/jquery-ui.min.css">
         <link rel="stylesheet" href="../../styles/style-panel.css">
@@ -44,27 +45,24 @@
                         Database.polacz();
 
             %>
-            <div id="add" class="button-green">Dodaj Aktualność</div>
+            <div id="add" class="button-green">Dodaj Sale</div>
             <table id="table" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Tytuł</th>
-                        <th>Tekst</th>
                         <th>Obraz</th>
-                        <th>Data</th>
+                        <th>Miejsca</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <%                            ArrayList<Aktualnosc> aktualnosci = Database.readAktualnosci();
-                        for (Aktualnosc a : aktualnosci) {
+                    <%
+                        ArrayList<Sala> sale = Database.readSale();
+                        for (Sala a : sale) {
                     %>
                     <tr>
                         <td><%=a.getId()%></td>
-                        <td><%=a.getTytul()%></td>
-                        <td><%=a.getTekst()%></td>
-                        <td><%=a.getImg()%></td>
-                        <td><%=a.getData()%></td>
+                        <td><%=a.getObraz()%></td>
+                        <td><%=a.getMiejsca()%></td>
                     </tr>
                     <%
                         }
@@ -76,12 +74,11 @@
                     }
                 }
             %>
-            <div id="dialog" title="Modyfikuj Aktualność">
+            <div id="dialog" title="Modyfikuj Salę">
                 <div class='center'>
                     <form action="edit.jsp" method="post" accept-charset="UTF-8">
                         <input id="edit-id" type="hidden" name="id" value="0">
-                        <input id="edit-tytul" class='input-center' type="text" name="tytul" placeholder="Tytuł"><br/><br/>
-                        <textarea id="edit-tekst" name="tekst" rows="8" cols="50">Treść</textarea><br/><br/>
+                        <input id="edit-miejsca" class='input-center' type="text" name="miejsca" placeholder="Miejsca"><br/><br/>
                         <input type='submit' value='Edytuj' class="button-green">
                     </form>
                     <form action="del.jsp" method="post" accept-charset="UTF-8">
@@ -90,11 +87,10 @@
                     </form>
                 </div>
             </div>
-            <div id="dialog-add" title="Dodaj Aktualność">
+            <div id="dialog-add" title="Dodaj Salę">
                 <div class='center'>
                     <form action="dodaj.jsp" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-                        <input class='input-center' type="text" name="tytul" placeholder="Tytuł"><br/><br/>
-                        <textarea name="tekst" rows="9" cols="50">Treść</textarea><br/><br/>
+                        <input class='input-center' type="text" name="miejsca" placeholder="Miejsca"><br/><br/>
                         <input type="file" name="img" placeholder="Obraz"><br/><br/>
                         <input type='submit' value='Dodaj' class="button-green">
                     </form>
@@ -107,7 +103,7 @@
         <script>
             $(document).ready(function () {
                 var table = $('#table').DataTable({
-                    "order": [[4, "desc"]],
+                    "order": [[0, "asc"]],
                     "language": {
                         "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Polish.json"
                     },
@@ -124,26 +120,18 @@
                             'render': function (data, type, full, meta) {
                                 return data.length > 100 ? data.substr(0, 97) + '…' : data;
                             }
-                        },
-                        {
-                            'targets': 3,
-                            'render': function (data, type, full, meta) {
-                                return data.length > 25 ? data.substr(0, 22) + '…' : data;
-                            }
                         }
                     ]
                 });
                 $('#table tbody').on('click', 'tr', function () {
                     var data = table.row(this).data();
                     $("#dialog").dialog("open");
-                    $("#edit-tytul").val(data[1]);
+                    $("#edit-miejsca").val(data[2]);
                     $("#edit-id").val(data[0]);
                     $("#del-id").val(data[0]);
-                    $("#edit-tekst").html(data[2]);
                 });
                 $("#dialog").dialog({
-                    height: 400,
-                    width: 500,
+                    width: 400,
                     autoOpen: false,
                     show: {
                         effect: "fade",
@@ -155,8 +143,7 @@
                     }
                 });
                 $("#dialog-add").dialog({
-                    height: 400,
-                    width: 500,
+                    width: 400,
                     autoOpen: false,
                     show: {
                         effect: "fade",

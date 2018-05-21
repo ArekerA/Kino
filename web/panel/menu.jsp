@@ -17,14 +17,20 @@
             <% if(session.getAttribute("logged-user-level") != null){
                  if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 2) { %>
                     <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/aktualnosci/" class="button">Aktualności</a>
+                <% } if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 2) { %>
+                    <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/zamowienia/" class="button">Zamówienia</a><p></p>
                 <% } if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
                     <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/filmy/" class="button">Filmy</a>
                 <% } if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
-                    <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/seanse/" class="button">Seanse</a>
+                    <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/wersje/" class="button">Wersje</a>
+                <% } if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
+                    <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/seanse/" class="button">Seanse</a><p></p>
+                <% }if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
+                    <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/sale/" class="button">Sale</a>
                 <% } if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
                     <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/strony/" class="button">Strony</a>
-                <% } if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
-                    <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/wersje/" class="button">Wersje</a>
+                <% }if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
+                    <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/userzy/" class="button">Userzy</a>
                 <% }
             }%>
             <form action="#" method="post">

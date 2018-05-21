@@ -153,6 +153,38 @@ public class Database {
             return c;
         }
     }
+    public static String readUserNick(int id)
+    {
+        String c = null;
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery("Select nick from userzy where id='"+id+"';");
+            while (r.next())
+                c = r.getString("nick");
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("====\nBląd readUserNick()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+        }
+        finally {
+            return c;
+        }
+    }
+    public static ArrayList<User> readUserzy()
+    {
+        ArrayList<User> c = new ArrayList<User>();
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery("Select id,nick,email,level from userzy;");
+            while (r.next())
+                c.add(new User(r.getInt("id"), r.getString("nick"), r.getString("email"), r.getInt("level")));
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("====\nBląd readUserzy()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+        }
+        finally {
+            return c;
+        }
+    }
     public static ArrayList<Film> readFilmy()
     {
         ArrayList<Film> c = new ArrayList<Film>();
@@ -646,7 +678,7 @@ public class Database {
             String query = "INSERT INTO miejsca VALUES";
             for(int i=0; i<225; i++)
             {
-                query+="("+id2+i+", "+id+", "+i+", "+sala+"),";
+                query+="("+id2+i+", "+id+", "+i+", 0),";
             }
             query = query.substring(0, query.length() - 1);
             query += ";";
@@ -975,6 +1007,18 @@ public class Database {
             return false;
         }
     }
+    public static boolean updateSala(String miejsca, int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE sale SET  miejsca = '"+miejsca+"' WHERE id = "+id+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateSala()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
     public static boolean updateSala(Sala a)
     {
         try {
@@ -1032,6 +1076,18 @@ public class Database {
             return true;
         } catch (SQLException e) {
             System.out.println("====\nBląd updateStrona()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateUser(int id, String nick, String email, int lvl)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE userzy SET nick = '"+nick+"', email = '"+email+"', level="+lvl+" WHERE id = "+id+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateUser()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
             return false;
         }
     }
