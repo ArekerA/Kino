@@ -18,11 +18,12 @@
 
         <div class="kupbilet">
             <table class="miejsca">
-           
+                
                 <%
                     if(session.getAttribute("logged-user-nick")!=null)
                     {
-                         out.println("<tr><th class='ekran' colspan='15' id='ekran'>EKRAN</th></tr>");
+                        out.println("<tr><th class='ekran' style='color: white;' colspan='15'  id='ekran'>SALA KINOWA</th></tr> <br><br>");
+                         out.println("<tr><th class='ekran' style='color: white;' colspan='15'  id='ekran'>EKRAN</th></tr>");
                     Database.polacz();
                     Integer id=Integer.parseInt(request.getParameter("id")); 
                     
@@ -35,7 +36,7 @@
                     }
                     out.println("<form action=\"kup.jsp\" method=\"post\">");
                     for (int i = 0; i < 15; i++) {
-
+                        
                         out.println("<tr class=\"rzad\">");
                         for (int a = 0; a < 15; a++) {
                             out.println("<th class=\"miejsce\">");

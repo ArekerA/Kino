@@ -23,19 +23,20 @@
         <%
             Integer r=Integer.parseInt(request.getParameter("size"));
             Database.polacz();
-            Bilet b=new Bilet();
-            Zamowienie z=new Zamowienie();
+          
+          //  Zamowienie z=new Zamowienie();
+           // z.setUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()));
+           // Database.createZamowienie(z);
             for(int i=0; i<r; i++)
            {
-                String str = "" + i;
-                b.setNazwa("ulgowy");
-                b.setCena(12.5);
-                //z.setUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()));
+                
+               
+                out.print("<div>"+request.getParameter(Integer.toString(i))+"</div>");
+               
                 //Database.createZamowienie(z);
                // Database.updateZamowienie(z);
-                Database.createBilet(b);
-                Database.updateBilet(b);
-                
+               
+                               
            }
             Database.zamknij();
         %>

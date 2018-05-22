@@ -61,14 +61,13 @@
                 </div>
             </aside>
             <section>
-                
                 <% Database.polacz();
                     
                 ArrayList<Aktualnosc> aktualnosci = Database.readAktualnosci();
                 
                  for (Aktualnosc a : aktualnosci)
                  {
-                     out.println("<article>" + "<div class='tytek'>" + a.getTytul() + 
+                     out.println("<article style='border-style: dashed'>" + "<div class='tytek'>" + a.getTytul() + 
                              "</div> <div class='obrazek'> <img class='obraz' src=\"img/" 
                              + a.getImg() + "\" alt=" + a.getTytul() + "</div > <div style='text-align: justify;'>" + a.getTekst() +"</div></article>"); 
                      

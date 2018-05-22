@@ -27,10 +27,11 @@
     for (int i = 0; i < miejsca.length; i++) {
         String str = "" + i;
         out.println("Rodzaj biletu o numerze "+(i+1)+" dla miejsca :"+miejsca[i]+"");
-        out.println("<select> name="+str+"");
-         out.println("<option value=\"none\" checked></option>");
-        out.println("<option value=\"normalny\">Normalny</option>");
-        out.println("<option value=\"ulgowy\">Ulgowy</option>");
+        out.println("<select name="+str+">");
+         ArrayList<Bilet> bilety = Database.readBilety();
+         for (Bilet b : bilety) {
+        out.println("<option value="+b.getId()+">"+b.getNazwa()+"</option>");
+         }
         out.println("</select>");
         out.println("<br>");
 //        Database.readMiejsce(a).getDostepnosc();
