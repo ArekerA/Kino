@@ -22,19 +22,19 @@
   miejsca = request.getParameterValues("check");
   Database.polacz();
    if (miejsca != null) {
-    out.println("<form action=\"kupione.jsp\" method=\"post\">");   
+    out.println("<form action=\"kupione.jsp?size="+miejsca.length+"\" method=\"post\">");   
     for (int i = 0; i < miejsca.length; i++) {
+        String str = "" + i;
         out.println("Rodzaj biletu o numerze "+(i+1)+"");
-        out.println("<select> name="+i+"");
+        out.println("<select> name="+str+"");
         out.println("<option value=\"normalny\">Normalny</option>");
         out.println("<option value=\"ulgowy\">Ulgowy</option>");
         out.println("</select>");
         out.println("<br>");
-        int a = Integer.parseInt(miejsca[i]);
-        Database.readMiejsce(a).getDostepnosc();
-        Miejsce m=  Database.readMiejsce(a);
-        m.setDostepnosc(1);
-        Database.updateMiejsce(m);
+//        Database.readMiejsce(a).getDostepnosc();
+//        Miejsce m=  Database.readMiejsce(a);
+//        m.setDostepnosc(1);
+//        Database.updateMiejsce(m);
     }
     out.println("");
     out.println("Kupujesz dla:");
