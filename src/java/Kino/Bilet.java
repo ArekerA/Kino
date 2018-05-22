@@ -19,6 +19,9 @@ public class Bilet {
         this.nazwa = nazwa;
         this.cena = cena;
     }
+    public Bilet() {
+        
+    }
 
     public int getId() {
         return id;

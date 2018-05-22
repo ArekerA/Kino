@@ -21,6 +21,10 @@ public class User {
         this.email = email;
         this.level = level;
     }
+    
+    public User() {
+        
+    }
 
     public int getId() {
         return id;

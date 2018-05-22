@@ -23,10 +23,12 @@
   Database.polacz();
    if (miejsca != null) {
     out.println("<form action=\"kupione.jsp?size="+miejsca.length+"\" method=\"post\">");   
+    
     for (int i = 0; i < miejsca.length; i++) {
         String str = "" + i;
-        out.println("Rodzaj biletu o numerze "+(i+1)+"");
+        out.println("Rodzaj biletu o numerze "+(i+1)+" dla miejsca :"+miejsca[i]+"");
         out.println("<select> name="+str+"");
+         out.println("<option value=\"none\" checked></option>");
         out.println("<option value=\"normalny\">Normalny</option>");
         out.println("<option value=\"ulgowy\">Ulgowy</option>");
         out.println("</select>");

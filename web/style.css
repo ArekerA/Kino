@@ -274,7 +274,7 @@ img.obraz{
     margin: 10px;
 }
 
-input[type=text], input[type=password], input[type=email], input[type=number]
+input[type=text], input[type=password], input[type=email], input[type=number], 
 {
     border-radius: 10px;
     width: 50%;
@@ -294,6 +294,7 @@ input[type=submit] {
     text-align: center;
 
 }
+
 .kupbilet
 {
     text-align: center;

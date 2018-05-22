@@ -27,6 +27,9 @@ public class Zamowienie {
         this.ilosc = ilosc;
         this.miejsca = miejsca;
     }
+     public Zamowienie() {
+        
+    }
 
     public int getId() {
         return id;

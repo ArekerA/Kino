@@ -4,6 +4,9 @@
     Author     : Mateusz
 --%>
 
+<%@page import="Kino.User"%>
+<%@page import="Kino.Zamowienie"%>
+<%@page import="Kino.Bilet"%>
 <%@page import="Kino.Database"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,13 +23,20 @@
         <%
             Integer r=Integer.parseInt(request.getParameter("size"));
             Database.polacz();
+            Bilet b=new Bilet();
+            Zamowienie z=new Zamowienie();
             for(int i=0; i<r; i++)
-            {
+           {
                 String str = "" + i;
-            
-                //Database.createBilet(request.getParameter(str).toString(), 12.5);
-                out.print(request.getParameter(""+i));
-            }
+                b.setNazwa("ulgowy");
+                b.setCena(12.5);
+                //z.setUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()));
+                //Database.createZamowienie(z);
+               // Database.updateZamowienie(z);
+                Database.createBilet(b);
+                Database.updateBilet(b);
+                
+           }
             Database.zamknij();
         %>
     </body>
