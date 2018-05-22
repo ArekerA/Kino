@@ -98,11 +98,11 @@
 
                     <br>
 
-                    <input type="submit" value="Zmień Login" onclick="Funkcja1()">   
+                    <input type="submit" value="Zmień Login" onclick="Funkcja1();">   
 
-                    <input type="submit" value="Zmień Maila" onclick="Funkcja2()" > 
+                    <input type="submit" value="Zmień Maila" onclick="Funkcja2();" > 
 
-                    <input type="submit" value="Zmień Hasło" onclick="Funkcja3()">
+                    <input type="submit" value="Zmień Hasło" onclick="Funkcja3();">
                     <br>
                      <br>
 
@@ -148,16 +148,6 @@
                             document.getElementById('2').style.display = 'none';
                             document.getElementById('3').style.display = 'none';
                             document.getElementById('0').style.display = 'inline-block';
-
-
-                        }
-                        function Funkcja5()
-                        {
-
-
-                            String site = new String("wyloguj.jsp");
-                            response.setStatus(response.SC_MOVED_TEMPORARILY);
-                            response.setHeader("Location", site);
 
 
                         }

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
-    <head>
         <%@page import="org.apache.jasper.tagplugins.jstl.ForEach"%>
-        <link rel="stylesheet" href="style_1_1.css">
         <%@page contentType="text/html" pageEncoding="UTF-8"%>
         <%@page import="Kino.*" %>
         <%@page import="java.util.ArrayList"%>
+<html>
+    <head>
+<link rel="stylesheet" href="style.css">
         <title>Kino Planeta</title>
     </head>
     <body>

@@ -368,7 +368,7 @@ public class Database {
         ArrayList<Aktualnosc> c = new ArrayList<Aktualnosc>();
         try {
             Statement st = con.createStatement();
-            ResultSet r = st.executeQuery("Select * from aktualnosci;");
+            ResultSet r = st.executeQuery("Select * from aktualnosci order by data desc;");
             while (r.next())
                 c.add(new Aktualnosc(r.getInt("id"), r.getString("data"), r.getString("img"), r.getString("tytul"), r.getString("tekst")));
             st.close();
@@ -678,7 +678,7 @@ public class Database {
             String query = "INSERT INTO miejsca VALUES";
             for(int i=0; i<225; i++)
             {
-                query+="("+id2+i+", "+id+", "+i+", 0),";
+                query+="("+(id2+i)+", "+id+", "+i+", 0),";
             }
             query = query.substring(0, query.length() - 1);
             query += ";";
