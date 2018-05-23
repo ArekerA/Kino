@@ -16,7 +16,7 @@
     </head>
     <body>
 
-        <div class="kupbilet">
+        <div class="kupbilet" >
             <table class="miejsca">
                 
                 <%
@@ -37,16 +37,19 @@
                     out.println("<form action=\"kup.jsp\" method=\"post\">");
                     for (int i = 0; i < 15; i++) {
                         
-                        out.println("<tr class=\"rzad\">");
+                        out.println("<tr style='margin: 3px; padding: 3px;' class=\"rzad\">");
                         for (int a = 0; a < 15; a++) {
-                            out.println("<th class=\"miejsce\">");
-
+                            
+                            out.println("<th style='margin: 3px; padding: 3px;' class=\"miejsce\">");
+                            
                             if (miejsca.get(14 * i + (a + i)).getDostepnosc() == 1) {
-                                out.println("<label class=\"container\"><input type=\"checkbox\" checked onclick=\"return false;\">  <span class=\"checkmark\" ></span></label>");
+                              //out.print(i+":"+a);
+                                out.println("<label class=\"container\"><input style='margin: 3px; padding: 3px;' type=\"checkbox\" checked onclick=\"return false;\">  <span class=\"checkmark\" ></span></label>");
                             } else {
-                                out.println("<label class=\"container\"><input type=\"checkbox\" name=\"check\" value="+((miejsca.get(14 * i + (a + i)).getId())+1)+">  <span class=\"checkmark\"></span></label>");
+                                // out.print(i+":"+a);
+                                out.println("<label class=\"container\"><input style='margin: 3px; padding: 3px;' type=\"checkbox\" name=\"check\" value="+((miejsca.get(14 * i + (a + i)).getId())+1)+">  <span class=\"checkmark\"></span></label>");
                             }
-
+                                
                             out.println("</th>");
                         }
                         out.println("</tr>");

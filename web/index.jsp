@@ -67,7 +67,7 @@
                 
                  for (Aktualnosc a : aktualnosci)
                  {
-                     out.println("<article style='border-style: dashed'>" + "<div class='tytek'>" + a.getTytul() + 
+                     out.println("<article style='border-style: dashed; margin: 5px; padding: 5px;' >" + "<div class='tytek' style='font-size: 25pt; text-align: center;  margin: 5px; padding: 5px;'  >" + a.getTytul() + 
                              "</div> <div class='obrazek'> <img class='obraz' src=\"img/" 
                              + a.getImg() + "\" alt=" + a.getTytul() + "</div > <div style='text-align: justify;'>" + a.getTekst() +"</div></article>"); 
                      
