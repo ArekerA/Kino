@@ -54,7 +54,8 @@ public class Database {
             st.executeUpdate("CREATE TABLE Bilety ( id INT NOT NULL, nazwa TEXT NOT NULL, cena NUMERIC NOT NULL, PRIMARY KEY (id));");
             st.executeUpdate("CREATE TABLE Userzy ( id INT NOT NULL, nick TEXT NOT NULL, email TEXT NOT NULL, pass TEXT NOT NULL, level INT NOT NULL, PRIMARY KEY (id));");
             st.executeUpdate("CREATE TABLE Zamowienia ( id INT NOT NULL, user INT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (user) REFERENCES Userzy(id));");
-            st.executeUpdate("CREATE TABLE Zamowienia_Bilety ( id INT NOT NULL, id_zamowienia INT NOT NULL, id_biletu INT NOT NULL, ilosc INT NOT NULL, miejsca TEXT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (id_zamowienia) REFERENCES Zamowienia(id), FOREIGN KEY (id_biletu) REFERENCES Bilety(id));");
+            st.executeUpdate("CREATE TABLE Zamowienia_Bilety ( id INT NOT NULL, id_zamowienia INT NOT NULL, id_biletu INT NOT NULL, ilosc INT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (id_zamowienia) REFERENCES Zamowienia(id), FOREIGN KEY (id_biletu) REFERENCES Bilety(id));");
+            st.executeUpdate("CREATE TABLE Zamowienia_Miejsca ( id INT NOT NULL, id_zamowienia_bilety INT NOT NULL, id_miejsce INT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (id_zamowienia_bilety) REFERENCES Zamowienia_Bilety(id), FOREIGN KEY (id_miejsce) REFERENCES Miejsca(id));");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -83,7 +84,8 @@ public class Database {
             st.executeUpdate("INSERT INTO Bilety VALUES ( 0, 'normalny', 12.50);");
             st.executeUpdate("INSERT INTO Userzy VALUES ( 0, 'admin', 'admin@example.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 3),( 2, 'prac', 'admin@example.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 2);");
             st.executeUpdate("INSERT INTO Zamowienia VALUES ( 0, 0);");
-            st.executeUpdate("INSERT INTO Zamowienia_Bilety VALUES ( 0, 0, 0, 2, '2,3');");
+            st.executeUpdate("INSERT INTO Zamowienia_Bilety VALUES ( 0, 0, 0, 2);");
+            st.executeUpdate("INSERT INTO Zamowienia_Miejsca VALUES ( 0, 0, 0);");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -286,7 +288,7 @@ public class Database {
         ArrayList<Seans> c = new ArrayList<Seans>();
         try {
             Statement st = con.createStatement();
-            ResultSet r = st.executeQuery("Select * from seanse;");
+            ResultSet r = st.executeQuery("Select * from seanse order by data desc;");
             while (r.next())
                 c.add(new Seans(r.getInt("id"), r.getInt("id_filmu"), r.getInt("id_wersji"), r.getString("data"), r.getInt("sala")));
             st.close();
@@ -337,6 +339,22 @@ public class Database {
         try {
             Statement st = con.createStatement();
             ResultSet r = st.executeQuery("Select * from miejsca;");
+            while (r.next())
+                c.add(new Miejsce(r.getInt("id"), r.getInt("id_seansu"), r.getInt("miejsce"), r.getInt("dostepnosc")));
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("====\nBląd readMiejsca()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+        }
+        finally {
+            return c;
+        }
+    }
+    public static ArrayList<Miejsce> readMiejsca(int id_seansu)
+    {
+        ArrayList<Miejsce> c = new ArrayList<Miejsce>();
+        try {
+            Statement st = con.createStatement();
+            ResultSet r = st.executeQuery("Select * from miejsca where id_seansu = "+id_seansu+";");
             while (r.next())
                 c.add(new Miejsce(r.getInt("id"), r.getInt("id_seansu"), r.getInt("miejsce"), r.getInt("dostepnosc")));
             st.close();
@@ -481,26 +499,38 @@ public class Database {
         try {
             Statement st = con.createStatement();
             Statement st2 = con.createStatement();
+            Statement st3 = con.createStatement();
             ResultSet r = st.executeQuery("Select * from zamowienia;");
             while (r.next())
             {
                 ResultSet r2 = st2.executeQuery("Select * from Zamowienia_Bilety where id_zamowienia="+r.getInt("id")+";");
                 ArrayList<Bilet> c2 = new ArrayList<Bilet>();
                 ArrayList<Integer> c3 = new ArrayList<Integer>();
-                ArrayList<String> c4 = new ArrayList<String>();
+                ArrayList<ArrayList<Miejsce>> c4 = new ArrayList<ArrayList<Miejsce>>();
                 ArrayList<Integer> c5 = new ArrayList<Integer>();
+                ArrayList<ArrayList<Integer>> c6 = new ArrayList<ArrayList<Integer>>();
                 String s = "";
                 while (r2.next())
                 {
+                    ArrayList<Miejsce> c7 = new ArrayList<Miejsce>();
+                    ArrayList<Integer> c8 = new ArrayList<Integer>();
                     c2.add(readBilet(r2.getInt("id_biletu")));
                     c3.add(new Integer(r2.getInt("ilosc")));
-                    c4.add(r2.getString("miejsca"));
+                    ResultSet r3 = st3.executeQuery("Select * from Zamowienia_Miejsca where id_zamowienia_bilety="+r2.getInt("id")+";");
+                    while (r3.next())
+                    {
+                        c7.add(readMiejsce(r3.getInt("id_miejsce")));
+                        c8.add(r3.getInt("id"));
+                    }
+                    c4.add(c7);
                     c5.add(r2.getInt("id"));
+                    c6.add(c8);
                 }
-                c.add(new Zamowienie(r.getInt("id"), r.getInt("user"), c5, c2, c3, c4));
+                c.add(new Zamowienie(r.getInt("id"), r.getInt("user"), c5, c2, c3, c4, c6));
             }
             st.close();
             st2.close();
+            st3.close();
         } catch (SQLException e) {
             System.out.println("====\nBląd readZamowienia()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
         }
@@ -514,24 +544,36 @@ public class Database {
         try {
             Statement st = con.createStatement();
             Statement st2 = con.createStatement();
+            Statement st3 = con.createStatement();
             ResultSet r = st.executeQuery("Select * from zamowienia where id="+id+";");
             r.next();
             ResultSet r2 = st2.executeQuery("Select * from Zamowienia_Bilety where id_zamowienia="+r.getInt("id")+";");
             ArrayList<Bilet> c2 = new ArrayList<Bilet>();
             ArrayList<Integer> c3 = new ArrayList<Integer>();
-            ArrayList<String> c4 = new ArrayList<String>();
+            ArrayList<ArrayList<Miejsce>> c4 = new ArrayList<ArrayList<Miejsce>>();
             ArrayList<Integer> c5 = new ArrayList<Integer>();
+            ArrayList<ArrayList<Integer>> c6 = new ArrayList<ArrayList<Integer>>();
             String s = "";
             while (r2.next())
             {
-                c2.add(readBilet(r2.getInt("id_biletu")));
-                c3.add(new Integer(r2.getInt("ilosc")));
-                c4.add(r2.getString("miejsca"));
-                c5.add(r2.getInt("id"));
+                    ArrayList<Miejsce> c7 = new ArrayList<Miejsce>();
+                    ArrayList<Integer> c8 = new ArrayList<Integer>();
+                    c2.add(readBilet(r2.getInt("id_biletu")));
+                    c3.add(new Integer(r2.getInt("ilosc")));
+                    ResultSet r3 = st3.executeQuery("Select * from Zamowienia_Miejsca where id_zamowienia_bilety="+r2.getInt("id")+";");
+                    while (r3.next())
+                    {
+                        c7.add(readMiejsce(r3.getInt("id_miejsce")));
+                        c8.add(r3.getInt("id"));
+                    }
+                    c4.add(c7);
+                    c5.add(r2.getInt("id"));
+                    c6.add(c8);
             }
-            c = new Zamowienie(r.getInt("id"), r.getInt("user"), c5, c2, c3, c4);
+            c = new Zamowienie(r.getInt("id"), r.getInt("user"), c5, c2, c3, c4, c6);
             st.close();
             st2.close();
+            st3.close();
         } catch (SQLException e) {
             System.out.println("====\nBląd readZamowienie()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
         }
@@ -763,7 +805,16 @@ public class Database {
                 ResultSet r2 = st2.executeQuery( "Select MAX(id) as max from zamowienia_bilety;");
                 r2.next();
                 int id2 = r2.getInt("max")+1;
-                st2.executeUpdate("INSERT INTO zamowienia_bilety VALUES("+id2+", "+id+", "+z.getBilety().get(i).getId()+", "+z.getIlosc().get(i)+", "+z.getMiejsca().get(i)+");");
+                st2.executeUpdate("INSERT INTO zamowienia_bilety VALUES("+id2+", "+id+", "+z.getBilety().get(i).getId()+", "+z.getIlosc().get(i)+");");
+                for(int j = 0; j < z.getMiejsca().get(i).size(); j++)
+                {
+                    Statement st3 = con.createStatement();
+                    ResultSet r3 = st3.executeQuery( "Select MAX(id) as max from Zamowienia_Miejsca;");
+                    r3.next();
+                    int id3 = r3.getInt("max")+1;
+                    st3.executeUpdate("INSERT INTO Zamowienia_Miejsca VALUES("+id3+", "+id2+", "+z.getMiejsca().get(i).get(j).getId()+");");
+                    st3.close();
+                }
                 st2.close();
             }
             st.close();
@@ -925,13 +976,18 @@ public class Database {
         try {
             Statement st = con.createStatement();
             Statement st2 = con.createStatement();
+            Statement st3 = con.createStatement();
+            ResultSet r = st3.executeQuery("Select * from zamowienia_bilety where id_zamowienia="+id+";");
+            while (r.next())
+                st3.executeUpdate("DELETE FROM Zamowienia_Miejsca WHERE id_zamowienia_bilety="+r.getInt("id")+";");
             st.executeUpdate("DELETE FROM zamowienia_bilety WHERE id_zamowienia="+id+";");
             st2.executeUpdate("DELETE FROM zamowienia WHERE id="+id+";");
             st.close();
             st2.close();
+            st3.close();
             return true;
         } catch (SQLException e) {
-            System.out.println("====\nBląd deleteWersja()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            System.out.println("====\nBląd deleteZamowienie()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
             return false;
         }
     }
@@ -1136,7 +1192,13 @@ public class Database {
             for(int i = 0; i < a.getBilety().size(); i++)
             {
                 Statement st2 = con.createStatement();
-                st2.executeUpdate("UPDATE zamowienia_bilety SET id_biletu = "+a.getBilety().get(i).getId()+", ilosc = "+a.getIlosc().get(i)+", miejsca = '"+a.getMiejsca().get(i)+"' WHERE id = "+a.getIdz().get(i)+";");
+                st2.executeUpdate("UPDATE zamowienia_bilety SET id_biletu = "+a.getBilety().get(i).getId()+", ilosc = "+a.getIlosc().get(i)+" WHERE id = "+a.getIdz().get(i)+";");
+                 for(int j = 0; j < a.getMiejsca().get(i).size(); j++)
+                {
+                    Statement st3 = con.createStatement();
+                    st3.executeUpdate("UPDATE Zamowienia_Miejsca SET id_zamowienia_bilety="+a.getIdz().get(i)+", id_miejsce ="+a.getMiejsca().get(i).get(j).getId()+" where id="+a.getIdm().get(i).get(j)+";");
+                    st3.close();
+                }
                 st2.close();
             }
             return true;

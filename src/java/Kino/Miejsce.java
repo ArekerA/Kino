@@ -15,6 +15,9 @@ public class Miejsce {
     private int miejsce;
     private int dostepnosc;
 
+    public Miejsce() {
+    }
+
     public Miejsce(int id, int idSeansu, int miejsce, int dostepnosc) {
         this.id = id;
         this.idSeansu = idSeansu;

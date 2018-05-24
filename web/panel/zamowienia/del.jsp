@@ -19,14 +19,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Usuwanie Usera</title>
+        <title>Usuwanie Zamówienia</title>
     </head>
     <body>
         <%
             request.setCharacterEncoding("UTF-8");
             if (request.getParameter("id") != null) {
                 Database.polacz();
-                Database.deleteUser(Integer.parseInt(request.getParameter("id")));
+                Database.deleteZamowienie(Integer.parseInt(request.getParameter("id")));
                 Database.zamknij();
             }
             String site = new String("index.jsp");

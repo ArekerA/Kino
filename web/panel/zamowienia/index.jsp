@@ -15,6 +15,7 @@
         <title>Zamówienia</title>
         <link rel="stylesheet" href="../../styles/jquery.dataTables.min.css">
         <link rel="stylesheet" href="../../styles/jquery-ui.min.css">
+        <link rel="stylesheet" href="../../styles/chosen.min.css">
         <link rel="stylesheet" href="../../styles/style-panel.css">
     </head>
     <body>
@@ -48,7 +49,8 @@
                     <tr>
                         <th>Id</th>
                         <th>User</th>
-                        <th>Bilety &rarr; Miejsca</th>
+                        <th>Bilety</th>
+                        <th>Seans</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,7 +63,14 @@
                         <td><%=Database.readUserNick(a.getUser())%></td>
                         <td><%
                             for (int i = 0; i < a.getBilety().size(); i++) {
-                                out.print(a.getBilety().get(i).getNazwa()+" x "+a.getIlosc().get(i)+" &rarr; "+a.getMiejsca().get(i)+"<br>");
+                                out.print(a.getBilety().get(i).getNazwa()+" x "+a.getIlosc().get(i)+"<br>");
+                            }
+                        %></td>
+                        <td><%
+                            for (int i = 0; i < a.getMiejsca().size(); i++) {
+                                Seans s = Database.readSeans(a.getMiejsca().get(i).get(0).getIdSeansu());
+                                
+                                out.print(s.getData()+" "+Database.readFilm(s.getIdFilmu()).getTytul()+"<br>");
                             }
                         %></td>
                     </tr>
@@ -78,15 +87,30 @@
             <div id="dialog-add" title="Dodaj Zamówienie">
                 <div class='center'>
                     <form action="dodaj.jsp" method="post" accept-charset="UTF-8">
-                        <input class='input-center' type="text" name="nick" placeholder="Nick"><br/><br/>
-                        <input class='input-center' type="text" name="email" placeholder="Email"><br/><br/>
-                        <input class='input-center' type="password" name="pass" placeholder="Hasło"><br/><br/>
-                        Poziom: <select name='lvl'>    
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select><br/><br/>
+                        <div id="zamowienie">
+                            1. <select id="bilet0" name='bilet0'>    
+                                <%
+                                    Database.polacz();
+                                    for (Bilet b : Database.readBilety()) {
+                                        out.print("<option value=\""+b.getId()+"\">" + b.getNazwa()+ " : "+b.getCena()+"</option>");
+                                    }
+                                    Database.zamknij();
+                                %>
+                            </select> x <input class='input-center-small' type="text" name="ilosc0" id="ilosc0" placeholder="Ilość"><br/><br/>
+                            <select id="seans0" name='seans0'>    
+                                <%
+                                    Database.polacz();
+                                    for (Seans b : Database.readSeanse()) {
+                                        out.print("<option value=\""+b.getId()+"\">" + b.getData() +" : "+Database.readFilm(b.getIdFilmu()).getTytul()+"</option>");
+                                    }
+                                    Database.zamknij();
+                                %>
+                            </select><br/><br/>
+                            <select multiple="multiple" id="miejsca0" name="miejsca0" style="display:none;">
+                            </select><br/><br/>
+                        </div>
+                        <div id="dodaj-bilet" class="button-green-small">+</div><br>
+                        <input type="hidden" name="user" value="<%=session.getAttribute("logged-user-id")%>" >
                         <input type='submit' value='Dodaj' class="button-green">
                     </form>
                 </div>
@@ -116,6 +140,7 @@
         <script src="../../scripts/jquery-3.3.1.min.js"></script>
         <script src="../../scripts/jquery.dataTables.min.js"></script>
         <script src="../../scripts/jquery-ui.min.js"></script>
+        <script src="../../scripts/chosen.jquery.min.js"></script>
         <script>
             $(document).ready(function () {
                 var table = $('#table').DataTable({
@@ -153,6 +178,7 @@
                     }
                 });
                 $("#dialog-add").dialog({
+                    width: '600px',
                     autoOpen: false,
                     show: {
                         effect: "fade",
@@ -166,6 +192,46 @@
                 $("#add").click(function () {
                     $("#dialog-add").dialog("open");
                 });
+                $( "#seans0" ).change(function() {
+                    $.ajax({
+                        url: "miejsca.jsp",
+                        data: { id: $('#seans0').val() },
+                        context: document.body
+                    }).done(function(data) {
+                        console.log(data);
+                        $( "#miejsca0" ).html( data );
+                        $('#miejsca0 option:selected').removeAttr('selected');
+                        $('#miejsca0').trigger('chosen:updated');
+                        $('#miejsca0').chosen({ max_selected_options: $('#ilosc0').val(),width: '100px' });
+                    });
+                });
+                
+                var i = 0;
+                
+                $("#dodaj-bilet").click(function () {
+                    i+=1;
+                    $("#zamowienie").append((i+1)+". <select id='bilet"+i+"' name='bilet"+i+"'></select>\n\
+                        x <input class='input-center-small' type='text' name='ilosc"+i+"' id='ilosc"+i+"' placeholder='Ilość'><br/><br/>\n\
+                        <select id='seans"+i+"' name='seans"+i+"'></select><br/><br/>\n\
+                        <select multiple='multiple' id='miejsca"+i+"' name='miejsca"+i+"' style='display:none;'>\n\
+                        </select><br/><br/>");
+                    $( "#bilet"+i ).html($( "#bilet0" ).html());
+                    $( "#seans"+i ).html($( "#seans0" ).html());
+                    $( "#seans"+i ).change(function() {
+                        $.ajax({
+                            url: "miejsca.jsp",
+                            data: { id: $('#seans'+i).val() },
+                            context: document.body
+                        }).done(function(data) {
+                            console.log(data);
+                            $( "#miejsca"+i ).html( data );
+                            $('#miejsca'+i+' option:selected').removeAttr('selected');
+                            $('#miejsca'+i).trigger('chosen:updated');
+                            $('#miejsca'+i).chosen({ max_selected_options: $('#ilosc'+i).val(),width: '100px' });
+                        });
+                    });
+                });
+                
             });
         </script>
     </body>

@@ -17,6 +17,10 @@ body{
 .input-center{
     text-align: center;
 }
+.input-center-small{
+    text-align: center;
+    width: 40px;
+}
 .error
 {
     color: #f03030;
@@ -55,6 +59,22 @@ body{
     margin: 6px 6px;
     cursor: pointer;
     width: 238px;
+    font-family: Arial;
+}
+.button-green-small
+{
+    background-color: #00c900;
+    color: #e0e0e0;
+    border: none;
+    color: white;
+    padding: 15px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 6px 6px;
+    cursor: pointer;
+    width: 48px;
     font-family: Arial;
 }
 .button-red

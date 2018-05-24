@@ -17,15 +17,17 @@ public class Zamowienie {
     private ArrayList<Integer> idz;
     private ArrayList<Bilet> bilety;
     private ArrayList<Integer> ilosc;
-    private ArrayList<String> miejsca;
+    private ArrayList<ArrayList<Miejsce>> miejsca;
+    private ArrayList<ArrayList<Integer>> idm;
 
-    public Zamowienie(int id, int user, ArrayList<Integer> idz, ArrayList<Bilet> bilety, ArrayList<Integer> ilosc, ArrayList<String> miejsca) {
+    public Zamowienie(int id, int user, ArrayList<Integer> idz, ArrayList<Bilet> bilety, ArrayList<Integer> ilosc, ArrayList<ArrayList<Miejsce>> miejsca, ArrayList<ArrayList<Integer>> idm) {
         this.id = id;
         this.user = user;
         this.idz = idz;
         this.bilety = bilety;
         this.ilosc = ilosc;
         this.miejsca = miejsca;
+        this.idm = idm;
     }
      public Zamowienie() {
         
@@ -51,8 +53,11 @@ public class Zamowienie {
         return ilosc;
     }
 
-    public ArrayList<String> getMiejsca() {
+    public ArrayList<ArrayList<Miejsce>> getMiejsca() {
         return miejsca;
+    }
+    public ArrayList<ArrayList<Integer>> getIdm() {
+        return idm;
     }
 
     public void setId(int id) {
@@ -75,8 +80,11 @@ public class Zamowienie {
         this.ilosc = ilosc;
     }
 
-    public void setMiejsca(ArrayList<String> miejsca) {
+    public void setMiejsca(ArrayList<ArrayList<Miejsce>> miejsca) {
         this.miejsca = miejsca;
+    }
+    public void setIdm(ArrayList<ArrayList<Integer>> idm) {
+        this.idm = idm;
     }
     
 }
