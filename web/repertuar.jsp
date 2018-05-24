@@ -55,19 +55,19 @@
                         szesc.setTime(dzis.getTime() + 1 * 24 * 60 * 60 * 1000 * 6);
                     %>
                     <input type="button" onclick = "pokazuj('dzis')" value=<%String ds = dateFormat.format(dzis);
-            out.println(ds);%>>
+            out.println(ds);%> class="dzien">
                     <input type="button" onclick = "pokazuj('jutro')" value=<%String jt = dateFormat.format(jutro);
-            out.println(jt);%>>
+            out.println(jt);%>class="dzien">
                     <input type="button" onclick = "pokazuj('dwa')" value=<%String dw = dateFormat.format(dwa);
-            out.println(dw);%>>
+            out.println(dw);%>class="dzien">
                     <input type="button" onclick = "pokazuj('trzy')" value=<%String tr = dateFormat.format(trzy);
-            out.println(tr);%>>
+            out.println(tr);%>class="dzien">
                     <input type="button" onclick = "pokazuj('cztery')" value=<%String cz = dateFormat.format(cztery);
-            out.println(cz);%>>
+            out.println(cz);%>class="dzien">
                     <input type="button" onclick = "pokazuj('piec')" value=<%String pi = dateFormat.format(piec);
-            out.println(pi);%>>
+            out.println(pi);%>class="dzien">
                     <input type="button" onclick = "pokazuj('szesc')" value=<%String sz = dateFormat.format(szesc);
-            out.println(sz);%>>
+            out.println(sz);%>class="dzien">
 
                     <script>
                         function pokazuj(i) {

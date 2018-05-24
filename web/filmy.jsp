@@ -27,7 +27,7 @@
             <aside>
 
             </aside>
-            <section>
+            <div class="zawartosc">
                 <%
                     Database.polacz();
                     ArrayList<Film> filmy = Database.readFilmy();
@@ -38,7 +38,7 @@
                         out.println("<th class=\"plakat\" rowspan=\"2\"><img class=\"posterr\" src=\"img/" + a.getImg() + "\" alt=\"obraz\"></th> ");
                         out.println("<th class=\"tytul\">" + a.getTytul() + "</th>");
                         out.println("<th class=\"czas\">" + a.getCzas() + "</th>");
-                        out.println("<th class=\"zwiastun\" rowspan=\"2\"> <iframe width=\"210\" height=\"160\" src=\"" + a.getLink() + "\"> </iframe></th>");
+                        out.println("<th class=\"zwiastun\" rowspan=\"2\"> <iframe width=\"420\" height=\"320\" src=\"" + a.getLink() + "\"> </iframe></th>");
                         out.println("</tr>");
                         out.println("<tr>");
                         out.println("<td class=\"opis\" colspan=\"2\">" + a.getOpis() + "</td>");
@@ -48,7 +48,7 @@
 
                     Database.zamknij();
                 %>
-            </section>
+            </div>
             <footer>
                 Made by LA,SM,ŻB. All rigths reserved :) 
             </footer>

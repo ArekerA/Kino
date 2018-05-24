@@ -20,44 +20,27 @@
             <aside>
                 <div class="boczne">
                     <p>
-                        Litwo! Ojczyzno moja! Ty jesteś jak zdrowie.
-                        Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                        młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                        rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-                        ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło pali.</p>
+                        <%
+                         out.print("<div class=\"dwade2\">NA EKRANIE:</div>");
+                         Database.polacz();
+                         ArrayList<Film> filmy = Database.readFilmy();
+                        for (Film f : filmy) {
+                         out.println("<br><h5>"+f.getTytul()+"</h5>");
+                         }
+                        Database.zamknij();
+                        %>
+                       </p>
                 </div>
                 <div class="prawe">
-                    <p>Litwo! Ojczyzno moja! Ty jesteś jak zdrowie.
-                        Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                        młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                        rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-                        ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło paliLitwo! O
-                        jczyzno moja! Ty jesteś jak zdrowie.
-                        Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                        młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                        rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-
-                        ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło paliLitwo! O
-                        jczyzno moja! Ty jesteś jak zdrowie.
-                        Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                        młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                        rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-                        ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło paliLitwo! 
-                        Ojczyzno moja! Ty jesteś jak zdrowie.
-                        Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                        młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                        rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-                        ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło paliLitwo! O
-                        jczyzno moja! Ty jesteś jak zdrowie.
-                        Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                        młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                        rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-                        ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło paliLitwo!
-                        Ojczyzno moja! Ty jesteś jak zdrowie.
-                        Ile cię trzeba cenić, ten Bonapart czarował, no, tak nazywano
-                        młodzieńca, który teraz jeśli nasza młodzie wyjeżdża za kolana). On
-                        rzekł: Muszę ja Ruski, teraz się stało wody pełne naczynie blaszane
-                        ale widzę mniej silnie, ale mur chędogi. Sterczały wkoło pali.</p>
+                    <p>
+                    <h3> Projekt studencki z przedmiotu:<h3>
+                            <div class="dwade2">TECHNOLOGIE INTERNETOWE</div>
+                            <br>Autorzy:
+                                <br>Arkadiusz Ludwikowski
+                                <br>Mateusz Stanek
+                                <br>Bartłomiej Żmuda
+                            
+                    </p>
                 </div>
             </aside>
             <section>

@@ -16,6 +16,7 @@ table
     text-align: center;
     
 }
+
 td{
 
 }
@@ -37,7 +38,10 @@ td{
     text-align: center;
     background: radial-gradient(#aaaadd, #333);	
 }
-
+.cennik
+{
+    text-align: center;
+}
 ul {
     list-style-type: none;
     margin: 0;
@@ -190,9 +194,22 @@ img.obraz{
 
 .opis
 {
+    color: white;
     padding: 10px;
     font-size: 20px;
     text-align: justify;
+}
+.dzien
+{
+    background-color: lightskyblue;
+    color: #2b2b2b;
+    font-style: italic;
+    padding: 12px 20px;
+    border: #0c0c0c;
+    border-radius: 10px;
+    cursor: pointer;
+    float: center;
+    text-align: center;
 }
 .tytul
 {
@@ -249,6 +266,12 @@ img.obraz{
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff2d95, 0 0 30px #ff2d95, 0 0 40px #ff2d95, 0 0 50px #ff2d95, 0 0 75px #ff2d95;
     letter-spacing: 5px;
     font: 40px 'MisoRegular';
+}
+.dwade2 {
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff2d95, 0 0 30px #ff2d95, 0 0 40px #ff2d95, 0 0 50px #ff2d95, 0 0 75px #ff2d95;
+    letter-spacing: 5px;
+    font: 20px 'MisoRegular';
 }
 .trzyde
 {

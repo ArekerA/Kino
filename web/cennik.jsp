@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,14 +24,22 @@
 
             </aside>
             <section>
-                <article>
+                <article><div class="zawartosc">
+                    <div class="cennik">
                     <table>
-                        <tr><td>Seans</td><td>Normalny</td><td>Ulgowy</td></tr>
-
-                        <tr>    <td><div class="dwade">2D</div></td>    <td><div class="dwade">13zł</div></td>   <td><div class="dwade">10zł</div></td>   </tr>
-
-                        <tr>    <td><div class="trzyde">3D</div></td>     <td><div class="trzyde">15zł</div></td>       <td><div class="trzyde">13zł</div></td>   </tr>
-                    </table>    
+                        <tr><td>Seans</td><td>Normalny</td></tr>
+                        <%
+                            Database.polacz();
+                         ArrayList<Bilet> bilety = Database.readBilety();
+                        for (Bilet b : bilety) {
+                         out.println("<tr>    <td><div class=\"dwade\">"+b.getNazwa()+"</div></td>    <td><div class=\"dwade\">"+b.getCena()+"</div></td>   </tr>");
+                         }
+                        Database.zamknij();
+                        
+         %>
+                    
+                    </table>  
+                    </div> </div>
                 </article>
 
             </section>
