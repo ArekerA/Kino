@@ -20,14 +20,14 @@
         <%
             out.println("<h2>Ścieżka do bazy: " + System.getProperty("user.dir") + "</h2>");
             Database.polacz();
-            Zamowienie a = Database.readZamowienie(0);
+           Zamowienie a = Database.readZamowienie(0);
             a.getIlosc().set(0, new Integer(5));
             Database.updateZamowienie(a);
             //trorzy schemat bazy - wywołać tylko raz!
-            // Database.init();
+             //Database.init();
 
             //tworzy przykładowe dane - wywołać tylko raz!
-            //Database.init2();
+           // Database.init2();
             Database.zamknij();
         %>
     </body>

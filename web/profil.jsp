@@ -52,7 +52,7 @@
                     <br>
                     <form action="profil.jsp" method="post">
                         Podaj Nowy Mail:
-                        <input type="text" name="mail"> 
+                        <input type="email" name="mail"> 
                         <br>
                         Podaj STARE Hasło:
                         <input type="password" name="pass3"> 
@@ -227,16 +227,39 @@
                 <p> Historia Transakcji: </p>
                 <p>
                     <% Database.polacz();
-                        int a = 0;
+                        int b = 1;
                         ArrayList<Zamowienie> zamowienia = Database.readZamowienia();
-                        for (Zamowienie z : zamowienia) {;
-                            if (Integer.toString(z.getUser()).equals(session.getAttribute("logged-user-id"))) // Chyba Dobry Warunek
-                            {
-                                out.println("Tutaj Bedą zamówienia");
-                                a = a + 1;
+                        
+                        for (Zamowienie a : zamowienia) {
+                            if (Integer.toString(a.getUser()).equals(session.getAttribute("logged-user-id").toString())) // Chyba Dobry Warunek
+                            {   
+                                
+                                out.println("Zamówienie:  " +b);
+                                out.print("<br>" + " Typ Biletów: ");
+                                for (int i = 0; i < a.getBilety().size(); i++) {
+                                out.print("<br>" + a.getBilety().get(i).getNazwa()+" x "+a.getIlosc().get(i));
+                            }
+                                out.print("<br>");
+                                 
+                                Seans s = Database.readSeans(a.getMiejsca().get(0).get(0).getIdSeansu());
+                                out.print("Film:  " +  Database.readFilm(s.getIdFilmu()).getTytul()+"<br>");
+                                out.print("Data: " +  s.getData()+"<br>");
+                            
+                                if( 1==1 ) // Tu Warunek, że jeżeli data nie dalsza od wydarzenia OD
+                                {
+                               out.println("<form action='anuluj.jsp' method='post'>"); 
+                               out.println("<input type='hidden' name='z' value="+a.getId()+">");
+                               out.println("<input type='submit' value='Anuluj Zamówienie'>"); 
+                                out.println("</form>");
+                                
+                                     }
+                                     
+                                b = b + 1;
+                                 out.print("<br><br><br>");
+                                
                             }
                         }
-                        if (a == 0) {
+                        if (b == 1) {
                             out.println("Jeszcze nie dokonałeś żadnego zakupu");
                         }
                         Database.zamknij();
