@@ -114,8 +114,16 @@ li.dropdown {
     float: left;
     padding: 5px;	
     margin: 10px;
-    width: 10%;
+    width: 200px;
     height: 0 auto;
+}
+.title
+{
+    margin 30px;
+    text-align: center;
+    font-size: 30px;
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff2d95, 0 0 30px #ff2d95, 0 0 40px #ff2d95, 0 0 50px #ff2d95, 0 0 75px #ff2d95;
 }
 .Profil
 {
@@ -143,7 +151,7 @@ li.dropdown {
     float: right;
     padding: 5px;	
     margin: 10px;
-    width: 10%;
+    width: 200px;
     height: 0 auto;
 }
 section
@@ -160,6 +168,12 @@ article
     margin: 10px;
     padding: 5px;	
 }
+
+.article
+{
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
 footer
 {	
     font-size: 5px;
@@ -168,9 +182,19 @@ footer
     text-decoration: bold;
     bottom: 0;
 }
-img.obraz{
-    width: 100%;
-
+.obraz{
+   text-align: center;
+   width: 90%;
+}
+.obrazek{
+   text-align: center;
+   width: 100%;
+}
+.opis
+{
+    text-align: center;
+    width: 90%;
+    padding: 20px;
 }
 .poster
 {
@@ -178,6 +202,13 @@ img.obraz{
     height: auto;
     float: left;
     padding: 10px;
+}
+.wybor
+{
+    font-size: 15px;
+    border-radius: 5px;
+    color: white;
+    background-color: #333;
 }
 .posterr
 {
@@ -195,7 +226,6 @@ img.obraz{
 .opis
 {
     color: white;
-    padding: 10px;
     font-size: 20px;
     text-align: justify;
 }

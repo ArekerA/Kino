@@ -18,12 +18,12 @@
     </head>
     <body>
         
-        <h1>Zakupiono!</h1>
+       
         
         <%
             Integer r=Integer.parseInt(request.getParameter("size"));
             Database.polacz();
-          
+            out.print("  <div class=\"title\">Zakupiono bilety w ilości: "+r+"</div>");
           //  Zamowienie z=new Zamowienie();
            // z.setUser(Integer.parseInt(session.getAttribute("logged-user-id").toString()));
            // Database.createZamowienie(z);
@@ -31,7 +31,7 @@
            {
                 
                
-                out.print("<div>"+request.getParameter(Integer.toString(i))+"</div>");
+                //out.print("<div>"+request.getParameter(Integer.toString(i))+"</div>");
                
                 //Database.createZamowienie(z);
                // Database.updateZamowienie(z);

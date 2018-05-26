@@ -21,14 +21,15 @@
   String[] miejsca; 
   miejsca = request.getParameterValues("check");
   Database.polacz();
+  out.println("<div class=\"opis\">");
    if (miejsca != null) {
     out.println("<form action=\"kupione.jsp?size="+miejsca.length+"\" method=\"post\">");   
-    
+    ArrayList<Bilet> bilety = Database.readBilety();
     for (int i = 0; i < miejsca.length; i++) {
         String str = "" + i;
         out.println("Rodzaj biletu o numerze "+(i+1)+" dla miejsca :"+miejsca[i]+"");
-        out.println("<select name="+str+">");
-         ArrayList<Bilet> bilety = Database.readBilety();
+        out.println("<select class=\"wybor\" name="+str+">");
+         
          for (Bilet b : bilety) {
         out.println("<option value="+b.getId()+">"+b.getNazwa()+"</option>");
          }
@@ -42,7 +43,7 @@
     out.println("");
     out.println("Kupujesz dla:");
     out.println(session.getAttribute("logged-user-nick").toString());
-    out.println("");
+    out.println("<br>");
     out.println("<input type=\"submit\" value=\"Idę dalej!\">");
     out.println("</form>");
     //Integer idus=Integer.parseInt(session.getAttribute("logged-user-id").toString());
@@ -53,6 +54,7 @@
        out.println("");
        
    }
+   out.println("</div>");
 Database.zamknij();
 %>
 <%-- Print out the variables. --%>
