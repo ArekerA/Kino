@@ -724,7 +724,6 @@ public class Database {
             }
             query = query.substring(0, query.length() - 1);
             query += ";";
-            System.out.println(query);
             st2.executeUpdate(query);
             st.close();
             st2.close();
@@ -809,11 +808,14 @@ public class Database {
                 for(int j = 0; j < z.getMiejsca().get(i).size(); j++)
                 {
                     Statement st3 = con.createStatement();
+                    Statement st4 = con.createStatement();
                     ResultSet r3 = st3.executeQuery( "Select MAX(id) as max from Zamowienia_Miejsca;");
                     r3.next();
                     int id3 = r3.getInt("max")+1;
                     st3.executeUpdate("INSERT INTO Zamowienia_Miejsca VALUES("+id3+", "+id2+", "+z.getMiejsca().get(i).get(j).getId()+");");
+                    st4.executeUpdate("UPDATE miejsca SET dostepnosc = 1 WHERE id = "+z.getMiejsca().get(i).get(j).getId()+";");
                     st3.close();
+                    st4.close();
                 }
                 st2.close();
             }
@@ -977,14 +979,21 @@ public class Database {
             Statement st = con.createStatement();
             Statement st2 = con.createStatement();
             Statement st3 = con.createStatement();
-            ResultSet r = st3.executeQuery("Select * from zamowienia_bilety where id_zamowienia="+id+";");
+            Statement st4 = con.createStatement();
+            ResultSet r = st3.executeQuery("Select * from Zamowienia_Bilety where id_zamowienia = "+id+";");
             while (r.next())
+            {
+                ResultSet r4 = st4.executeQuery("Select * from Zamowienia_Miejsca where id_zamowienia_bilety="+r.getInt("id")+";");
+                while (r4.next())
+                    st4.executeUpdate("UPDATE miejsca SET dostepnosc = 0 WHERE id = "+r4.getInt("id_miejsce")+";");
                 st3.executeUpdate("DELETE FROM Zamowienia_Miejsca WHERE id_zamowienia_bilety="+r.getInt("id")+";");
+            }
             st.executeUpdate("DELETE FROM zamowienia_bilety WHERE id_zamowienia="+id+";");
             st2.executeUpdate("DELETE FROM zamowienia WHERE id="+id+";");
             st.close();
             st2.close();
             st3.close();
+            st4.close();
             return true;
         } catch (SQLException e) {
             System.out.println("====\nBląd deleteZamowienie()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");

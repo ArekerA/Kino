@@ -4,6 +4,10 @@
     Author     : Arekl
 --%>
 
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.util.Locale"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.ForEach"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Kino.*"%>
@@ -97,11 +101,16 @@
                                     Database.zamknij();
                                 %>
                             </select> x <input class='input-center-small' type="text" name="ilosc0" id="ilosc0" placeholder="Ilość"><br/><br/>
-                            <select id="seans0" name='seans0'>    
+                            <select id="seans0" name='seans0'>   
+                                <option></option>
                                 <%
                                     Database.polacz();
+                                    DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                    Date now = new Date();
                                     for (Seans b : Database.readSeanse()) {
-                                        out.print("<option value=\""+b.getId()+"\">" + b.getData() +" : "+Database.readFilm(b.getIdFilmu()).getTytul()+"</option>");
+                                        Date date = format.parse(b.getData());
+                                        if(now.before(date))
+                                            out.print("<option value=\""+b.getId()+"\">" + b.getData() +" : "+Database.readFilm(b.getIdFilmu()).getTytul()+"</option>");
                                     }
                                     Database.zamknij();
                                 %>
@@ -115,21 +124,10 @@
                     </form>
                 </div>
             </div>
-            <div id="dialog" title="Modyfikuj Zamówienie">
+            <div id="dialog" title="Szczególy Zamówienia">
                 <div class='center'>
-                    <form action="edit.jsp" method="post" accept-charset="UTF-8">
-                        <input id="edit-nick" class='input-center' type="text" name="nick" placeholder="Nick"><br/><br/>
-                        <input id="edit-email" class='input-center' type="text" name="email" placeholder="Email"><br/><br/>
-                        <input id="edit-pass" class='input-center' type="password" name="pass" placeholder="Hasło (zostaw puste jeśli nie zmieniasz)"><br/><br/>
-                        Poziom: <select id="edit-lvl" name='lvl'>    
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select><br/><br/>
-                        <input id="edit-id" type="hidden" name="id" value="0">
-                        <input type='submit' value='Edytuj' class="button-green">
-                    </form>
+                    <p id="edit-user"></p>
+                    <p id="edit-bilety"></p>
                     <form action="del.jsp" method="post" accept-charset="UTF-8">
                         <input id="del-id" type="hidden" name="id" value="0">
                         <input type='submit' value='Usuń' class="button-red">
@@ -161,10 +159,8 @@
                     var data = table.row(this).data();
                     $("#dialog").dialog("open");
                     $("#del-id").val(data[0]);
-                    $("#edit-id").val(data[0]);
-                    $("#edit-nick").val(data[1]);
-                    $("#edit-email").val(data[2]);
-                    $("#edit-lvl").val(data[3]);
+                    $("#edit-user").html("Użytkownik "+data[1]);
+                    $("#edit-bilety").html(data[2]+"na seanse<br>"+data[3]);
                 });
                 $("#dialog").dialog({
                     autoOpen: false,

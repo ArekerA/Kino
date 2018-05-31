@@ -11,7 +11,8 @@
     {
         Database.polacz();
         for (Miejsce b : Database.readMiejsca(Integer.parseInt(request.getParameter("id")))) {
-            out.print("<option value=\"" + b.getId() + "\">" + b.getMiejsce() + "</option>");
+            if(b.getDostepnosc() == 0)
+                out.print("<option value=\"" + b.getId() + "\">" + b.getMiejsce() + "</option>");
         }
         Database.zamknij();
     }
