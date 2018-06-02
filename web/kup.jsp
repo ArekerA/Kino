@@ -16,20 +16,23 @@
     <body>
 
       <%
-
 // Grab the variables from the form.
   String[] miejsca; 
   miejsca = request.getParameterValues("check");
   Database.polacz();
   out.println("<div class=\"opis\">");
    if (miejsca != null) {
-    out.println("<form action=\"kupione.jsp?size="+miejsca.length+"\" method=\"post\">");   
+    out.println("<form action=\"kupione.jsp\" method=\"post\">");   
     ArrayList<Bilet> bilety = Database.readBilety();
     for (int i = 0; i < miejsca.length; i++) {
         String str = "" + i;
         out.println("Rodzaj biletu o numerze "+(i+1)+" dla miejsca :"+miejsca[i]+"");
-        out.println("<select class=\"wybor\" name="+str+">");
+        out.println("<input type=\"hidden\" class=\"miejsca\" name=\"miejsca\" value="+miejsca[i]+">");
+        out.println("<select class=\"wybor\" name=\"wybor\">");
          
+       // out.println(<input type='hidden' name='form1' value='1'>);
+                  
+                 
          for (Bilet b : bilety) {
         out.println("<option value="+b.getId()+">"+b.getNazwa()+"</option>");
          }
