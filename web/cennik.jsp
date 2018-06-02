@@ -25,9 +25,9 @@
             </aside>
             <section>
                 <article><div class="zawartosc">
-                    <div class="cennik">
-                    <table>
-                        <tr><td>Seans</td><td>Normalny</td></tr>
+                    <div class="zawartosc">
+                    <table class="cennik">
+                        <tr><td>Bilet</td><td>Cena</td></tr>
                         <%
                             Database.polacz();
                          ArrayList<Bilet> bilety = Database.readBilety();
