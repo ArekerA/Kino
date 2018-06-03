@@ -27,6 +27,8 @@
                     <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/seanse/" class="button">Seanse</a><p></p>
                 <% }if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
                     <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/sale/" class="button">Sale</a>
+                <% }if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
+                    <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/bilety/" class="button">Bilety</a>
                 <% } if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>
                     <a href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/panel/strony/" class="button">Strony</a>
                 <% }if (Integer.valueOf(session.getAttribute("logged-user-level").toString()) >= 3) { %>

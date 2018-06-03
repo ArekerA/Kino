@@ -1028,7 +1028,19 @@ public class Database {
     {
         try {
             Statement st = con.createStatement();
-            st.executeUpdate("UPDATE bilety SET nazwa = '"+a.getNazwa()+"', cena = "+a.getCena()+" WHERE id = "+a.getId()+";");
+            st.executeUpdate("UPDATE bilety SET nazwa = '"+a.getNazwa()+"', cena = '"+a.getCena()+"' WHERE id = "+a.getId()+";");
+            st.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("====\nBląd updateBilet()\n" + e.getMessage() + ": " + e.getErrorCode() + "\n=====");
+            return false;
+        }
+    }
+    public static boolean updateBilet(String nazwa, double cena, int id)
+    {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE bilety SET nazwa = '"+nazwa+"', cena = '"+cena+"' WHERE id = "+id+";");
             st.close();
             return true;
         } catch (SQLException e) {

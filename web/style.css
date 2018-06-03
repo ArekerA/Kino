@@ -80,7 +80,7 @@ li.dropdown {
     position: absolute;
     background-color: #333;
     color: white;
-    min-width: 100%;
+    width: inherit;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
