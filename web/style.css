@@ -41,6 +41,7 @@ td{
 .cennik
 {
     text-align: center;
+    width: 100%;
 }
 ul {
     list-style-type: none;
@@ -67,7 +68,6 @@ li a, .dropbtn {
 
 li a:hover, .dropdown:hover .dropbtn {
     background-color: #4CAF50;
-    width: 100%;
 }
 
 li.dropdown {
@@ -80,7 +80,7 @@ li.dropdown {
     position: absolute;
     background-color: #333;
     color: white;
-    width: inherit;
+    min-width: 16.6%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
